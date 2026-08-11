@@ -1,0 +1,27 @@
+{
+  "bot_name": "binance-dual-trend-futures-dry-run",
+  "initial_state": "running",
+  "dry_run": true,
+  "dry_run_wallet": 1000,
+  "trading_mode": "futures",
+  "margin_mode": "isolated",
+  "liquidation_buffer": 0.05,
+  "max_open_trades": 2,
+  "stake_currency": "USDT",
+  "stake_amount": 25,
+  "tradable_balance_ratio": 0.95,
+  "timeframe": "4h",
+  "exchange": {
+    "key": "",
+    "secret": "",
+    "pair_whitelist": [
+      "BTC/USDT:USDT",
+      "ETH/USDT:USDT",
+      "BNB/USDT:USDT",
+      "XRP/USDT:USDT",
+      "ADA/USDT:USDT",
+      "DOGE/USDT:USDT"
+    ],
+    "pair_blacklist": []
+  }
+}

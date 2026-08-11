@@ -1,0 +1,15 @@
+{
+  "decision": "PARALLEL_DRY_RUN_RUNNING",
+  "strategy": "DualTrendFuturesV2R",
+  "control": "DualTrendFuturesV1R",
+  "active_primary_strategy": "DualTrendFuturesV1",
+  "all_performance_gates_pass": true,
+  "technical_gates_pass": true,
+  "signal_identity_pass": true,
+  "risk_callback_test_pass": true,
+  "parallel_runtime_verified": true,
+  "live_trading_authorized": false,
+  "live_api_keys_present": false,
+  "new_sealed_holdout": false,
+  "future_profit_guaranteed": false
+}

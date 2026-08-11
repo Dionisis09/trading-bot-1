@@ -1,0 +1,16 @@
+{
+  "active": {
+    "backup_error": false,
+    "monitoring_error": false,
+    "risk_limit_breach": false,
+    "v2r_drawdown_critical": false,
+    "v2r_drawdown_warning": false
+  },
+  "closed_trades": {
+    "v1": 0,
+    "v2r": 0
+  },
+  "last_decision": "INSUFFICIENT_FORWARD_SAMPLE",
+  "last_snapshot_utc": "2026-08-10T10:40:12.908364Z",
+  "schema_version": "1.0"
+}

@@ -1,0 +1,11 @@
+gate,pass
+validation_return,True
+validation_pf,True
+validation_return_dd_10pct,False
+year_2025_return,False
+current_2026_return,False
+fee_validation_return_dd,False
+train_return_dd_floor,True
+positive_fold_count,True
+worst_fold_return,False
+bootstrap_p05,False

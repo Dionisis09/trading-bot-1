@@ -1,0 +1,15 @@
+{
+  "decision": "CHALLENGER_REJECTED_KEEP_V1_RUNNING",
+  "challenger": "DualTrendFuturesV2",
+  "active_strategy": "DualTrendFuturesV1",
+  "performance_gates_pass": false,
+  "technical_gates_pass": true,
+  "failed_gates": [
+    "validation_dd_12",
+    "year_2025_dd_not_above_v1"
+  ],
+  "parallel_v2_dry_run_started": false,
+  "live_trading_authorized": false,
+  "future_profit_guaranteed": false,
+  "new_sealed_holdout": false
+}

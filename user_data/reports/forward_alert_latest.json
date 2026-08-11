@@ -1,0 +1,9 @@
+{
+  "alerts": [],
+  "schema_version": "1.0",
+  "snapshot_utc": "2026-08-10T10:40:12.908364Z",
+  "webhook_delivery": {
+    "delivered": 0,
+    "status": "NO_NEW_ALERTS"
+  }
+}

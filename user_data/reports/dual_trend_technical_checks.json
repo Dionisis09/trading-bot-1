@@ -1,0 +1,17 @@
+{
+  "strategy": "DualTrendFuturesV1",
+  "recursive_analysis": {
+    "status": "PASS",
+    "strategy_startup_candles": 800,
+    "tested_startup_candles": [799, 800, 1199, 1599],
+    "ema200_variance_pct_at_800": -0.005,
+    "indicator_lookahead_found": false
+  },
+  "lookahead_analysis": {
+    "status": "PASS",
+    "signals_tested": 100,
+    "biased_entry_signals": 0,
+    "biased_exit_signals": 0,
+    "csv": "user_data/reports/DualTrendFuturesV1_lookahead.csv"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "decision": "FINAL_BEST_DUALTRENDFUTURESV2R_RETAINED",
+  "selected_strategy": "DualTrendFuturesV2R",
+  "rejected_challenger": "DualTrendFuturesV3R",
+  "challenger_absolute_gates_pass": false,
+  "challenger_superiority_gates_pass": false,
+  "failed_absolute_gates": [
+    "current_2026"
+  ],
+  "failed_superiority_gates": [
+    "validation_return_dd_10pct",
+    "year_2025_return",
+    "current_2026_return",
+    "fee_validation_return_dd",
+    "worst_fold_return",
+    "bootstrap_p05"
+  ],
+  "selected_runtime_verified": true,
+  "selected_runtime_port": 8081,
+  "primary_v1_runtime_verified": true,
+  "primary_v1_port": 8080,
+  "live_trading_authorized": false,
+  "live_api_keys_present": false,
+  "new_sealed_holdout": false,
+  "future_profit_guaranteed": false
+}

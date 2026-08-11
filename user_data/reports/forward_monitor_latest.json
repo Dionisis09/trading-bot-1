@@ -1,0 +1,619 @@
+{
+  "alerting": {
+    "events": [],
+    "journal": "user_data/reports/forward_alerts.jsonl",
+    "new_alert_count": 0,
+    "webhook_delivery": {
+      "delivered": 0,
+      "status": "NO_NEW_ALERTS"
+    }
+  },
+  "backup": {
+    "age_seconds": 2231.137806,
+    "last_successful_backup_utc": "2026-08-10T10:03:01.770558Z",
+    "next_due_utc": "2026-08-11T10:03:01.770558Z",
+    "retention_days": 35,
+    "status": "NOT_DUE"
+  },
+  "bots": {
+    "v1": {
+      "account_risk": {
+        "checks": [
+          {
+            "actual": 0.0,
+            "name": "daily_realized_loss",
+            "requirement": "< 2%",
+            "status": "PASS"
+          },
+          {
+            "actual": 0.0,
+            "name": "weekly_realized_loss",
+            "requirement": "< 5%",
+            "status": "PASS"
+          },
+          {
+            "actual": 0.0,
+            "name": "wallet_drawdown",
+            "requirement": "<= 10%",
+            "status": "PASS"
+          },
+          {
+            "actual": 0,
+            "name": "open_trade_count",
+            "requirement": "<= 2",
+            "status": "PASS"
+          },
+          {
+            "actual": 0.0,
+            "name": "conservative_open_stake",
+            "requirement": "<= 20% of starting wallet",
+            "status": "PASS"
+          }
+        ],
+        "conservative_open_stake_abs": 0.0,
+        "conservative_open_stake_pct": 0.0,
+        "daily_realized_loss_pct": 0.0,
+        "daily_realized_profit_abs": 0.0,
+        "new_entries_allowed": true,
+        "policy_id": "professional-account-risk-v1",
+        "weekly_realized_loss_pct": 0.0,
+        "weekly_realized_profit_abs": 0.0
+      },
+      "api_summary": {
+        "closed_trade_count": 0,
+        "max_drawdown": 0.0,
+        "open_trade_count": 0,
+        "profit_closed_coin": 0.0,
+        "profit_factor": null,
+        "trade_count": 0
+      },
+      "api_url": "http://freqtrade:8080",
+      "data_quality": {
+        "api_reconciliation": {
+          "checks": [
+            {
+              "api": 0,
+              "name": "total_trade_count",
+              "recomputed": 0,
+              "status": "PASS"
+            },
+            {
+              "api": 0,
+              "name": "closed_trade_count",
+              "recomputed": 0,
+              "status": "PASS"
+            },
+            {
+              "api": 0,
+              "name": "winning_trades_including_breakeven",
+              "recomputed": 0,
+              "status": "PASS"
+            },
+            {
+              "api": 0,
+              "name": "losing_trades",
+              "recomputed": 0,
+              "status": "PASS"
+            },
+            {
+              "api": 0.0,
+              "name": "closed_profit_abs",
+              "recomputed": 0,
+              "status": "PASS"
+            },
+            {
+              "api": null,
+              "name": "profit_factor",
+              "recomputed": null,
+              "status": "NOT_APPLICABLE"
+            }
+          ],
+          "pass": true
+        },
+        "duplicate_trade_ids": [],
+        "duplicates_pass": true,
+        "missing_required_values": {
+          "close_time": 0,
+          "pair": 0,
+          "profit_abs": 0,
+          "profit_ratio": 0,
+          "trade_id": 0
+        },
+        "pass": true,
+        "required_field_completeness": 1.0,
+        "required_fields_pass": true
+      },
+      "key": "v1",
+      "market_data_freshness": {
+        "all_pairs_fresh": true,
+        "maximum_candle_close_age_seconds": 9612.908364,
+        "pair_results": [
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "BTC/USDT:USDT"
+          },
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "ETH/USDT:USDT"
+          },
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "BNB/USDT:USDT"
+          },
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "XRP/USDT:USDT"
+          },
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "ADA/USDT:USDT"
+          },
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "DOGE/USDT:USDT"
+          }
+        ],
+        "pairs_checked": 6,
+        "timeframe": "4h"
+      },
+      "metrics": {
+        "average_profit_ratio": null,
+        "breakeven": 0,
+        "closed_trades": 0,
+        "closed_trades_with_valid_profit": 0,
+        "distinct_pairs": 0,
+        "first_close_utc": null,
+        "gross_loss_abs": 0,
+        "gross_profit_abs": 0,
+        "last_close_utc": null,
+        "long_trades": 0,
+        "losses": 0,
+        "max_drawdown_abs": 0.0,
+        "max_drawdown_pct_of_start_wallet": 0.0,
+        "median_profit_ratio": null,
+        "net_profit_abs": 0,
+        "open_trades": 0,
+        "pairs": [],
+        "profit_factor": null,
+        "return_pct_of_start_wallet": 0.0,
+        "return_to_drawdown": null,
+        "short_trades": 0,
+        "starting_wallet": 1000.0,
+        "total_trades": 0,
+        "unknown_side_trades": 0,
+        "win_rate": null,
+        "wins": 0
+      },
+      "runtime": {
+        "bot_loop_age_seconds": 1.851265,
+        "bot_start_date": "2026-08-03 20:05:44",
+        "dry_run": true,
+        "health_bot_start_utc": "2026-08-03T20:05:44.811240Z",
+        "last_process_utc": "2026-08-10T10:40:11.057099Z",
+        "margin_mode": "isolated",
+        "max_open_trades": 2.0,
+        "short_allowed": true,
+        "stake_amount": "25",
+        "stake_currency": "USDT",
+        "state": "running",
+        "trading_mode": "futures"
+      },
+      "runtime_validation": {
+        "checks": [
+          {
+            "actual": true,
+            "expected": true,
+            "name": "dry_run",
+            "status": "PASS"
+          },
+          {
+            "actual": "futures",
+            "expected": "futures",
+            "name": "trading_mode",
+            "status": "PASS"
+          },
+          {
+            "actual": "isolated",
+            "expected": "isolated",
+            "name": "margin_mode",
+            "status": "PASS"
+          },
+          {
+            "actual": true,
+            "expected": true,
+            "name": "short_allowed",
+            "status": "PASS"
+          },
+          {
+            "actual": "DualTrendFuturesV1",
+            "expected": "DualTrendFuturesV1",
+            "name": "strategy",
+            "status": "PASS"
+          },
+          {
+            "actual": "running",
+            "expected": "RUNNING",
+            "name": "state",
+            "status": "PASS"
+          },
+          {
+            "actual": true,
+            "expected": true,
+            "name": "local_exchange_credentials_empty",
+            "status": "PASS"
+          },
+          {
+            "actual": 1.851265,
+            "expected": "between -30s and 120s",
+            "name": "bot_loop_fresh",
+            "status": "PASS"
+          },
+          {
+            "actual": 9612.908364,
+            "expected": "between -30s and 18000s",
+            "name": "all_pair_candles_fresh",
+            "status": "PASS"
+          }
+        ],
+        "pass": true
+      },
+      "status": "OK",
+      "strategy": "DualTrendFuturesV1"
+    },
+    "v2r": {
+      "account_risk": {
+        "checks": [
+          {
+            "actual": 0.0,
+            "name": "daily_realized_loss",
+            "requirement": "< 2%",
+            "status": "PASS"
+          },
+          {
+            "actual": 0.0,
+            "name": "weekly_realized_loss",
+            "requirement": "< 5%",
+            "status": "PASS"
+          },
+          {
+            "actual": 0.0,
+            "name": "wallet_drawdown",
+            "requirement": "<= 10%",
+            "status": "PASS"
+          },
+          {
+            "actual": 0,
+            "name": "open_trade_count",
+            "requirement": "<= 2",
+            "status": "PASS"
+          },
+          {
+            "actual": 0.0,
+            "name": "conservative_open_stake",
+            "requirement": "<= 20% of starting wallet",
+            "status": "PASS"
+          }
+        ],
+        "conservative_open_stake_abs": 0.0,
+        "conservative_open_stake_pct": 0.0,
+        "daily_realized_loss_pct": 0.0,
+        "daily_realized_profit_abs": 0.0,
+        "new_entries_allowed": true,
+        "policy_id": "professional-account-risk-v1",
+        "weekly_realized_loss_pct": 0.0,
+        "weekly_realized_profit_abs": 0.0
+      },
+      "api_summary": {
+        "closed_trade_count": 0,
+        "max_drawdown": 0.0,
+        "open_trade_count": 0,
+        "profit_closed_coin": 0.0,
+        "profit_factor": null,
+        "trade_count": 0
+      },
+      "api_url": "http://freqtrade-v2r:8080",
+      "data_quality": {
+        "api_reconciliation": {
+          "checks": [
+            {
+              "api": 0,
+              "name": "total_trade_count",
+              "recomputed": 0,
+              "status": "PASS"
+            },
+            {
+              "api": 0,
+              "name": "closed_trade_count",
+              "recomputed": 0,
+              "status": "PASS"
+            },
+            {
+              "api": 0,
+              "name": "winning_trades_including_breakeven",
+              "recomputed": 0,
+              "status": "PASS"
+            },
+            {
+              "api": 0,
+              "name": "losing_trades",
+              "recomputed": 0,
+              "status": "PASS"
+            },
+            {
+              "api": 0.0,
+              "name": "closed_profit_abs",
+              "recomputed": 0,
+              "status": "PASS"
+            },
+            {
+              "api": null,
+              "name": "profit_factor",
+              "recomputed": null,
+              "status": "NOT_APPLICABLE"
+            }
+          ],
+          "pass": true
+        },
+        "duplicate_trade_ids": [],
+        "duplicates_pass": true,
+        "missing_required_values": {
+          "close_time": 0,
+          "pair": 0,
+          "profit_abs": 0,
+          "profit_ratio": 0,
+          "trade_id": 0
+        },
+        "pass": true,
+        "required_field_completeness": 1.0,
+        "required_fields_pass": true
+      },
+      "key": "v2r",
+      "market_data_freshness": {
+        "all_pairs_fresh": true,
+        "maximum_candle_close_age_seconds": 9612.908364,
+        "pair_results": [
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "BTC/USDT:USDT"
+          },
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "ETH/USDT:USDT"
+          },
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "BNB/USDT:USDT"
+          },
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "XRP/USDT:USDT"
+          },
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "ADA/USDT:USDT"
+          },
+          {
+            "candle_close_age_seconds": 9612.908364,
+            "fresh": true,
+            "latest_completed_candle_close_utc": "2026-08-10T08:00:00Z",
+            "latest_completed_candle_open_utc": "2026-08-10T04:00:00Z",
+            "pair": "DOGE/USDT:USDT"
+          }
+        ],
+        "pairs_checked": 6,
+        "timeframe": "4h"
+      },
+      "metrics": {
+        "average_profit_ratio": null,
+        "breakeven": 0,
+        "closed_trades": 0,
+        "closed_trades_with_valid_profit": 0,
+        "distinct_pairs": 0,
+        "first_close_utc": null,
+        "gross_loss_abs": 0,
+        "gross_profit_abs": 0,
+        "last_close_utc": null,
+        "long_trades": 0,
+        "losses": 0,
+        "max_drawdown_abs": 0.0,
+        "max_drawdown_pct_of_start_wallet": 0.0,
+        "median_profit_ratio": null,
+        "net_profit_abs": 0,
+        "open_trades": 0,
+        "pairs": [],
+        "profit_factor": null,
+        "return_pct_of_start_wallet": 0.0,
+        "return_to_drawdown": null,
+        "short_trades": 0,
+        "starting_wallet": 1000.0,
+        "total_trades": 0,
+        "unknown_side_trades": 0,
+        "win_rate": null,
+        "wins": 0
+      },
+      "runtime": {
+        "bot_loop_age_seconds": 2.007611,
+        "bot_start_date": "2026-08-03 20:58:26",
+        "dry_run": true,
+        "health_bot_start_utc": "2026-08-03T20:58:26.193009Z",
+        "last_process_utc": "2026-08-10T10:40:10.900753Z",
+        "margin_mode": "isolated",
+        "max_open_trades": 2.0,
+        "short_allowed": true,
+        "stake_amount": "25",
+        "stake_currency": "USDT",
+        "state": "running",
+        "trading_mode": "futures"
+      },
+      "runtime_validation": {
+        "checks": [
+          {
+            "actual": true,
+            "expected": true,
+            "name": "dry_run",
+            "status": "PASS"
+          },
+          {
+            "actual": "futures",
+            "expected": "futures",
+            "name": "trading_mode",
+            "status": "PASS"
+          },
+          {
+            "actual": "isolated",
+            "expected": "isolated",
+            "name": "margin_mode",
+            "status": "PASS"
+          },
+          {
+            "actual": true,
+            "expected": true,
+            "name": "short_allowed",
+            "status": "PASS"
+          },
+          {
+            "actual": "DualTrendFuturesV2R",
+            "expected": "DualTrendFuturesV2R",
+            "name": "strategy",
+            "status": "PASS"
+          },
+          {
+            "actual": "running",
+            "expected": "RUNNING",
+            "name": "state",
+            "status": "PASS"
+          },
+          {
+            "actual": true,
+            "expected": true,
+            "name": "local_exchange_credentials_empty",
+            "status": "PASS"
+          },
+          {
+            "actual": 2.007611,
+            "expected": "between -30s and 120s",
+            "name": "bot_loop_fresh",
+            "status": "PASS"
+          },
+          {
+            "actual": 9612.908364,
+            "expected": "between -30s and 18000s",
+            "name": "all_pair_candles_fresh",
+            "status": "PASS"
+          }
+        ],
+        "pass": true
+      },
+      "status": "OK",
+      "strategy": "DualTrendFuturesV2R"
+    }
+  },
+  "errors": [],
+  "live_readiness": {
+    "live_trading_authorized": false,
+    "qualification_status": "EVIDENCE_INCOMPLETE",
+    "report": "user_data/reports/live_readiness.json"
+  },
+  "live_trading_authorized": false,
+  "locked_thresholds": {
+    "expected_snapshot_interval_seconds": 14400,
+    "maximum_bot_loop_age_seconds": 120,
+    "maximum_candle_close_age_seconds": 18000,
+    "maximum_snapshot_gap_seconds": 28800,
+    "maximum_v2r_drawdown_pct_of_start_wallet": 10.0,
+    "maximum_v2r_profit_factor_deficit_vs_v1": 0.1,
+    "minimum_closed_trades_per_bot": 30,
+    "minimum_monitoring_days": 30.0,
+    "minimum_snapshot_coverage_ratio": 0.95,
+    "minimum_v2r_distinct_pairs": 4,
+    "minimum_v2r_profit_factor": 1.2,
+    "stale_monitor_seconds": 18000,
+    "v2r_drawdown_warning_pct_of_start_wallet": 8.0
+  },
+  "monitoring": {
+    "cadence_seconds": 14400,
+    "continuity": {
+      "bot_restart_counts": {
+        "v1": 0,
+        "v2r": 0
+      },
+      "coverage_ratio": 1.0,
+      "current_segment_calendar_days": 0.008286293703703705,
+      "current_segment_max_gap_seconds": 379.186292,
+      "expected_slots": 1,
+      "last_valid_snapshot_age_seconds": 0.0,
+      "last_valid_snapshot_utc": "2026-08-10T10:40:12.908364Z",
+      "major_gap_count": 1,
+      "observed_valid_slots": 1,
+      "pass": true,
+      "scheduled_run": true,
+      "segment_started_utc": "2026-08-10T10:28:16.972588Z",
+      "status": "VALID",
+      "tracking_started_utc": "2026-08-03T23:30:22.092786Z",
+      "validated_observation_days": 0.008286293703703705
+    },
+    "continuity_events": [],
+    "elapsed_days": 6.507889337523149,
+    "started_utc": "2026-08-03T22:28:51.269602Z"
+  },
+  "risk_policy": {
+    "limits": {
+      "maximum_daily_realized_loss_pct": 2.0,
+      "maximum_open_trades": 2,
+      "maximum_total_open_stake_pct": 20.0,
+      "maximum_wallet_drawdown_pct": 10.0,
+      "maximum_weekly_realized_loss_pct": 5.0
+    },
+    "live_launch_authorized": false,
+    "policy_id": "professional-account-risk-v1",
+    "status": "LOCKED_DRY_RUN"
+  },
+  "schema_version": "1.0",
+  "snapshot_utc": "2026-08-10T10:40:12.908364Z",
+  "source": {
+    "endpoints": [
+      "ping",
+      "show_config",
+      "health",
+      "pair_candles",
+      "profit",
+      "count",
+      "trades"
+    ],
+    "trade_page_limit": 500,
+    "type": "Freqtrade REST API read-only GET requests"
+  }
+}

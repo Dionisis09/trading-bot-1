@@ -1,0 +1,22 @@
+{
+  "primary": {
+    "http_status": 200,
+    "state": "running",
+    "dry_run": true,
+    "strategy": "DualTrendFuturesV1",
+    "trading_mode": "futures",
+    "short_allowed": true,
+    "stake_amount": 25.0,
+    "max_open_trades": 2
+  },
+  "selected": {
+    "http_status": 200,
+    "state": "running",
+    "dry_run": true,
+    "strategy": "DualTrendFuturesV2R",
+    "trading_mode": "futures",
+    "short_allowed": true,
+    "stake_amount": 25.0,
+    "max_open_trades": 2
+  }
+}

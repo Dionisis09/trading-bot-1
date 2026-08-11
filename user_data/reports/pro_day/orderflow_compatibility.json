@@ -1,0 +1,200 @@
+{
+  "backtest_run": false,
+  "checks": {
+    "finite_bid_ask_delta": {
+      "nonnegative_bid_ask": true,
+      "pass": true
+    },
+    "official_columns_present": {
+      "pass": true,
+      "required": [
+        "ask",
+        "bid",
+        "date",
+        "delta",
+        "orderflow",
+        "total_trades",
+        "trades"
+      ]
+    },
+    "orderflow_objects": {
+      "pass": true,
+      "validated_candles": 12
+    },
+    "output_candle_count": {
+      "actual": 12,
+      "expected": 12,
+      "pass": true
+    },
+    "populated_candles": {
+      "actual": 12,
+      "expected": 12,
+      "pass": true
+    },
+    "side_consistency": {
+      "pass": true,
+      "validated_candles": 12
+    },
+    "total_trades": {
+      "actual": 27230,
+      "expected": 27230,
+      "pass": true
+    }
+  },
+  "freqtrade": {
+    "api": "freqtrade.data.converter.orderflow.populate_dataframe_with_trades",
+    "version": "2026.7"
+  },
+  "generated_at_utc": "2026-08-11T13:24:12.011816Z",
+  "inputs": {
+    "config": "/freqtrade/user_data/config-pro-day-orderflow-local.json",
+    "config_sha256": "4b5c40bdb6dc0f479be04a12688bd2b12d413a985944ca1535ab0cead8c20c61",
+    "declared_max_candles": 12,
+    "effective_max_buckets": 12,
+    "input_columns": [
+      "timestamp",
+      "id",
+      "type",
+      "side",
+      "price",
+      "amount",
+      "cost"
+    ],
+    "input_rows": 27960,
+    "selected_bucket_count": 12,
+    "selected_end_exclusive_utc": "2026-08-11T12:50:00Z",
+    "selected_rows": 27230,
+    "selected_start_utc": "2026-08-11T11:50:00Z",
+    "tail_record_batches_scanned": 1,
+    "tail_rows_materialized": 27230,
+    "total_record_batches": 1,
+    "trade_feather": "/freqtrade/user_data/data/binance/futures/BTC_USDT_USDT-trades.feather",
+    "trade_feather_sha256": "d9361a49bd17a02b1bb57b4a7374dd403aa0ec68a7d737905a796ec6bb91a9c0"
+  },
+  "measurements": {
+    "cache_rows": 12,
+    "peak_rss_growth_bytes": 141209600,
+    "populate_elapsed_seconds": 0.393129,
+    "process_peak_rss_bytes": 321818624,
+    "total_elapsed_seconds": 0.460621
+  },
+  "network_used": false,
+  "pnl_computed": false,
+  "results": {
+    "candles": [
+      {
+        "bucket_utc": "2026-08-11T11:50:00Z",
+        "buy_amount": 127.83699999999999,
+        "delta": 41.375,
+        "orderflow_object_valid": true,
+        "sell_amount": 86.46199999999999,
+        "side_consistent": true,
+        "trades": 1105
+      },
+      {
+        "bucket_utc": "2026-08-11T11:55:00Z",
+        "buy_amount": 245.61900000000003,
+        "delta": 65.11100000000002,
+        "orderflow_object_valid": true,
+        "sell_amount": 180.508,
+        "side_consistent": true,
+        "trades": 1715
+      },
+      {
+        "bucket_utc": "2026-08-11T12:00:00Z",
+        "buy_amount": 439.842,
+        "delta": 171.245,
+        "orderflow_object_valid": true,
+        "sell_amount": 268.597,
+        "side_consistent": true,
+        "trades": 3143
+      },
+      {
+        "bucket_utc": "2026-08-11T12:05:00Z",
+        "buy_amount": 448.997,
+        "delta": 201.29000000000002,
+        "orderflow_object_valid": true,
+        "sell_amount": 247.707,
+        "side_consistent": true,
+        "trades": 2590
+      },
+      {
+        "bucket_utc": "2026-08-11T12:10:00Z",
+        "buy_amount": 527.2139999999999,
+        "delta": 205.77099999999996,
+        "orderflow_object_valid": true,
+        "sell_amount": 321.443,
+        "side_consistent": true,
+        "trades": 3227
+      },
+      {
+        "bucket_utc": "2026-08-11T12:15:00Z",
+        "buy_amount": 177.355,
+        "delta": -372.34899999999993,
+        "orderflow_object_valid": true,
+        "sell_amount": 549.704,
+        "side_consistent": true,
+        "trades": 3023
+      },
+      {
+        "bucket_utc": "2026-08-11T12:20:00Z",
+        "buy_amount": 262.08099999999996,
+        "delta": -165.723,
+        "orderflow_object_valid": true,
+        "sell_amount": 427.804,
+        "side_consistent": true,
+        "trades": 3153
+      },
+      {
+        "bucket_utc": "2026-08-11T12:25:00Z",
+        "buy_amount": 190.435,
+        "delta": -90.98399999999998,
+        "orderflow_object_valid": true,
+        "sell_amount": 281.419,
+        "side_consistent": true,
+        "trades": 2785
+      },
+      {
+        "bucket_utc": "2026-08-11T12:30:00Z",
+        "buy_amount": 286.128,
+        "delta": 137.827,
+        "orderflow_object_valid": true,
+        "sell_amount": 148.301,
+        "side_consistent": true,
+        "trades": 3032
+      },
+      {
+        "bucket_utc": "2026-08-11T12:35:00Z",
+        "buy_amount": 201.299,
+        "delta": -62.02499999999995,
+        "orderflow_object_valid": true,
+        "sell_amount": 263.32399999999996,
+        "side_consistent": true,
+        "trades": 2004
+      },
+      {
+        "bucket_utc": "2026-08-11T12:40:00Z",
+        "buy_amount": 59.55799999999999,
+        "delta": -69.36399999999998,
+        "orderflow_object_valid": true,
+        "sell_amount": 128.92199999999997,
+        "side_consistent": true,
+        "trades": 1189
+      },
+      {
+        "bucket_utc": "2026-08-11T12:45:00Z",
+        "buy_amount": 60.504000000000005,
+        "delta": 54.684000000000005,
+        "orderflow_object_valid": true,
+        "sell_amount": 5.820000000000001,
+        "side_consistent": true,
+        "trades": 264
+      }
+    ],
+    "populated_candles": 12,
+    "total_trades": 27230
+  },
+  "schema_version": "1.0",
+  "scope": "NO_PNL_LOCAL_ORDERFLOW_COMPATIBILITY",
+  "status": "PASS"
+}

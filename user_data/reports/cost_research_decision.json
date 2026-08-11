@@ -1,0 +1,556 @@
+{
+  "active_strategy_changed": false,
+  "artifacts": {
+    "2021": {
+      "bytes": 245046,
+      "path": "user_data/backtest_results/cost_research_train_2021.zip",
+      "sha256": "923a6bba5b6db50372cf8a61789764572336ff027756a74fb17395060950c443"
+    },
+    "2022": {
+      "bytes": 248763,
+      "path": "user_data/backtest_results/cost_research_train_2022.zip",
+      "sha256": "a47926ded6cba12ecb6eafc548486bb8f5422d7dcf6bed83c7ded2ea7c011087"
+    },
+    "2023": {
+      "bytes": 217061,
+      "path": "user_data/backtest_results/cost_research_train_2023.zip",
+      "sha256": "76f49bbc5b0601d4f2cc96aa82c9cb6dff8ddb7f9f25609dfa675ebc71a7b684"
+    }
+  },
+  "decision": "RETAIN_V2R",
+  "generated_at_utc": "2026-08-11T10:30:08.020674Z",
+  "live_trading_authorized": false,
+  "locked_plan": "docs/cost_robust_challenger_locked_plan.md",
+  "note": "Historical diagnostic only; no profit guarantee and no fresh sealed holdout.",
+  "schema_version": "1.0",
+  "selected_training_winner": null,
+  "training_candidates": [
+    {
+      "aggregate_severe_net_profit_usdt": 46.53768572790979,
+      "aggregate_standard_net_profit_usdt": 72.99857767,
+      "eligible": false,
+      "gates": [
+        {
+          "actual": 37,
+          "name": "2021_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 56.35627918786499,
+            "profit_factor": 4.002577024162301,
+            "realized_drawdown_pct": 0.6779296351937318
+          },
+          "name": "2021_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 42.84263434805994,
+            "profit_factor": 3.0155091725089687,
+            "realized_drawdown_pct": 0.8821355890979703
+          },
+          "name": "2021_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 44,
+          "name": "2022_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": -0.12185128762230418,
+            "profit_factor": 0.9931349889076024,
+            "realized_drawdown_pct": 0.8120094095303444
+          },
+          "name": "2022_moderate",
+          "status": "FAIL"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": -3.8602298114892193,
+            "profit_factor": 0.8056996014729535,
+            "realized_drawdown_pct": 0.9408087198213366
+          },
+          "name": "2022_severe",
+          "status": "FAIL"
+        },
+        {
+          "actual": 18,
+          "name": "2023_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "FAIL"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 9.828563221334766,
+            "profit_factor": 2.6490500171752625,
+            "realized_drawdown_pct": 0.35462273471017625
+          },
+          "name": "2023_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 7.55528119133907,
+            "profit_factor": 2.0902411500217726,
+            "realized_drawdown_pct": 0.3876155560407028
+          },
+          "name": "2023_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 72.99857767,
+          "name": "aggregate_standard_profit_positive",
+          "requirement": "> 0",
+          "status": "PASS"
+        }
+      ],
+      "minimum_yearly_severe_profit_factor": 0.8056996014729535,
+      "strategy": "CostRobustRoc5"
+    },
+    {
+      "aggregate_severe_net_profit_usdt": 47.35414452215658,
+      "aggregate_standard_net_profit_usdt": 72.75120499,
+      "eligible": false,
+      "gates": [
+        {
+          "actual": 37,
+          "name": "2021_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 53.684927457019775,
+            "profit_factor": 3.857324756865465,
+            "realized_drawdown_pct": 0.9361305625840942
+          },
+          "name": "2021_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 40.391812104679055,
+            "profit_factor": 2.901176904482609,
+            "realized_drawdown_pct": 1.12721781343605
+          },
+          "name": "2021_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 41,
+          "name": "2022_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 4.178900061921811,
+            "profit_factor": 1.271599937712113,
+            "realized_drawdown_pct": 0.6408100211171018
+          },
+          "name": "2022_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 0.7747235196872423,
+            "profit_factor": 1.044776773958639,
+            "realized_drawdown_pct": 0.7559718638683762
+          },
+          "name": "2022_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 16,
+          "name": "2023_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "FAIL"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 8.23771010944757,
+            "profit_factor": 2.469677251668413,
+            "realized_drawdown_pct": 0.35462273471017625
+          },
+          "name": "2023_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 6.187608897790285,
+            "profit_factor": 1.9554263875739029,
+            "realized_drawdown_pct": 0.3876155560407028
+          },
+          "name": "2023_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 72.75120499,
+          "name": "aggregate_standard_profit_positive",
+          "requirement": "> 0",
+          "status": "PASS"
+        }
+      ],
+      "minimum_yearly_severe_profit_factor": 1.044776773958639,
+      "strategy": "CostRobustRoc10"
+    },
+    {
+      "aggregate_severe_net_profit_usdt": 47.57889659121585,
+      "aggregate_standard_net_profit_usdt": 73.90607870000001,
+      "eligible": false,
+      "gates": [
+        {
+          "actual": 35,
+          "name": "2021_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 58.40992816815805,
+            "profit_factor": 4.499868536904926,
+            "realized_drawdown_pct": 0.46799456772826037
+          },
+          "name": "2021_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 45.12856754223218,
+            "profit_factor": 3.3788751775218353,
+            "realized_drawdown_pct": 0.6535422696807472
+          },
+          "name": "2021_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 45,
+          "name": "2022_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 0.8020910581528995,
+            "profit_factor": 1.0472022004643144,
+            "realized_drawdown_pct": 0.902148085616625
+          },
+          "name": "2022_moderate",
+          "status": "FAIL"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": -3.1680788453884032,
+            "profit_factor": 0.836321594591128,
+            "realized_drawdown_pct": 1.0918707868664796
+          },
+          "name": "2022_severe",
+          "status": "FAIL"
+        },
+        {
+          "actual": 20,
+          "name": "2023_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 7.787724363343018,
+            "profit_factor": 2.0260776563095804,
+            "realized_drawdown_pct": 0.4149256494461383
+          },
+          "name": "2023_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 5.618407894372072,
+            "profit_factor": 1.6736291341499057,
+            "realized_drawdown_pct": 0.4424871379845513
+          },
+          "name": "2023_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 73.90607870000001,
+          "name": "aggregate_standard_profit_positive",
+          "requirement": "> 0",
+          "status": "PASS"
+        }
+      ],
+      "minimum_yearly_severe_profit_factor": 0.836321594591128,
+      "strategy": "CostRobustEma1"
+    },
+    {
+      "aggregate_severe_net_profit_usdt": 44.71268496872283,
+      "aggregate_standard_net_profit_usdt": 71.87011351000001,
+      "eligible": false,
+      "gates": [
+        {
+          "actual": 37,
+          "name": "2021_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 56.35627918786499,
+            "profit_factor": 4.002577024162301,
+            "realized_drawdown_pct": 0.6779296351937318
+          },
+          "name": "2021_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 42.84263434805994,
+            "profit_factor": 3.0155091725089687,
+            "realized_drawdown_pct": 0.8821355890979703
+          },
+          "name": "2021_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 46,
+          "name": "2022_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 0.19266859458654687,
+            "profit_factor": 1.010945782605804,
+            "realized_drawdown_pct": 0.9630903319732623
+          },
+          "name": "2022_moderate",
+          "status": "FAIL"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": -3.800576014653814,
+            "profit_factor": 0.8098571720129887,
+            "realized_drawdown_pct": 1.155120503793023
+          },
+          "name": "2022_severe",
+          "status": "FAIL"
+        },
+        {
+          "actual": 21,
+          "name": "2023_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 8.193408931829175,
+            "profit_factor": 2.089214144174492,
+            "realized_drawdown_pct": 0.5125070112356639
+          },
+          "name": "2023_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 5.670626635316706,
+            "profit_factor": 1.6489719025622085,
+            "realized_drawdown_pct": 0.5757267142426372
+          },
+          "name": "2023_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 71.87011351000001,
+          "name": "aggregate_standard_profit_positive",
+          "requirement": "> 0",
+          "status": "PASS"
+        }
+      ],
+      "minimum_yearly_severe_profit_factor": 0.8098571720129887,
+      "strategy": "CostRobustAtr1"
+    },
+    {
+      "aggregate_severe_net_profit_usdt": 49.92499798200838,
+      "aggregate_standard_net_profit_usdt": 76.052135,
+      "eligible": false,
+      "gates": [
+        {
+          "actual": 34,
+          "name": "2021_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 58.631478990757294,
+            "profit_factor": 4.554693263493434,
+            "realized_drawdown_pct": 0.5661142666284604
+          },
+          "name": "2021_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 45.34881054962914,
+            "profit_factor": 3.4185637906383524,
+            "realized_drawdown_pct": 0.7321216885708282
+          },
+          "name": "2021_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 40,
+          "name": "2022_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 0.022352606783865435,
+            "profit_factor": 1.001410074701517,
+            "realized_drawdown_pct": 1.2181257867933482
+          },
+          "name": "2022_moderate",
+          "status": "FAIL"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": -3.5033766638645396,
+            "profit_factor": 0.8049401074335715,
+            "realized_drawdown_pct": 1.3915719315734008
+          },
+          "name": "2022_severe",
+          "status": "FAIL"
+        },
+        {
+          "actual": 19,
+          "name": "2023_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "FAIL"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 10.562983398810943,
+            "profit_factor": 3.000503117956197,
+            "realized_drawdown_pct": 0.2327514669551192
+          },
+          "name": "2023_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 8.079564096243772,
+            "profit_factor": 2.283852885246093,
+            "realized_drawdown_pct": 0.2570696228204724
+          },
+          "name": "2023_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 76.052135,
+          "name": "aggregate_standard_profit_positive",
+          "requirement": "> 0",
+          "status": "PASS"
+        }
+      ],
+      "minimum_yearly_severe_profit_factor": 0.8049401074335715,
+      "strategy": "CostRobustBreakout50"
+    },
+    {
+      "aggregate_severe_net_profit_usdt": 48.62071677613925,
+      "aggregate_standard_net_profit_usdt": 74.01928377,
+      "eligible": false,
+      "gates": [
+        {
+          "actual": 35,
+          "name": "2021_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 58.40992816815805,
+            "profit_factor": 4.499868536904926,
+            "realized_drawdown_pct": 0.46799456772826037
+          },
+          "name": "2021_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 45.12856754223218,
+            "profit_factor": 3.3788751775218353,
+            "realized_drawdown_pct": 0.6535422696807472
+          },
+          "name": "2021_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 44,
+          "name": "2022_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": -0.002325539888410647,
+            "profit_factor": 0.9998680925452419,
+            "realized_drawdown_pct": 0.8000568347569583
+          },
+          "name": "2022_moderate",
+          "status": "FAIL"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": -3.7810110955536453,
+            "profit_factor": 0.8089250984564907,
+            "realized_drawdown_pct": 0.9328868482277812
+          },
+          "name": "2022_severe",
+          "status": "FAIL"
+        },
+        {
+          "actual": 15,
+          "name": "2023_minimum_20_trades",
+          "requirement": ">= 20",
+          "status": "FAIL"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 8.959152987365178,
+            "profit_factor": 2.6660529763692153,
+            "realized_drawdown_pct": 0.3127252446005968
+          },
+          "name": "2023_moderate",
+          "status": "PASS"
+        },
+        {
+          "actual": {
+            "net_profit_usdt": 7.273160329460712,
+            "profit_factor": 2.233179447570168,
+            "realized_drawdown_pct": 0.3369060006023915
+          },
+          "name": "2023_severe",
+          "status": "PASS"
+        },
+        {
+          "actual": 74.01928377,
+          "name": "aggregate_standard_profit_positive",
+          "requirement": "> 0",
+          "status": "PASS"
+        }
+      ],
+      "minimum_yearly_severe_profit_factor": 0.8089250984564907,
+      "strategy": "CostRobustRoc5Ema1"
+    }
+  ],
+  "validation": {
+    "gates": [],
+    "status": "NOT_RUN_NO_TRAINING_WINNER",
+    "strategy": null
+  }
+}

@@ -1,0 +1,323 @@
+{
+  "absence_checks": {
+    "freeze_manifest_present": false,
+    "pro_day_backtest_zip_count": 0,
+    "ready_artifacts_present": false
+  },
+  "automatic_promotion_authorized": false,
+  "backtest_executed": false,
+  "candidate": "ProDayTraderV1",
+  "data_gate": {
+    "audit": {
+      "bytes": 5807607,
+      "filename": "data_quality.json",
+      "path": "user_data/reports/pro_day/data_quality.json",
+      "sha256": "f44f0c633aab93b2d4e6c1a852c86334ae0664cd4b3eeb88574a1f21384d742b"
+    },
+    "critical_failure_codes": [
+      "TIMEFRAME_RECONCILIATION_FAILED"
+    ],
+    "critical_failure_count": 18,
+    "critical_failures": [
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+        "pair": "BNB/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "TRAIN",
+        "timeframe": "15m"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+        "pair": "BNB/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "TRAIN",
+        "timeframe": "1h"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+        "pair": "BNB/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "TRAIN",
+        "timeframe": "4h"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.27397260, compared_days=1095",
+        "pair": "BTC/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "TRAIN",
+        "timeframe": "15m"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.27397260, compared_days=1095",
+        "pair": "BTC/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "TRAIN",
+        "timeframe": "1h"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+        "pair": "BTC/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "TRAIN",
+        "timeframe": "4h"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+        "pair": "ETH/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "TRAIN",
+        "timeframe": "15m"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+        "pair": "ETH/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "TRAIN",
+        "timeframe": "1h"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.63926941, compared_days=1095",
+        "pair": "ETH/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "TRAIN",
+        "timeframe": "4h"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.27359781, compared_days=731",
+        "pair": "BNB/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "VALIDATION",
+        "timeframe": "15m"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.54719562, compared_days=731",
+        "pair": "BNB/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "VALIDATION",
+        "timeframe": "1h"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.54719562, compared_days=731",
+        "pair": "BNB/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "VALIDATION",
+        "timeframe": "4h"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.41039672, compared_days=731",
+        "pair": "BTC/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "VALIDATION",
+        "timeframe": "15m"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.68399453, compared_days=731",
+        "pair": "BTC/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "VALIDATION",
+        "timeframe": "1h"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.68399453, compared_days=731",
+        "pair": "BTC/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "VALIDATION",
+        "timeframe": "4h"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.41039672, compared_days=731",
+        "pair": "ETH/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "VALIDATION",
+        "timeframe": "15m"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.68399453, compared_days=731",
+        "pair": "ETH/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "VALIDATION",
+        "timeframe": "1h"
+      },
+      {
+        "code": "TIMEFRAME_RECONCILIATION_FAILED",
+        "detail": "mismatch_days_pct=0.68399453, compared_days=731",
+        "pair": "ETH/USDT:USDT",
+        "severity": "CRITICAL",
+        "split": "VALIDATION",
+        "timeframe": "4h"
+      }
+    ],
+    "status": "DATA_BLOCKED",
+    "summary": {
+      "failure_count": 18,
+      "files_passed": 12,
+      "files_total": 12,
+      "reconciliation_checks_passed": 9,
+      "reconciliation_checks_total": 27,
+      "split_checks_passed": 36,
+      "split_checks_total": 36
+    }
+  },
+  "decision": "REJECT_PRO_DAY_TRADER",
+  "deployment_performed": false,
+  "dry_run_deployment_authorized": false,
+  "evidence_boundary": "Terminal rejection caused only by the locked pre-PnL data gate. No profitability metric, backtest result, or deployment evidence was parsed.",
+  "live_trading_authorized": false,
+  "locked_inputs": {
+    "config": {
+      "bytes": 1713,
+      "filename": "config-pro-day-research.json",
+      "path": "user_data/config-pro-day-research.json",
+      "sha256": "07b9bfbcf2137d0f5dab5fe4d2f60e5daa77e512e36dfcc1828f975cdeeb7352"
+    },
+    "plan": {
+      "bytes": 16182,
+      "filename": "pro_day_trader_v1_locked_plan.md",
+      "path": "docs/pro_day_trader_v1_locked_plan.md",
+      "sha256": "595e3c6558ef16d71d28273a3e49ec02cb77b4f26764c5890e84cda02463bfc0"
+    },
+    "risk_policy": {
+      "bytes": 781,
+      "filename": "risk_policy.json",
+      "path": "user_data/risk_policy.json",
+      "sha256": "6a3e073fd08b21d645b0d4b4151022bef79adc610d8c130b36554a01e6f51e80"
+    },
+    "strategy": {
+      "bytes": 28735,
+      "filename": "ProDayTraderV1.py",
+      "path": "user_data/strategies/ProDayTraderV1.py",
+      "sha256": "57ea7b59698c7abdfe26e00fcdf7896e4a8e108360fa4ad1e0b9ac20e5603a0a"
+    }
+  },
+  "performance_status": "NOT_RUN_BY_LOCKED_DATA_GATE",
+  "pnl_evaluated": false,
+  "research_status": "TERMINAL_DATA_BLOCKED",
+  "schema_version": "1.0",
+  "verified_data_files": [
+    {
+      "bytes": 14749050,
+      "exists": true,
+      "pair": "BTC/USDT:USDT",
+      "path": "user_data/data/binance/futures/BTC_USDT_USDT-5m-futures.feather",
+      "sha256": "31607bec5bcb3a4afa6f6f94be8e6e592906f65269f4674e4a8fd34c5693815f",
+      "status": "PASS",
+      "timeframe": "5m"
+    },
+    {
+      "bytes": 5125546,
+      "exists": true,
+      "pair": "BTC/USDT:USDT",
+      "path": "user_data/data/binance/futures/BTC_USDT_USDT-15m-futures.feather",
+      "sha256": "6d2153181ae36b10d66092bdf1f77cb11dc99f7829191c23f504713cbbf48061",
+      "status": "PASS",
+      "timeframe": "15m"
+    },
+    {
+      "bytes": 1336890,
+      "exists": true,
+      "pair": "BTC/USDT:USDT",
+      "path": "user_data/data/binance/futures/BTC_USDT_USDT-1h-futures.feather",
+      "sha256": "ae669c0dccdefdec74c0900291100d9ad647cb6e92d44b3dfcbc26c6831fb574",
+      "status": "PASS",
+      "timeframe": "1h"
+    },
+    {
+      "bytes": 427962,
+      "exists": true,
+      "pair": "BTC/USDT:USDT",
+      "path": "user_data/data/binance/futures/BTC_USDT_USDT-4h-futures.feather",
+      "sha256": "51ee708749dd384438fc363b4520c4cadae883384babf20c4a381ca15014647e",
+      "status": "PASS",
+      "timeframe": "4h"
+    },
+    {
+      "bytes": 14767306,
+      "exists": true,
+      "pair": "ETH/USDT:USDT",
+      "path": "user_data/data/binance/futures/ETH_USDT_USDT-5m-futures.feather",
+      "sha256": "e0c821aa302873bbe83ead01741e038bc1986fd4e50201b33c6db065c80f517c",
+      "status": "PASS",
+      "timeframe": "5m"
+    },
+    {
+      "bytes": 5097370,
+      "exists": true,
+      "pair": "ETH/USDT:USDT",
+      "path": "user_data/data/binance/futures/ETH_USDT_USDT-15m-futures.feather",
+      "sha256": "20433eb32bfe1829216a9b4336521349f6cb8afec31e9ab8c20ab0c08714e108",
+      "status": "PASS",
+      "timeframe": "15m"
+    },
+    {
+      "bytes": 1322202,
+      "exists": true,
+      "pair": "ETH/USDT:USDT",
+      "path": "user_data/data/binance/futures/ETH_USDT_USDT-1h-futures.feather",
+      "sha256": "848b26dd86645745e7d18ce06145709b02d3ad6839379773c344715175d426d8",
+      "status": "PASS",
+      "timeframe": "1h"
+    },
+    {
+      "bytes": 403610,
+      "exists": true,
+      "pair": "ETH/USDT:USDT",
+      "path": "user_data/data/binance/futures/ETH_USDT_USDT-4h-futures.feather",
+      "sha256": "f84a2c198b9d7fc404c2f60c2835011f729a661fc31c6d039e87ba3c0010e5f9",
+      "status": "PASS",
+      "timeframe": "4h"
+    },
+    {
+      "bytes": 13320402,
+      "exists": true,
+      "pair": "BNB/USDT:USDT",
+      "path": "user_data/data/binance/futures/BNB_USDT_USDT-5m-futures.feather",
+      "sha256": "daef207f478695eaff158a30f1070cb9c636deecb477f66a438fee3749452688",
+      "status": "PASS",
+      "timeframe": "5m"
+    },
+    {
+      "bytes": 4672962,
+      "exists": true,
+      "pair": "BNB/USDT:USDT",
+      "path": "user_data/data/binance/futures/BNB_USDT_USDT-15m-futures.feather",
+      "sha256": "94c0eb11287bd4ac9b9d87d24dab4588cfb50c8eebfc2c3306ab71d5a2e0f514",
+      "status": "PASS",
+      "timeframe": "15m"
+    },
+    {
+      "bytes": 1236770,
+      "exists": true,
+      "pair": "BNB/USDT:USDT",
+      "path": "user_data/data/binance/futures/BNB_USDT_USDT-1h-futures.feather",
+      "sha256": "cc907c5900ee757f5dae31f80ad64cc222087bd9afbf6828a5ed2958356e7875",
+      "status": "PASS",
+      "timeframe": "1h"
+    },
+    {
+      "bytes": 375906,
+      "exists": true,
+      "pair": "BNB/USDT:USDT",
+      "path": "user_data/data/binance/futures/BNB_USDT_USDT-4h-futures.feather",
+      "sha256": "86dd0f877e5bce3c3756b549113b154b9b7731c1556d2b071f6fdf0b97b58fd2",
+      "status": "PASS",
+      "timeframe": "4h"
+    }
+  ]
+}

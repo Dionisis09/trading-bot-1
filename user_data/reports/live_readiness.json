@@ -1,0 +1,70 @@
+{
+  "automatic_live_launch_available": false,
+  "evidence_gates": [
+    {
+      "actual": "INSUFFICIENT_FORWARD_SAMPLE",
+      "name": "forward_review_decision",
+      "requirement": "FORWARD_REVIEW_READY",
+      "status": "FAIL"
+    },
+    {
+      "actual": {
+        "coverage_ratio": 1.0,
+        "status": "VALID",
+        "validated_observation_days": 0.008286293703703705
+      },
+      "name": "continuous_forward_evidence",
+      "requirement": "continuity pass",
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "v1": true,
+        "v2r": true
+      },
+      "name": "account_risk_inside_limits",
+      "requirement": "true for both bots",
+      "status": "PASS"
+    },
+    {
+      "actual": "FAIL",
+      "name": "execution_stress",
+      "requirement": "PASS",
+      "status": "FAIL"
+    }
+  ],
+  "generated_at_utc": "2026-08-10T10:42:32.894066Z",
+  "live_trading_authorized": false,
+  "next_action": "Continue credential-free dry-run qualification and resolve every failed evidence gate.",
+  "profit_guaranteed": false,
+  "qualification_status": "EVIDENCE_INCOMPLETE",
+  "safety_gates": [
+    {
+      "actual": true,
+      "name": "dry_run_enforced",
+      "requirement": true,
+      "status": "PASS"
+    },
+    {
+      "actual": true,
+      "name": "exchange_credentials_absent",
+      "requirement": true,
+      "status": "PASS"
+    },
+    {
+      "actual": false,
+      "name": "policy_live_launch_unauthorized",
+      "requirement": false,
+      "status": "PASS"
+    },
+    {
+      "actual": false,
+      "name": "automatic_promotion_disabled",
+      "requirement": false,
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "1.0",
+  "selected_candidate": "DualTrendFuturesV2R",
+  "snapshot_utc": "2026-08-10T10:40:12.908364Z"
+}

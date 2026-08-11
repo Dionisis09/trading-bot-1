@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "audited_at_utc": "2026-08-11T13:26:54Z",
+  "archive_count": 91,
+  "zip_integrity_pass_count": 91,
+  "config_snapshot_count": 91,
+  "config_snapshot_exactly_one_pass_count": 91,
+  "config_redaction_pass_count": 91,
+  "protected_field_checks_count": 455,
+  "failure_count": 0,
+  "pro_day_filename_match_count": 0,
+  "pro_day_content_match_count": 0,
+  "pro_day_zip_count": 0
+}

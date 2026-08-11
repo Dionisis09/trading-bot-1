@@ -1,0 +1,35 @@
+{
+  "BinanceSpotTrendV1": {
+    "lookahead_analysis": {
+      "status": "PASS",
+      "signals_checked": 100,
+      "biased_entry_signals": 0,
+      "biased_exit_signals": 0,
+      "artifact": "user_data/reports/BinanceSpotTrendV1_lookahead.csv"
+    },
+    "recursive_analysis": {
+      "status": "PASS",
+      "strategy_startup_candles": 800,
+      "ema200_1h_variance_at_399_pct": -0.104,
+      "ema200_1h_variance_at_799_pct": 0.0,
+      "ema200_1h_variance_at_800_pct": 0.0,
+      "indicator_only_lookahead": false
+    }
+  },
+  "BinanceSpotBreakoutV2": {
+    "status": "NOT_RUN_PERFORMANCE_GATES_FAILED"
+  },
+  "BandtasticRisk": {
+    "status": "NOT_RUN_PERFORMANCE_GATES_FAILED"
+  },
+  "SwingHighToSkyRisk": {
+    "status": "NOT_RUN_PERFORMANCE_GATES_FAILED"
+  },
+  "SupertrendRisk": {
+    "status": "UNAVAILABLE_INCOMPATIBLE",
+    "source_commit": "dbd5b0b21cfbf5ee80588d37458ace2467b7f8a4",
+    "error_type": "TypeError",
+    "error": "Invalid value '0' for dtype 'str' in Supertrend.py result.fillna(0)",
+    "runtime": "Freqtrade 2026.7 with pandas 3.x"
+  }
+}

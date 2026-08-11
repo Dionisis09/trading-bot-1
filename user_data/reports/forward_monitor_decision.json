@@ -1,0 +1,126 @@
+{
+  "auto_promotion_enabled": false,
+  "decision": "INSUFFICIENT_FORWARD_SAMPLE",
+  "integrity_gates": [
+    {
+      "actual": {
+        "data_quality": true,
+        "runtime": true
+      },
+      "name": "v1_runtime_and_data_quality",
+      "requirement": "both true",
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "data_quality": true,
+        "runtime": true
+      },
+      "name": "v2r_runtime_and_data_quality",
+      "requirement": "both true",
+      "status": "PASS"
+    }
+  ],
+  "live_trading_authorized": false,
+  "performance_gates": [
+    {
+      "actual": 0,
+      "name": "v2r_pair_breadth",
+      "requirement": ">= 4",
+      "status": "FAIL"
+    },
+    {
+      "actual": 0,
+      "name": "v2r_positive_net_profit",
+      "requirement": "> 0",
+      "status": "FAIL"
+    },
+    {
+      "actual": null,
+      "name": "v2r_profit_factor",
+      "requirement": ">= 1.20",
+      "status": "FAIL"
+    },
+    {
+      "actual": 0.0,
+      "name": "v2r_max_drawdown",
+      "requirement": "<= 10.0% of starting wallet",
+      "status": "PASS"
+    },
+    {
+      "actual": null,
+      "name": "v2r_positive_defined_return_to_drawdown",
+      "requirement": "> 0 and defined",
+      "status": "FAIL"
+    },
+    {
+      "actual": {
+        "v1": null,
+        "v2r": null
+      },
+      "name": "v2r_profit_factor_vs_v1",
+      "requirement": "V2R >= V1 - 0.10",
+      "status": "FAIL"
+    },
+    {
+      "actual": {
+        "v1": null,
+        "v2r": null
+      },
+      "name": "v2r_return_to_drawdown_vs_v1",
+      "requirement": "V2R >= V1",
+      "status": "FAIL"
+    }
+  ],
+  "profit_guaranteed": false,
+  "recommended_action": "Keep both credential-free dry-runs running and continue evidence collection.",
+  "risk_gates": [
+    {
+      "actual": true,
+      "name": "v1_account_risk",
+      "requirement": "true",
+      "status": "PASS"
+    },
+    {
+      "actual": true,
+      "name": "v2r_account_risk",
+      "requirement": "true",
+      "status": "PASS"
+    }
+  ],
+  "sample_gates": [
+    {
+      "actual": 0.008286293703703705,
+      "name": "validated_observation_days",
+      "requirement": ">= 30",
+      "status": "FAIL"
+    },
+    {
+      "actual": 1.0,
+      "name": "scheduled_snapshot_coverage",
+      "requirement": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "actual": 379.186292,
+      "name": "current_segment_max_gap",
+      "requirement": "<= 28800 seconds",
+      "status": "PASS"
+    },
+    {
+      "actual": 0,
+      "name": "v1_closed_trades",
+      "requirement": ">= 30",
+      "status": "FAIL"
+    },
+    {
+      "actual": 0,
+      "name": "v2r_closed_trades",
+      "requirement": ">= 30",
+      "status": "FAIL"
+    }
+  ],
+  "schema_version": "1.0",
+  "selected_candidate": "DualTrendFuturesV2R",
+  "snapshot_utc": "2026-08-10T10:40:12.908364Z"
+}

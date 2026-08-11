@@ -1,0 +1,166 @@
+{
+  "active_strategy_changed": false,
+  "artifacts": {
+    "DualTrendFuturesV1": {
+      "bytes": 350841,
+      "path": "user_data/backtest_results/historical_replay_v1_active.zip",
+      "sha256": "36847d23bebf6fcbb03ea521f36ce89165099e91e2adf4e089010346afd0ac8a"
+    },
+    "DualTrendFuturesV2R": {
+      "bytes": 339409,
+      "path": "user_data/backtest_results/historical_replay_v2r_active.zip",
+      "sha256": "7fb4b543d970ffac8071fc271c578beda8c3aaba0c5f4b9ee11dde1904780b2e"
+    }
+  },
+  "counts_as_forward_evidence": false,
+  "decision": "HISTORICAL_DIAGNOSTIC_PASS",
+  "diagnostics": {
+    "negative_standard_quarter_count": 10,
+    "negative_standard_quarters": [
+      "2021-Q4",
+      "2022-Q3",
+      "2022-Q4",
+      "2023-Q1",
+      "2023-Q3",
+      "2024-Q2",
+      "2025-Q2",
+      "2025-Q4",
+      "2026-Q1",
+      "2026-Q3"
+    ],
+    "pairs_with_no_trades": [
+      "BTC/USDT:USDT",
+      "ETH/USDT:USDT"
+    ],
+    "standard_direction_net_profit_usdt": {
+      "long": 107.24670949,
+      "short": -2.6218386600000003
+    },
+    "total_quarters": 23,
+    "yearly_moderate_cost_failures": [
+      "2022"
+    ],
+    "yearly_severe_cost_failures": [
+      "2022"
+    ]
+  },
+  "gates": [
+    {
+      "actual": {
+        "DualTrendFuturesV1": true,
+        "DualTrendFuturesV2R": true
+      },
+      "name": "source_reconciliation",
+      "requirement": "true for both archives",
+      "status": "PASS"
+    },
+    {
+      "actual": 104.62487083,
+      "name": "standard_net_positive",
+      "requirement": "> 0",
+      "status": "PASS"
+    },
+    {
+      "actual": 2.324667611232503,
+      "name": "standard_profit_factor",
+      "requirement": ">= 1.20",
+      "status": "PASS"
+    },
+    {
+      "actual": 1.1019669689999319,
+      "name": "standard_drawdown",
+      "requirement": "<= 15%",
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 94.14946059330028,
+        "profit_factor": 2.138558671389479
+      },
+      "name": "moderate_whole_period",
+      "requirement": {
+        "net_profit_usdt": "> 0",
+        "profit_factor": ">= 1.10"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 65.42624632380107,
+        "profit_factor": 1.7038543631099865
+      },
+      "name": "severe_whole_period",
+      "requirement": {
+        "net_profit_usdt": "> 0",
+        "profit_factor": ">= 1.00"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": 4,
+      "name": "positive_pair_breadth",
+      "requirement": ">= 4 of 6",
+      "status": "PASS"
+    },
+    {
+      "actual": 5,
+      "name": "positive_full_years",
+      "requirement": ">= 4 of 5",
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "worst_net_profit_usdt": 3.16665967,
+        "years": {
+          "2021": 60.810125140000004,
+          "2022": 3.16665967,
+          "2023": 8.43928036,
+          "2024": 23.88752519,
+          "2025": 4.13350297
+        }
+      },
+      "name": "worst_full_year_loss",
+      "requirement": ">= -50 USDT",
+      "status": "PASS"
+    }
+  ],
+  "generated_at_utc": "2026-08-11T11:17:56.859042Z",
+  "live_trading_authorized": false,
+  "locked_plan": "docs/historical_replay_locked_plan.md",
+  "note": "Accelerated historical diagnostic only; past performance is not a forecast.",
+  "profit_guaranteed": false,
+  "scenarios": {
+    "moderate": {
+      "additional_fee_bps_per_side": 2.0,
+      "funding_cost_multiplier": 1.5,
+      "latency_penalty_bps": 2.0,
+      "maximum_realized_drawdown_pct": 15.0,
+      "minimum_profit_factor": 1.1,
+      "slippage_bps_per_side": 5.0
+    },
+    "severe": {
+      "additional_fee_bps_per_side": 10.0,
+      "funding_cost_multiplier": 3.0,
+      "latency_penalty_bps": 5.0,
+      "maximum_realized_drawdown_pct": 20.0,
+      "minimum_profit_factor": 1.0,
+      "slippage_bps_per_side": 15.0
+    }
+  },
+  "schema_version": "1.0",
+  "source_totals": {
+    "DualTrendFuturesV1": {
+      "expected_profit_usdt": 189.30270789000002,
+      "reproduced_profit_usdt": 189.30270789
+    },
+    "DualTrendFuturesV2R": {
+      "expected_profit_usdt": 104.62487083,
+      "reproduced_profit_usdt": 104.62487083
+    }
+  },
+  "status": "PASS",
+  "timerange": {
+    "end_utc": "2026-08-01T00:00:00Z",
+    "start_utc": "2021-01-01T00:00:00Z"
+  }
+}

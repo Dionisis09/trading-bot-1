@@ -1,0 +1,280 @@
+services:
+  freqtrade:
+    image: freqtradeorg/freqtrade:2026.7@sha256:da3428fde0f7f9f976eaafba8abc7eba42bf978f23e4808347e15d476ad9a643
+    container_name: binance-freqtrade-dry-run
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 30s
+    environment:
+      PRO_RISK_POLICY_PATH: /freqtrade/user_data/risk_policy.json
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - /freqtrade/tools/check_freqtrade_ready.py
+        - --config
+        - /freqtrade/user_data/config.json
+      interval: 5s
+      timeout: 4s
+      retries: 24
+      start_period: 20s
+    volumes:
+      - ./tools:/freqtrade/tools:ro
+      - ./user_data:/freqtrade/user_data
+    ports:
+      - "127.0.0.1:8080:8080"
+    command: >
+      trade
+      --logfile /freqtrade/user_data/logs/freqtrade.log
+      --db-url sqlite:////freqtrade/user_data/tradesv3.dual-futures-dryrun.sqlite
+      --config /freqtrade/user_data/config.json
+      --config /freqtrade/user_data/config-dual-futures-dry-run.json
+      --strategy DualTrendFuturesV1
+      --dry-run
+
+  freqtrade-v2r:
+    image: freqtradeorg/freqtrade:2026.7@sha256:da3428fde0f7f9f976eaafba8abc7eba42bf978f23e4808347e15d476ad9a643
+    container_name: binance-freqtrade-v2r-dry-run
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 30s
+    environment:
+      PRO_RISK_POLICY_PATH: /freqtrade/user_data/risk_policy.json
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - /freqtrade/tools/check_freqtrade_ready.py
+        - --config
+        - /freqtrade/user_data/config.json
+      interval: 5s
+      timeout: 4s
+      retries: 24
+      start_period: 20s
+    volumes:
+      - ./tools:/freqtrade/tools:ro
+      - ./user_data:/freqtrade/user_data
+    ports:
+      - "127.0.0.1:8081:8080"
+    command: >
+      trade
+      --logfile /freqtrade/user_data/logs/freqtrade-v2r.log
+      --db-url sqlite:////freqtrade/user_data/tradesv3.dual-futures-v2r-dryrun.sqlite
+      --config /freqtrade/user_data/config.json
+      --config /freqtrade/user_data/config-dual-futures-v2r-dry-run.json
+      --strategy DualTrendFuturesV2R
+      --dry-run
+
+  forward-monitor:
+    image: freqtradeorg/freqtrade:2026.7@sha256:da3428fde0f7f9f976eaafba8abc7eba42bf978f23e4808347e15d476ad9a643
+    container_name: trading-forward-monitor
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 10s
+    depends_on:
+      freqtrade:
+        condition: service_healthy
+      freqtrade-v2r:
+        condition: service_healthy
+    volumes:
+      - ./tools:/freqtrade/tools:ro
+      - ./user_data:/freqtrade/user_data
+    environment:
+      FORWARD_ALERT_WEBHOOK_URL: ${FORWARD_ALERT_WEBHOOK_URL:-}
+      PRO_RISK_POLICY_PATH: /freqtrade/user_data/risk_policy.json
+    entrypoint:
+      - python
+      - /freqtrade/tools/monitor_forward_dry_runs.py
+    command:
+      - --config
+      - /freqtrade/user_data/config.json
+      - --v1-config
+      - /freqtrade/user_data/config-dual-futures-dry-run.json
+      - --v2r-config
+      - /freqtrade/user_data/config-dual-futures-v2r-dry-run.json
+      - --reports-dir
+      - /freqtrade/user_data/reports
+      - --risk-policy
+      - /freqtrade/user_data/risk_policy.json
+      - --execution-stress-report
+      - /freqtrade/user_data/reports/execution_stress_report.json
+      - --live-readiness-output
+      - /freqtrade/user_data/reports/live_readiness.json
+      - --dashboard-output
+      - /freqtrade/user_data/dashboard/forward_dashboard_artifact.json
+      - --daily-report-output
+      - /freqtrade/user_data/dashboard/daily_report_artifact.json
+      - --user-data-dir
+      - /freqtrade/user_data
+      - --backup-dir
+      - /freqtrade/user_data/backups
+      - --backup-interval-seconds
+      - "86400"
+      - --backup-retention-days
+      - "35"
+      - --v1-url
+      - http://freqtrade:8080
+      - --v2r-url
+      - http://freqtrade-v2r:8080
+      - --loop-seconds
+      - "14400"
+      - --error-retry-seconds
+      - "60"
+
+  forward-watchdog:
+    image: freqtradeorg/freqtrade:2026.7@sha256:da3428fde0f7f9f976eaafba8abc7eba42bf978f23e4808347e15d476ad9a643
+    container_name: trading-forward-watchdog
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 10s
+    depends_on:
+      forward-monitor:
+        condition: service_started
+    volumes:
+      - ./tools:/freqtrade/tools:ro
+      - ./user_data:/freqtrade/user_data
+    environment:
+      FORWARD_ALERT_WEBHOOK_URL: ${FORWARD_ALERT_WEBHOOK_URL:-}
+      FORWARD_HEARTBEAT_URL: ${FORWARD_HEARTBEAT_URL:-}
+    entrypoint:
+      - python
+      - /freqtrade/tools/watch_forward_freshness.py
+    command:
+      - --reports-dir
+      - /freqtrade/user_data/reports
+      - --dashboard-output
+      - /freqtrade/user_data/dashboard/forward_dashboard_artifact.json
+      - --stale-seconds
+      - "18000"
+      - --loop-seconds
+      - "60"
+
+  dashboard-builder:
+    image: node:24-alpine@sha256:f70403e87646dc51b45295f4b8b70cdad0b63d2297c4c9899119b03f7af7a6b3
+    container_name: trading-dashboard-builder
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 10s
+    depends_on:
+      forward-monitor:
+        condition: service_started
+    working_dir: /workspace
+    volumes:
+      - ./tools:/workspace/tools:ro
+      - ./user_data:/workspace/user_data
+      - ./vendor/data-analytics-plugin:/analytics-plugin:ro
+    entrypoint:
+      - node
+      - /workspace/tools/refresh_forward_dashboard.mjs
+    command:
+      - --artifact
+      - /workspace/user_data/dashboard/forward_dashboard_artifact.json
+      - --output
+      - /workspace/user_data/dashboard/forward_dashboard.html
+      - --status
+      - /workspace/user_data/dashboard/forward_dashboard_build_status.json
+      - --builder
+      - /analytics-plugin/skills/build-report/scripts/deliver_portable_artifact.mjs
+      - --watch-seconds
+      - "60"
+
+  daily-report-builder:
+    image: node:24-alpine@sha256:f70403e87646dc51b45295f4b8b70cdad0b63d2297c4c9899119b03f7af7a6b3
+    container_name: trading-daily-report-builder
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 10s
+    depends_on:
+      forward-monitor:
+        condition: service_started
+    working_dir: /workspace
+    volumes:
+      - ./tools:/workspace/tools:ro
+      - ./user_data:/workspace/user_data
+      - ./vendor/data-analytics-plugin:/analytics-plugin:ro
+    entrypoint:
+      - node
+      - /workspace/tools/refresh_forward_dashboard.mjs
+    command:
+      - --artifact
+      - /workspace/user_data/dashboard/daily_report_artifact.json
+      - --output
+      - /workspace/user_data/dashboard/daily_report.html
+      - --status
+      - /workspace/user_data/dashboard/daily_report_build_status.json
+      - --builder
+      - /analytics-plugin/skills/build-report/scripts/deliver_portable_artifact.mjs
+      - --watch-seconds
+      - "60"
+
+  dashboard-web:
+    image: node:24-alpine@sha256:f70403e87646dc51b45295f4b8b70cdad0b63d2297c4c9899119b03f7af7a6b3
+    container_name: trading-dashboard-web
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 10s
+    depends_on:
+      dashboard-builder:
+        condition: service_started
+      daily-report-builder:
+        condition: service_started
+    volumes:
+      - ./tools:/workspace/tools:ro
+      - ./user_data/dashboard:/workspace/user_data/dashboard:ro
+    ports:
+      - "127.0.0.1:8090:8080"
+    working_dir: /workspace
+    entrypoint:
+      - node
+      - /workspace/tools/serve_dashboard.mjs
+    command:
+      - --dashboard
+      - /workspace/user_data/dashboard/forward_dashboard.html
+      - --daily-report
+      - /workspace/user_data/dashboard/daily_report.html
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
+
+  derivatives-collector:
+    image: freqtradeorg/freqtrade:2026.7@sha256:da3428fde0f7f9f976eaafba8abc7eba42bf978f23e4808347e15d476ad9a643
+    container_name: trading-derivatives-collector
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 15s
+    read_only: true
+    mem_limit: 256m
+    cpus: 0.50
+    pids_limit: 64
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      PYTHONDONTWRITEBYTECODE: "1"
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    volumes:
+      - ./tools:/freqtrade/tools:ro
+      - ./user_data/data/binance/derivatives:/freqtrade/user_data/data/binance/derivatives
+    entrypoint:
+      - python
+      - /freqtrade/tools/collect_binance_derivatives.py
+    command:
+      - --output-dir
+      - /freqtrade/user_data/data/binance/derivatives
+      - --loop-seconds
+      - "300"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - /freqtrade/tools/collect_binance_derivatives.py
+        - --healthcheck
+        - --output-dir
+        - /freqtrade/user_data/data/binance/derivatives
+      interval: 2m
+      timeout: 30s
+      retries: 3
+      start_period: 3m

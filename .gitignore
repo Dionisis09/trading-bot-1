@@ -1,0 +1,19 @@
+# Local configuration and credentials
+user_data/config.json
+user_data/config-private.json
+.env
+
+# Runtime state and downloaded market data
+user_data/data/
+user_data/logs/
+user_data/*.sqlite
+user_data/*.sqlite-*
+user_data/backtest_results/
+user_data/hyperopt_results/
+
+# Python/editor artifacts
+__pycache__/
+*.py[cod]
+.venv/
+.idea/
+.vscode/

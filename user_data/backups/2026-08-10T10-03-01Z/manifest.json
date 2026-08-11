@@ -1,0 +1,38 @@
+{
+  "artifacts": [
+    {
+      "bytes": 94208,
+      "path": "tradesv3.dual-futures-dryrun.sqlite",
+      "sha256": "28ba4a8a90b5c9161c91dd723fbcf959869886efb8501f8b5dfd64f1dd084b9e"
+    },
+    {
+      "bytes": 94208,
+      "path": "tradesv3.dual-futures-v2r-dryrun.sqlite",
+      "sha256": "ac4bfb66e3f8752a5dd0afb599cb7dfe9570dcbeba346f49d9f0a01ca87b1d4c"
+    },
+    {
+      "bytes": 319825,
+      "path": "forward_evidence.zip",
+      "sha256": "6e716bd56193f45cea884c2b15f24f0d1259249e90c80d2f87908391e89ffbea"
+    }
+  ],
+  "backup_utc": "2026-08-10T10:03:01.770558Z",
+  "evidence_files_archived": 82,
+  "excluded_sensitive_scope": [
+    "user_data/config*.json",
+    ".env",
+    "API credentials",
+    "webhook URL"
+  ],
+  "schema_version": "1.0",
+  "source_scope": [
+    "user_data/tradesv3.dual-futures-dryrun.sqlite",
+    "user_data/tradesv3.dual-futures-v2r-dryrun.sqlite",
+    "user_data/reports/**",
+    "user_data/dashboard/**"
+  ],
+  "sqlite_integrity_check": {
+    "tradesv3.dual-futures-dryrun.sqlite": "ok",
+    "tradesv3.dual-futures-v2r-dryrun.sqlite": "ok"
+  }
+}

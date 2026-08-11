@@ -1,0 +1,17 @@
+gate,pass
+train,True
+validation,True
+five_positive_folds,True
+worst_fold_above_minus_5,True
+median_fold_pf_1_20,True
+year_2025,True
+current_2026,False
+fee_validation,True
+fee_train,True
+backcast,True
+five_positive_pairs,True
+pair_concentration,True
+trade_concentration,True
+technical,True
+bootstrap_return_p05_positive,True
+bootstrap_dd_p95_35,True

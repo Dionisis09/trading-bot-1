@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "policy_id": "professional-account-risk-v1",
+  "status": "LOCKED_DRY_RUN",
+  "limits": {
+    "maximum_daily_realized_loss_pct": 2.0,
+    "maximum_weekly_realized_loss_pct": 5.0,
+    "maximum_wallet_drawdown_pct": 10.0,
+    "maximum_total_open_stake_pct": 20.0,
+    "maximum_open_trades": 2
+  },
+  "execution": {
+    "require_emergency_exit_market": true,
+    "require_stoploss": true,
+    "stoploss_on_exchange_requires_live_review": true
+  },
+  "live_launch": {
+    "authorized": false,
+    "requires_human_authorization": true,
+    "requires_static_vps_ip": true,
+    "requires_trade_only_api_key": true,
+    "requires_withdrawals_disabled": true,
+    "requires_ip_whitelist": true,
+    "maximum_leverage": 1.0,
+    "margin_mode": "isolated"
+  }
+}

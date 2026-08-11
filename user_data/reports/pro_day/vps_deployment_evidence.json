@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "captured_at_utc": "2026-08-11T13:02:36.412687Z",
+  "scope": "PUBLIC_DERIVATIVES_COLLECTOR_ONLY",
+  "pro_day_bot_deployed": false,
+  "live_trading_authorized": false,
+  "automatic_promotion_enabled": false,
+  "total_services_before": 7,
+  "total_services_after": 8,
+  "existing_services": {
+    "count_before": 7,
+    "count_after": 7,
+    "container_ids_unchanged": true,
+    "restart_counts_after": 0,
+    "v1_healthy": true,
+    "v2r_healthy": true
+  },
+  "collector": {
+    "service": "derivatives-collector",
+    "container": "trading-derivatives-collector",
+    "status": "HEALTHY",
+    "docker_health": "healthy",
+    "restart_count": 0,
+    "published_ports": 0,
+    "credential_mode": "PUBLIC_NO_CREDENTIALS",
+    "dataset_count": 24,
+    "data_file_count": 26,
+    "total_row_count": 74496,
+    "memory_usage": "33.7MiB / 256MiB",
+    "compose_sha256": "29af5466ee7368f8f4a7842a2f7763448e8408ff5ddbc4446e0a3ff4735b43d8",
+    "collector_sha256": "6fb18257e227ffbdf85b4713a1be2b37169107953c631eade9f14a00fd13be1a"
+  },
+  "backup_and_restore": {
+    "collector_pre": "PASS",
+    "collector_post": "PASS",
+    "backup_tool_pre": "PASS",
+    "backup_tool_post": "PASS",
+    "sqlite_databases_verified_each_run": 2,
+    "derivatives_scope_in_post_backup": "user_data/data/binance/derivatives/**",
+    "post_evidence_files_restored": 124,
+    "temporary_restore_removed": true
+  },
+  "watchdog": {
+    "status": "FRESH",
+    "snapshot_age_seconds": 3059.549711,
+    "stale_after_seconds": 18000,
+    "checked_at_utc": "2026-08-11T13:02:36.412687Z"
+  },
+  "forward_decision": "INSUFFICIENT_FORWARD_SAMPLE",
+  "forward_qualification_status": "EVIDENCE_INCOMPLETE",
+  "final_read_only_acceptance": {
+    "checked_window_utc": "2026-08-11T13:19:00Z/2026-08-11T13:20:59Z",
+    "strict_host_key_checking": true,
+    "mutations_performed": false,
+    "config_or_env_values_read": false,
+    "containers_running": 8,
+    "container_restart_count_total": 0,
+    "existing_container_ids_unchanged": true,
+    "docker_health_healthy": [
+      "freqtrade",
+      "freqtrade-v2r",
+      "derivatives-collector"
+    ],
+    "running_without_docker_healthcheck_count": 5,
+    "loopback_published_ports": [
+      "127.0.0.1:8080",
+      "127.0.0.1:8081",
+      "127.0.0.1:8090"
+    ],
+    "collector": {
+      "status": "READY",
+      "all_fresh": true,
+      "credential_mode": "PUBLIC_NO_CREDENTIALS",
+      "dataset_count": 24,
+      "total_row_count": 74535,
+      "latest_observation_utc": "2026-08-11T13:20:00Z",
+      "memory_usage": "33.98MiB / 256MiB",
+      "published_ports": 0
+    },
+    "watchdog": {
+      "status": "FRESH",
+      "snapshot_age_seconds": 4141.106,
+      "stale_after_seconds": 18000
+    },
+    "forward_decision": "INSUFFICIENT_FORWARD_SAMPLE",
+    "forward_qualification_status": "EVIDENCE_INCOMPLETE",
+    "automatic_promotion_enabled": false,
+    "live_trading_authorized": false,
+    "automatic_live_launch": false,
+    "host_resources": {
+      "memory_total_bytes": 4106432512,
+      "memory_available_bytes": 2206617600,
+      "swap_total_bytes": 0,
+      "root_disk_total_bytes": 31608864768,
+      "root_disk_available_bytes": 24590684160,
+      "root_disk_used_percent": 19
+    }
+  }
+}

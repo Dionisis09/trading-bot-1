@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "runtime": "freqtradeorg/freqtrade:2026.7 container Python",
+  "proposed_stake": 100.0,
+  "cases": [
+    {"atr_pct": 0.01, "expected_stake": 65.0, "actual_stake": 65.0},
+    {"atr_pct": 0.03, "expected_stake": 65.0, "actual_stake": 65.0},
+    {"atr_pct": 0.04, "expected_stake": 48.75, "actual_stake": 48.75},
+    {"atr_pct": 0.06, "expected_stake": 32.5, "actual_stake": 32.5},
+    {"atr_pct": 0.20, "expected_stake": 32.5, "actual_stake": 32.5},
+    {"atr_pct": "NaN", "expected_stake": 32.5, "actual_stake": 32.5}
+  ],
+  "minimum_multiplier": 0.325,
+  "maximum_multiplier": 0.65,
+  "exceptions_or_assertion_failures": 0
+}

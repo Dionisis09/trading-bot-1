@@ -1,0 +1,17 @@
+gate,pass
+train_positive,True
+train_pf_1_20,True
+validation_100_trades,True
+validation_positive,True
+validation_pf_1_20,True
+validation_dd_20,True
+validation_four_positive_pairs,True
+validation_pair_loss_cap,True
+validation_pair_concentration,True
+validation_trade_concentration,True
+year_2024,True
+year_2025,True
+fee_train_positive,True
+fee_validation_positive,True
+current_2026,True
+backcast_holdout,True

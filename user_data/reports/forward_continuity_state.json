@@ -1,0 +1,23 @@
+{
+  "bot_restart_counts": {
+    "v1": 0,
+    "v2r": 0
+  },
+  "bot_starts": {
+    "v1": "2026-08-03T20:05:44.811240Z",
+    "v2r": "2026-08-03T20:58:26.193009Z"
+  },
+  "current_segment_max_gap_seconds": 379.186292,
+  "ineligible_attempts": 3,
+  "last_scheduled_attempt_utc": "2026-08-10T10:40:12.908364Z",
+  "last_valid_snapshot_utc": "2026-08-10T10:40:12.908364Z",
+  "lifetime_max_gap_seconds": 555131.128162,
+  "major_gap_count": 1,
+  "observed_slots": [
+    0
+  ],
+  "scheduled_attempts": 11,
+  "schema_version": "1.0",
+  "segment_started_utc": "2026-08-10T10:28:16.972588Z",
+  "tracking_started_utc": "2026-08-03T23:30:22.092786Z"
+}

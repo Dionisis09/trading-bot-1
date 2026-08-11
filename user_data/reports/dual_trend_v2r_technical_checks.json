@@ -1,0 +1,19 @@
+{
+  "lookahead_analysis": {
+    "status": "PASS",
+    "total_signals": 100,
+    "biased_entry_signals": 0,
+    "biased_exit_signals": 0,
+    "biased_indicators": []
+  },
+  "recursive_analysis": {
+    "status": "PASS",
+    "configured_startup_candles": 800,
+    "tested_startup_candles": [199, 399, 799, 800, 1599],
+    "ema200_1d_variance_pct_at_800": -0.005,
+    "sma20_variance_pct_at_800": 0.0,
+    "material_variance_threshold_pct": 0.01,
+    "indicator_lookahead_found": false,
+    "source": "Freqtrade 2026.7 recursive-analysis stdout on validation timerange"
+  }
+}

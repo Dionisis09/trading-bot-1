@@ -1,0 +1,5771 @@
+{
+  "manifest": {
+    "blocks": [
+      {
+        "body": "# Τεχνικός Έλεγχος ProDayTraderV1",
+        "id": "title",
+        "type": "markdown"
+      },
+      {
+        "body": "## Τεχνικό συμπέρασμα: το qualification παραμένει μπλοκαρισμένο\n\n- **Κύριο αποτέλεσμα:** το data gate είναι `DATA_BLOCKED` και το qualification PnL είναι `NOT_RUN`. Αυτό δεν αποτελεί μέτρηση μηδενικής απόδοσης.\n- **Τι πέρασε:** 12/12 native files και 36/36 pair/timeframe/split integrity checks.\n- **Τι απέτυχε:** 18/27 aggregate timeframe reconciliation checks απέτυχαν· πέρασαν 9/27.\n- **Απόφαση τώρα:** δεν υπάρχει τεκμηριωμένη βάση για performance qualification, ξεχωριστό ProDay dry-run ή live trading. Τα ενεργά bots δεν αξιολογούνται από αυτό το report.",
+        "id": "technical_summary",
+        "type": "markdown"
+      },
+      {
+        "body": "## Οι αποκλίσεις reconciliation είναι ο αποκλειστικός blocker του pre-PnL gate\n\nΤο chart μετρά checks, όχι candles ή αποδόσεις. Κάθε split εμφανίζει ξεχωριστά PASS και FAIL, συμπεριλαμβανομένων των μηδενικών counts. Η μία σειρά και η κοινή μηδενική βάση αποφεύγουν παραπλανητική χρωματική ή κλιμακωτή σύγκριση. Συνεπώς, το επόμενο βήμα είναι source-level διάγνωση των mismatched bins και όχι tuning της strategy.",
+        "id": "reconciliation_finding",
+        "sourceId": "dq_reconciliation_csv",
+        "type": "markdown"
+      },
+      {
+        "chartId": "reconciliation_status_chart",
+        "id": "reconciliation_chart_block",
+        "layout": "full",
+        "type": "chart"
+      },
+      {
+        "body": "## Τα ακριβή audit rows διαχωρίζουν file integrity από timeframe equality\n\nΟι επόμενοι πίνακες κρατούν χωριστά το συνολικό αποτέλεσμα, τα aggregate checks, τις ακριβείς αποτυχημένες ημέρες, το critical failure register, την κάλυψη ανά split, τα input files και τα gaps. Έτσι ένα PASS στην κάλυψη δεν συγχέεται με PASS στη συμφωνία των native timeframes.",
+        "id": "audit_evidence_heading",
+        "type": "markdown"
+      },
+      {
+        "id": "audit_summary_block",
+        "layout": "full",
+        "tableId": "audit_summary_table",
+        "type": "table"
+      },
+      {
+        "id": "reconciliation_table_block",
+        "layout": "full",
+        "tableId": "reconciliation_table",
+        "type": "table"
+      },
+      {
+        "id": "daily_failure_table_block",
+        "layout": "full",
+        "tableId": "daily_failure_table",
+        "type": "table"
+      },
+      {
+        "id": "failure_register_table_block",
+        "layout": "full",
+        "tableId": "failure_register_table",
+        "type": "table"
+      },
+      {
+        "id": "split_checks_table_block",
+        "layout": "full",
+        "tableId": "split_checks_table",
+        "type": "table"
+      },
+      {
+        "id": "file_checks_table_block",
+        "layout": "full",
+        "tableId": "file_checks_table",
+        "type": "table"
+      },
+      {
+        "id": "gap_checks_table_block",
+        "layout": "full",
+        "tableId": "gap_checks_table",
+        "type": "table"
+      },
+      {
+        "body": "## Scope και ορισμοί που απαιτούνται για σωστή ερμηνεία\n\nΗ μονάδα του file audit είναι pair × native timeframe. Η μονάδα του split audit είναι pair × native timeframe × locked split. Η μονάδα του reconciliation audit είναι pair × informative timeframe × locked split. Το `PNL NOT_RUN` είναι evidence state, όχι return metric.",
+        "id": "scope_heading",
+        "type": "markdown"
+      },
+      {
+        "id": "scope_definitions_block",
+        "layout": "full",
+        "tableId": "scope_definitions_table",
+        "type": "table"
+      },
+      {
+        "id": "quality_definitions_block",
+        "layout": "full",
+        "tableId": "quality_definitions_table",
+        "type": "table"
+      },
+      {
+        "body": "## Η μεθοδολογία παραμένει pre-PnL και fail-closed\n\nΤο report διαβάζει μόνο αποθηκευμένα JSON/CSV artifacts. Δεν εκτελεί backtest, δεν αλλάζει strategy ή thresholds και δεν επικοινωνεί με Binance ή VPS. Η 5m-to-informative reconciliation ελέγχεται πριν από οποιοδήποτε performance αποτέλεσμα. Αν έστω ένα required technical/data/source gate αποτύχει, το frozen plan επιβάλλει τεχνικό αποκλεισμό αντί για επιλεκτική αφαίρεση pair ή tuning.",
+        "id": "methodology",
+        "sourceId": "locked_plan",
+        "type": "markdown"
+      },
+      {
+        "body": "## Το caller-provided evaluator output παρατίθεται χωρίς επανερμηνεία\n\nΤα top-level fields και, όταν υπάρχουν, τα gate rows προέρχονται αυτούσια από το saved JSON.",
+        "id": "final_decision_heading",
+        "type": "markdown"
+      },
+      {
+        "id": "final_decision_fields_block",
+        "layout": "full",
+        "tableId": "final_decision_fields_table",
+        "type": "table"
+      },
+      {
+        "body": "## Το order-flow evidence παραμένει local και μη qualifying\n\nΗ συμβατότητα παρατίθεται ως τεχνικό evidence. Δεν αλλάζει το ιστορικό data gate και δεν χρησιμοποιείται για να δικαιολογήσει entry rules σε αυτόν τον frozen κύκλο.",
+        "id": "orderflow_heading",
+        "type": "markdown"
+      },
+      {
+        "id": "orderflow_fields_block",
+        "layout": "full",
+        "tableId": "orderflow_fields_table",
+        "type": "table"
+      },
+      {
+        "body": "## Το deployment evidence είναι αποθηκευμένο snapshot, όχι live query\n\nΤο report εμφανίζει μόνο το caller-provided JSON και δεν ισχυρίζεται τρέχουσα κατάσταση VPS πέρα από εκείνο το snapshot.",
+        "id": "deployment_heading",
+        "type": "markdown"
+      },
+      {
+        "id": "deployment_fields_block",
+        "layout": "full",
+        "tableId": "deployment_fields_table",
+        "type": "table"
+      },
+      {
+        "body": "## Το archive audit επιβεβαιώνει integrity και redaction χωρίς να εισάγει ProDay PnL\n\nΤο saved aggregate evidence παρατίθεται χωρίς ZIP contents ή config values. Η απουσία ProDay ZIP συμφωνεί με το locked `PNL NOT_RUN` state και δεν μετατρέπεται σε performance result.",
+        "id": "archive_security_heading",
+        "type": "markdown"
+      },
+      {
+        "id": "archive_security_fields_block",
+        "layout": "full",
+        "tableId": "archive_security_fields_table",
+        "type": "table"
+      },
+      {
+        "body": "## Περιορισμοί, αβεβαιότητα και robustness gaps\n\n- Η αποτυχία reconciliation δείχνει ασυμφωνία πηγών/timeframes· δεν αποδεικνύει αιτία μέχρι να αναλυθούν τα mismatched bins.\n- Το πλήρες daily reconciliation CSV (18342 rows) δεν ενσωματώνεται ολόκληρο ως visible table· ενσωματώνονται και τα 79 FAIL day-check rows σε 16 διακριτές UTC ημερομηνίες, ενώ το πλήρες αρχείο παραμένει canonical source.\n- Δεν υπάρχουν qualification PnL, walk-forward, cost-stress, lookahead ή recursive αποτελέσματα σε αυτό το evidence state.\n- Καμία ιστορική μέτρηση δεν αποτελεί forward evidence, εγγύηση κέρδους ή άδεια live trading.",
+        "id": "limitations",
+        "type": "markdown"
+      },
+      {
+        "body": "## Προτεινόμενα επόμενα βήματα\n\n1. Εντόπισε για κάθε FAIL pair/timeframe/day check row τα ακριβή mismatched OHLCV fields και τις native-versus-aggregated τιμές.\n2. Ταξινόμησε την αιτία ως exchange source revision, incomplete native bin, timestamp alignment ή auditor defect.\n3. Διόρθωσε μόνο την αποδεδειγμένη source/auditor αιτία και επανέλαβε ολόκληρο το data audit με νέο immutable evidence set.\n4. Εκτέλεσε qualification PnL μόνο αν όλα τα frozen data/source gates περάσουν, χωρίς αλλαγή strategy ή thresholds.\n5. Διατήρησε live trading, API keys, automatic promotion και ProDay deployment απενεργοποιημένα μέχρι ξεχωριστή τεκμηριωμένη απόφαση.",
+        "id": "recommended_steps",
+        "type": "markdown"
+      },
+      {
+        "body": "## Ανοιχτές ερωτήσεις\n\n- Συγκεντρώνονται τα 79 FAIL day-check rows σε 16 διακριτές UTC ημερομηνίες και σε κοινά exchange maintenance/source-revision timestamps;\n- Οι αποκλίσεις αφορούν price fields, volume ή και τα δύο, και είναι ίδιες ανά pair/timeframe;\n- Μπορεί η αιτία να διορθωθεί χωρίς να αλλάξει κανένα frozen strategy/config/threshold input;\n- Μετά από καθαρό data gate, θα παράγει η κλειδωμένη strategy επαρκές και αμερόληπτο sample;",
+        "id": "further_questions",
+        "type": "markdown"
+      }
+    ],
+    "cards": [],
+    "charts": [
+      {
+        "comparisonContext": {
+          "baseline": "0 checks",
+          "denominator": "all pair × informative-timeframe checks within each split",
+          "grain": "split × status",
+          "unit": "checks"
+        },
+        "dataset": "reconciliation_status_counts",
+        "emptyState": "Δεν υπάρχουν reconciliation checks.",
+        "encodings": {
+          "tooltip": [
+            {
+              "field": "split",
+              "label": "Split",
+              "type": "nominal"
+            },
+            {
+              "field": "status",
+              "label": "Status",
+              "type": "nominal"
+            },
+            {
+              "field": "check_count",
+              "format": "number",
+              "label": "Checks",
+              "type": "quantitative"
+            },
+            {
+              "field": "total_split_checks",
+              "format": "number",
+              "label": "Total split checks",
+              "type": "quantitative"
+            }
+          ],
+          "x": {
+            "field": "category",
+            "label": "Split · status",
+            "type": "nominal"
+          },
+          "y": {
+            "field": "check_count",
+            "format": "number",
+            "label": "Πλήθος checks",
+            "type": "quantitative"
+          }
+        },
+        "id": "reconciliation_status_chart",
+        "intent": "comparison",
+        "labels": {
+          "values": "all"
+        },
+        "layout": "full",
+        "question": "Σε ποια locked splits συγκεντρώνονται οι αποτυχίες timeframe reconciliation;",
+        "rationale": "Μία σειρά από bars επιτρέπει άμεση σύγκριση των απόλυτων counts χωρίς redundant color encoding.",
+        "settings": {
+          "categoryLabelPolicy": "wrap",
+          "groupMode": "single",
+          "showValues": true,
+          "sort": "none"
+        },
+        "sourceId": "dq_reconciliation_csv",
+        "subtitle": "Απόλυτο πλήθος των 27 aggregate checks· κάθε split έχει ρητή PASS και FAIL κατηγορία.",
+        "surface": {
+          "showControls": false,
+          "surface": "export",
+          "viewMode": "both"
+        },
+        "title": "Reconciliation checks ανά split και status",
+        "type": "bar"
+      }
+    ],
+    "description": "Answer-first technical audit of the frozen ProDayTraderV1 data gate, evidence boundary and decision readiness.",
+    "filters": [],
+    "generatedAt": "2026-08-11T13:17:27.688316Z",
+    "sources": [
+      {
+        "id": "locked_plan",
+        "label": "Frozen ProDay research plan",
+        "path": "docs/pro_day_trader_v1_locked_plan.md",
+        "query": {
+          "description": "Defines the pre-PnL universe, periods, data gates, methodology and decision boundary. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+          "engine": "sqlite3",
+          "executed_at": "2026-08-11T13:17:27.688316Z",
+          "language": "sql",
+          "metric_definitions": [
+            "DATA_BLOCKED prevents qualification PnL from running.",
+            "Historical evidence is not a sealed holdout, forward evidence, a profit guarantee, or live-trading authorization."
+          ],
+          "sql": "SELECT * FROM report_rows",
+          "tables_used": [
+            "docs/pro_day_trader_v1_locked_plan.md",
+            "main.report_rows"
+          ]
+        }
+      },
+      {
+        "id": "data_quality_json",
+        "label": "ProDay data-quality decision",
+        "path": "user_data/reports/pro_day/data_quality.json",
+        "query": {
+          "description": "Reads the saved data gate, thresholds, failure register and PnL boundary. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+          "engine": "sqlite3",
+          "executed_at": "2026-08-11T13:17:27.688316Z",
+          "language": "sql",
+          "metric_definitions": [
+            "PNL NOT_RUN means qualification PnL was not executed; it is not a zero-return observation.",
+            "Failure count is the number of recorded critical data-quality failures."
+          ],
+          "sql": "SELECT * FROM report_rows",
+          "tables_used": [
+            "user_data/reports/pro_day/data_quality.json",
+            "main.report_rows"
+          ]
+        }
+      },
+      {
+        "id": "dq_files_csv",
+        "label": "Native futures file audit",
+        "path": "user_data/reports/pro_day/data_quality_files.csv",
+        "query": {
+          "description": "Loads every required pair/timeframe file audit row without sampling. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+          "engine": "sqlite3",
+          "executed_at": "2026-08-11T13:17:27.688316Z",
+          "filters": [
+            "No rows omitted"
+          ],
+          "language": "sql",
+          "sql": "SELECT * FROM report_rows",
+          "tables_used": [
+            "user_data/reports/pro_day/data_quality_files.csv",
+            "main.report_rows"
+          ]
+        }
+      },
+      {
+        "id": "dq_splits_csv",
+        "label": "Pair/timeframe/split coverage audit",
+        "path": "user_data/reports/pro_day/data_quality_splits.csv",
+        "query": {
+          "description": "Loads every split-level coverage and integrity check without sampling. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+          "engine": "sqlite3",
+          "executed_at": "2026-08-11T13:17:27.688316Z",
+          "filters": [
+            "No rows omitted"
+          ],
+          "language": "sql",
+          "sql": "SELECT * FROM report_rows",
+          "tables_used": [
+            "user_data/reports/pro_day/data_quality_splits.csv",
+            "main.report_rows"
+          ]
+        }
+      },
+      {
+        "id": "dq_reconciliation_csv",
+        "label": "Timeframe reconciliation checks",
+        "path": "user_data/reports/pro_day/data_quality_reconciliation.csv",
+        "query": {
+          "description": "Loads all aggregate 5m-to-15m/1h/4h reconciliation checks. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+          "engine": "sqlite3",
+          "executed_at": "2026-08-11T13:17:27.688316Z",
+          "filters": [
+            "No rows omitted"
+          ],
+          "language": "sql",
+          "metric_definitions": [
+            "PASS requires mismatch_days_pct to be no greater than maximum_mismatch_days_pct.",
+            "Chart counts include explicit zero rows for the absent PASS/FAIL status within each split."
+          ],
+          "sql": "SELECT * FROM report_rows",
+          "tables_used": [
+            "user_data/reports/pro_day/data_quality_reconciliation.csv",
+            "main.report_rows"
+          ]
+        }
+      },
+      {
+        "id": "dq_reconciliation_daily_csv",
+        "label": "Daily timeframe reconciliation detail",
+        "path": "user_data/reports/pro_day/data_quality_reconciliation_daily.csv",
+        "query": {
+          "description": "Loads the exact failed daily rows into the bounded report; the complete CSV remains the canonical source. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+          "engine": "sqlite3",
+          "executed_at": "2026-08-11T13:17:27.688316Z",
+          "filters": [
+            "Visible table includes status = FAIL only",
+            "All failed rows retained"
+          ],
+          "language": "sql",
+          "sql": "SELECT * FROM report_rows",
+          "tables_used": [
+            "user_data/reports/pro_day/data_quality_reconciliation_daily.csv",
+            "main.report_rows"
+          ]
+        }
+      },
+      {
+        "id": "dq_gaps_csv",
+        "label": "Documented and undocumented gap audit",
+        "path": "user_data/reports/pro_day/data_quality_gaps.csv",
+        "query": {
+          "description": "Loads all recorded gap rows without sampling. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+          "engine": "sqlite3",
+          "executed_at": "2026-08-11T13:17:27.688316Z",
+          "filters": [
+            "No rows omitted"
+          ],
+          "language": "sql",
+          "sql": "SELECT * FROM report_rows",
+          "tables_used": [
+            "user_data/reports/pro_day/data_quality_gaps.csv",
+            "main.report_rows"
+          ]
+        }
+      },
+      {
+        "id": "final_decision_json",
+        "label": "ProDay final evaluator decision",
+        "path": "user_data/reports/pro_day/final_decision.json",
+        "query": {
+          "description": "Reads a caller-provided saved evaluator decision and its locked gate rows. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+          "engine": "sqlite3",
+          "executed_at": "2026-08-11T13:17:27.688316Z",
+          "language": "sql",
+          "sql": "SELECT * FROM report_rows",
+          "tables_used": [
+            "user_data/reports/pro_day/final_decision.json",
+            "main.report_rows"
+          ]
+        }
+      },
+      {
+        "id": "orderflow_json",
+        "label": "Local order-flow compatibility evidence",
+        "path": "user_data/reports/pro_day/orderflow_compatibility.json",
+        "query": {
+          "description": "Reads caller-provided local compatibility evidence; it is not a qualification gate. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+          "engine": "sqlite3",
+          "executed_at": "2026-08-11T13:17:27.688316Z",
+          "language": "sql",
+          "sql": "SELECT * FROM report_rows",
+          "tables_used": [
+            "user_data/reports/pro_day/orderflow_compatibility.json",
+            "main.report_rows"
+          ]
+        }
+      },
+      {
+        "id": "deployment_json",
+        "label": "Deployment and runtime isolation evidence",
+        "path": "user_data/reports/pro_day/vps_deployment_evidence.json",
+        "query": {
+          "description": "Reads caller-provided saved deployment evidence without contacting the VPS. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+          "engine": "sqlite3",
+          "executed_at": "2026-08-11T13:17:27.688316Z",
+          "language": "sql",
+          "sql": "SELECT * FROM report_rows",
+          "tables_used": [
+            "user_data/reports/pro_day/vps_deployment_evidence.json",
+            "main.report_rows"
+          ]
+        }
+      },
+      {
+        "id": "archive_security_json",
+        "label": "Backtest archive security audit",
+        "path": "user_data/reports/pro_day/archive_security_audit.json",
+        "query": {
+          "description": "Reads caller-provided aggregate ZIP integrity, config cardinality, redaction and ProDay archive-presence evidence; no archive contents are embedded. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+          "engine": "sqlite3",
+          "executed_at": "2026-08-11T13:17:27.688316Z",
+          "language": "sql",
+          "sql": "SELECT * FROM report_rows",
+          "tables_used": [
+            "user_data/reports/pro_day/archive_security_audit.json",
+            "main.report_rows"
+          ]
+        }
+      }
+    ],
+    "surface": "report",
+    "tables": [
+      {
+        "columns": [
+          {
+            "field": "data_status",
+            "label": "Data gate",
+            "type": "text"
+          },
+          {
+            "field": "qualification_pnl_status",
+            "label": "Qualification PnL",
+            "type": "text"
+          },
+          {
+            "field": "files_passed",
+            "label": "Files PASS",
+            "type": "number"
+          },
+          {
+            "field": "files_total",
+            "label": "Files total",
+            "type": "number"
+          },
+          {
+            "field": "split_checks_passed",
+            "label": "Split checks PASS",
+            "type": "number"
+          },
+          {
+            "field": "split_checks_total",
+            "label": "Split checks total",
+            "type": "number"
+          },
+          {
+            "field": "reconciliation_checks_passed",
+            "label": "Reconciliation PASS",
+            "type": "number"
+          },
+          {
+            "field": "reconciliation_checks_failed",
+            "label": "Reconciliation FAIL",
+            "type": "number"
+          },
+          {
+            "field": "failed_daily_check_rows",
+            "label": "FAIL day-check rows",
+            "type": "number"
+          },
+          {
+            "field": "failed_daily_distinct_utc_dates",
+            "label": "Distinct FAIL UTC dates",
+            "type": "number"
+          },
+          {
+            "field": "critical_failure_rows",
+            "label": "Critical failures",
+            "type": "number"
+          }
+        ],
+        "dataset": "audit_summary",
+        "density": "dense",
+        "id": "audit_summary_table",
+        "layout": "full",
+        "sourceId": "data_quality_json",
+        "subtitle": "Ακριβείς μετρήσεις από τα αποθηκευμένα data-quality outputs.",
+        "title": "Κατάσταση του pre-PnL audit"
+      },
+      {
+        "columns": [
+          {
+            "field": "split",
+            "label": "Split",
+            "type": "text"
+          },
+          {
+            "field": "pair",
+            "label": "Pair",
+            "type": "text"
+          },
+          {
+            "field": "timeframe",
+            "label": "Timeframe",
+            "type": "text"
+          },
+          {
+            "field": "compared_days",
+            "label": "Compared days",
+            "type": "number"
+          },
+          {
+            "field": "mismatch_days",
+            "label": "Mismatch days",
+            "type": "number"
+          },
+          {
+            "field": "mismatch_days_pct",
+            "label": "Mismatch days (%)",
+            "type": "number"
+          },
+          {
+            "field": "maximum_mismatch_days_pct",
+            "label": "Μέγιστο (%)",
+            "type": "number"
+          },
+          {
+            "field": "status",
+            "label": "Status",
+            "type": "text"
+          }
+        ],
+        "dataset": "reconciliation_checks",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "split"
+        },
+        "density": "dense",
+        "id": "reconciliation_table",
+        "layout": "full",
+        "sourceId": "dq_reconciliation_csv",
+        "subtitle": "Κάθε pair, timeframe και locked split· mismatch-days όριο 0.20%.",
+        "title": "Όλοι οι aggregate reconciliation checks"
+      },
+      {
+        "columns": [
+          {
+            "field": "split",
+            "label": "Split",
+            "type": "text"
+          },
+          {
+            "field": "pair",
+            "label": "Pair",
+            "type": "text"
+          },
+          {
+            "field": "timeframe",
+            "label": "Timeframe",
+            "type": "text"
+          },
+          {
+            "field": "date_utc",
+            "label": "Ημέρα UTC",
+            "type": "date"
+          },
+          {
+            "field": "complete_5m_bins",
+            "label": "Complete 5m bins",
+            "type": "number"
+          },
+          {
+            "field": "missing_native_bins",
+            "label": "Missing native",
+            "type": "number"
+          },
+          {
+            "field": "duplicate_native_bins",
+            "label": "Duplicate native",
+            "type": "number"
+          },
+          {
+            "field": "mismatched_bins",
+            "label": "Mismatched bins",
+            "type": "number"
+          },
+          {
+            "field": "mismatch_fields",
+            "label": "Fields",
+            "type": "text"
+          },
+          {
+            "field": "status",
+            "label": "Status",
+            "type": "text"
+          }
+        ],
+        "dataset": "reconciliation_daily_failures",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "date_utc"
+        },
+        "density": "dense",
+        "id": "daily_failure_table",
+        "layout": "full",
+        "sourceId": "dq_reconciliation_daily_csv",
+        "subtitle": "Όλα και μόνο τα FAIL pair/timeframe/day check rows· το πλήρες daily CSV παραμένει διαθέσιμο από το source affordance.",
+        "title": "Ημερήσιες αποκλίσεις που απέτυχαν"
+      },
+      {
+        "columns": [
+          {
+            "field": "code",
+            "label": "Code",
+            "type": "text"
+          },
+          {
+            "field": "severity",
+            "label": "Severity",
+            "type": "text"
+          },
+          {
+            "field": "split",
+            "label": "Split",
+            "type": "text"
+          },
+          {
+            "field": "pair",
+            "label": "Pair",
+            "type": "text"
+          },
+          {
+            "field": "timeframe",
+            "label": "Timeframe",
+            "type": "text"
+          },
+          {
+            "field": "detail",
+            "label": "Detail",
+            "type": "text"
+          }
+        ],
+        "dataset": "failure_register",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "split"
+        },
+        "density": "dense",
+        "id": "failure_register_table",
+        "layout": "full",
+        "sourceId": "data_quality_json",
+        "subtitle": "Οι εγγραφές που οδήγησαν το data gate σε DATA_BLOCKED.",
+        "title": "Critical failure register"
+      },
+      {
+        "columns": [
+          {
+            "field": "split",
+            "label": "Split",
+            "type": "text"
+          },
+          {
+            "field": "pair",
+            "label": "Pair",
+            "type": "text"
+          },
+          {
+            "field": "timeframe",
+            "label": "Timeframe",
+            "type": "text"
+          },
+          {
+            "field": "expected_candles",
+            "label": "Expected",
+            "type": "number"
+          },
+          {
+            "field": "observed_candles",
+            "label": "Observed",
+            "type": "number"
+          },
+          {
+            "field": "missing_candles",
+            "label": "Missing",
+            "type": "number"
+          },
+          {
+            "field": "coverage_pct",
+            "label": "Coverage (%)",
+            "type": "number"
+          },
+          {
+            "field": "undocumented_gaps_over_limit",
+            "label": "Gaps over limit",
+            "type": "number"
+          },
+          {
+            "field": "status",
+            "label": "Status",
+            "type": "text"
+          }
+        ],
+        "dataset": "split_checks",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "split"
+        },
+        "density": "dense",
+        "id": "split_checks_table",
+        "layout": "full",
+        "sourceId": "dq_splits_csv",
+        "subtitle": "Όλοι οι pair/timeframe/split έλεγχοι, χωρίς sampling.",
+        "title": "Coverage και integrity ανά split"
+      },
+      {
+        "columns": [
+          {
+            "field": "pair",
+            "label": "Pair",
+            "type": "text"
+          },
+          {
+            "field": "timeframe",
+            "label": "Timeframe",
+            "type": "text"
+          },
+          {
+            "field": "filename",
+            "label": "Filename",
+            "type": "text"
+          },
+          {
+            "field": "rows",
+            "label": "Rows",
+            "type": "number"
+          },
+          {
+            "field": "first_utc",
+            "label": "First UTC",
+            "type": "date"
+          },
+          {
+            "field": "last_utc",
+            "label": "Last UTC",
+            "type": "date"
+          },
+          {
+            "field": "download_window_coverage_pct",
+            "label": "Coverage (%)",
+            "type": "number"
+          },
+          {
+            "field": "duplicate_timestamps",
+            "label": "Duplicates",
+            "type": "number"
+          },
+          {
+            "field": "null_ohlcv_cells",
+            "label": "Null OHLCV",
+            "type": "number"
+          },
+          {
+            "field": "invalid_ohlc_rows",
+            "label": "Invalid OHLC",
+            "type": "number"
+          },
+          {
+            "field": "status",
+            "label": "Status",
+            "type": "text"
+          }
+        ],
+        "dataset": "file_checks",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "pair"
+        },
+        "density": "dense",
+        "id": "file_checks_table",
+        "layout": "full",
+        "sourceId": "dq_files_csv",
+        "subtitle": "Τα απαιτούμενα pair/timeframe αρχεία και οι ακριβείς integrity μετρήσεις τους.",
+        "title": "Native futures input files"
+      },
+      {
+        "columns": [
+          {
+            "field": "split",
+            "label": "Split",
+            "type": "text"
+          },
+          {
+            "field": "pair",
+            "label": "Pair",
+            "type": "text"
+          },
+          {
+            "field": "timeframe",
+            "label": "Timeframe",
+            "type": "text"
+          },
+          {
+            "field": "gap_start_utc",
+            "label": "Gap start UTC",
+            "type": "date"
+          },
+          {
+            "field": "gap_end_utc",
+            "label": "Gap end UTC",
+            "type": "date"
+          },
+          {
+            "field": "missing_candles",
+            "label": "Missing candles",
+            "type": "number"
+          },
+          {
+            "field": "documented",
+            "label": "Documented",
+            "type": "text"
+          },
+          {
+            "field": "over_limit",
+            "label": "Over limit",
+            "type": "text"
+          },
+          {
+            "field": "status",
+            "label": "Status",
+            "type": "text"
+          }
+        ],
+        "dataset": "gap_checks",
+        "density": "dense",
+        "id": "gap_checks_table",
+        "layout": "full",
+        "sourceId": "dq_gaps_csv",
+        "subtitle": "Ακριβές περιεχόμενο του gap audit· κενός πίνακας σημαίνει μηδέν καταγεγραμμένα gap rows.",
+        "title": "Gap register"
+      },
+      {
+        "columns": [
+          {
+            "field": "dimension",
+            "label": "Διάσταση",
+            "type": "text"
+          },
+          {
+            "field": "definition",
+            "label": "Ορισμός",
+            "type": "text"
+          },
+          {
+            "field": "requirement",
+            "label": "Κλειδωμένη απαίτηση",
+            "type": "text"
+          }
+        ],
+        "dataset": "scope_definitions",
+        "density": "dense",
+        "id": "scope_definitions_table",
+        "layout": "full",
+        "sourceId": "locked_plan",
+        "subtitle": "Universe, timeframes, windows και fail-closed qualification boundary του frozen plan.",
+        "title": "Scope και evidence boundary"
+      },
+      {
+        "columns": [
+          {
+            "field": "metric",
+            "label": "Metric",
+            "type": "text"
+          },
+          {
+            "field": "definition",
+            "label": "Ακριβής ορισμός",
+            "type": "text"
+          },
+          {
+            "field": "locked_requirement",
+            "label": "Locked requirement",
+            "type": "text"
+          }
+        ],
+        "dataset": "quality_definitions",
+        "density": "dense",
+        "id": "quality_definitions_table",
+        "layout": "full",
+        "sourceId": "data_quality_json",
+        "subtitle": "Οι ακριβείς ορισμοί που απαιτούνται για την ερμηνεία του data gate.",
+        "title": "Ορισμοί και locked thresholds"
+      },
+      {
+        "columns": [
+          {
+            "field": "field",
+            "label": "Field",
+            "type": "text"
+          },
+          {
+            "field": "value",
+            "label": "Value",
+            "type": "text"
+          }
+        ],
+        "dataset": "final_decision_fields",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "field"
+        },
+        "density": "dense",
+        "id": "final_decision_fields_table",
+        "layout": "full",
+        "sourceId": "final_decision_json",
+        "subtitle": "Top-level fields από το saved evaluator output, χωρίς schema inference.",
+        "title": "Caller-provided final decision fields"
+      },
+      {
+        "columns": [
+          {
+            "field": "field",
+            "label": "Field",
+            "type": "text"
+          },
+          {
+            "field": "value",
+            "label": "Value",
+            "type": "text"
+          }
+        ],
+        "dataset": "orderflow_fields",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "field"
+        },
+        "density": "dense",
+        "id": "orderflow_fields_table",
+        "layout": "full",
+        "sourceId": "orderflow_json",
+        "subtitle": "Saved local-only evidence· δεν αποτελεί qualification gate.",
+        "title": "Local order-flow compatibility evidence"
+      },
+      {
+        "columns": [
+          {
+            "field": "field",
+            "label": "Field",
+            "type": "text"
+          },
+          {
+            "field": "value",
+            "label": "Value",
+            "type": "text"
+          }
+        ],
+        "dataset": "deployment_fields",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "field"
+        },
+        "density": "dense",
+        "id": "deployment_fields_table",
+        "layout": "full",
+        "sourceId": "deployment_json",
+        "subtitle": "Saved caller-provided evidence· το report δεν έκανε live VPS query.",
+        "title": "Deployment isolation evidence"
+      },
+      {
+        "columns": [
+          {
+            "field": "field",
+            "label": "Field",
+            "type": "text"
+          },
+          {
+            "field": "value",
+            "label": "Value",
+            "type": "text"
+          }
+        ],
+        "dataset": "archive_security_fields",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "field"
+        },
+        "density": "dense",
+        "id": "archive_security_fields_table",
+        "layout": "full",
+        "sourceId": "archive_security_json",
+        "subtitle": "Aggregate integrity/redaction counts από το caller-provided audit· κανένα ZIP member ή config value δεν ενσωματώνεται.",
+        "title": "Backtest archive security audit"
+      }
+    ],
+    "title": "Τεχνικός Έλεγχος ProDayTraderV1",
+    "version": 1
+  },
+  "snapshot": {
+    "accessIssues": [
+      {
+        "dataset": "audit_summary",
+        "id": "pnl_not_run",
+        "message": "PnL NOT_RUN: το υποχρεωτικό data/source reconciliation gate είναι DATA_BLOCKED, άρα δεν υπάρχει qualification performance evidence.",
+        "scope": "qualification",
+        "sourceId": "data_quality_json"
+      }
+    ],
+    "datasets": {
+      "archive_security_fields": [
+        {
+          "field": "archive_count",
+          "value": "91"
+        },
+        {
+          "field": "audited_at_utc",
+          "value": "2026-08-11T13:26:54Z"
+        },
+        {
+          "field": "config_redaction_pass_count",
+          "value": "91"
+        },
+        {
+          "field": "config_snapshot_count",
+          "value": "91"
+        },
+        {
+          "field": "config_snapshot_exactly_one_pass_count",
+          "value": "91"
+        },
+        {
+          "field": "failure_count",
+          "value": "0"
+        },
+        {
+          "field": "pro_day_content_match_count",
+          "value": "0"
+        },
+        {
+          "field": "pro_day_filename_match_count",
+          "value": "0"
+        },
+        {
+          "field": "pro_day_zip_count",
+          "value": "0"
+        },
+        {
+          "field": "protected_field_checks_count",
+          "value": "455"
+        },
+        {
+          "field": "status",
+          "value": "PASS"
+        },
+        {
+          "field": "zip_integrity_pass_count",
+          "value": "91"
+        }
+      ],
+      "audit_summary": [
+        {
+          "candidate": "ProDayTraderV1",
+          "critical_failure_rows": 18,
+          "data_decision": "DATA_BLOCKED",
+          "data_status": "DATA_BLOCKED",
+          "documented_gap_rows": 0,
+          "failed_daily_check_rows": 79,
+          "failed_daily_distinct_utc_dates": 16,
+          "files_passed": 12,
+          "files_total": 12,
+          "final_decision": "REJECT_PRO_DAY_TRADER",
+          "final_decision_available": true,
+          "live_trading_authorized": false,
+          "pnl_evaluated": false,
+          "qualification_pnl_status": "NOT_RUN",
+          "reconciliation_checks_failed": 18,
+          "reconciliation_checks_passed": 9,
+          "reconciliation_checks_total": 27,
+          "split_checks_passed": 36,
+          "split_checks_total": 36
+        }
+      ],
+      "deployment_fields": [
+        {
+          "field": "automatic_promotion_enabled",
+          "value": "false"
+        },
+        {
+          "field": "backup_and_restore.backup_tool_post",
+          "value": "PASS"
+        },
+        {
+          "field": "backup_and_restore.backup_tool_pre",
+          "value": "PASS"
+        },
+        {
+          "field": "backup_and_restore.collector_post",
+          "value": "PASS"
+        },
+        {
+          "field": "backup_and_restore.collector_pre",
+          "value": "PASS"
+        },
+        {
+          "field": "backup_and_restore.derivatives_scope_in_post_backup",
+          "value": "user_data/data/binance/derivatives/**"
+        },
+        {
+          "field": "backup_and_restore.post_evidence_files_restored",
+          "value": "124"
+        },
+        {
+          "field": "backup_and_restore.sqlite_databases_verified_each_run",
+          "value": "2"
+        },
+        {
+          "field": "backup_and_restore.temporary_restore_removed",
+          "value": "true"
+        },
+        {
+          "field": "captured_at_utc",
+          "value": "2026-08-11T13:02:36.412687Z"
+        },
+        {
+          "field": "collector.collector_sha256",
+          "value": "6fb18257e227ffbdf85b4713a1be2b37169107953c631eade9f14a00fd13be1a"
+        },
+        {
+          "field": "collector.compose_sha256",
+          "value": "29af5466ee7368f8f4a7842a2f7763448e8408ff5ddbc4446e0a3ff4735b43d8"
+        },
+        {
+          "field": "collector.container",
+          "value": "trading-derivatives-collector"
+        },
+        {
+          "field": "collector.credential_mode",
+          "value": "PUBLIC_NO_CREDENTIALS"
+        },
+        {
+          "field": "collector.data_file_count",
+          "value": "26"
+        },
+        {
+          "field": "collector.dataset_count",
+          "value": "24"
+        },
+        {
+          "field": "collector.docker_health",
+          "value": "healthy"
+        },
+        {
+          "field": "collector.memory_usage",
+          "value": "33.7MiB / 256MiB"
+        },
+        {
+          "field": "collector.published_ports",
+          "value": "0"
+        },
+        {
+          "field": "collector.restart_count",
+          "value": "0"
+        },
+        {
+          "field": "collector.service",
+          "value": "derivatives-collector"
+        },
+        {
+          "field": "collector.status",
+          "value": "HEALTHY"
+        },
+        {
+          "field": "collector.total_row_count",
+          "value": "74496"
+        },
+        {
+          "field": "existing_services.container_ids_unchanged",
+          "value": "true"
+        },
+        {
+          "field": "existing_services.count_after",
+          "value": "7"
+        },
+        {
+          "field": "existing_services.count_before",
+          "value": "7"
+        },
+        {
+          "field": "existing_services.restart_counts_after",
+          "value": "0"
+        },
+        {
+          "field": "existing_services.v1_healthy",
+          "value": "true"
+        },
+        {
+          "field": "existing_services.v2r_healthy",
+          "value": "true"
+        },
+        {
+          "field": "final_read_only_acceptance.automatic_live_launch",
+          "value": "false"
+        },
+        {
+          "field": "final_read_only_acceptance.automatic_promotion_enabled",
+          "value": "false"
+        },
+        {
+          "field": "final_read_only_acceptance.checked_window_utc",
+          "value": "2026-08-11T13:19:00Z/2026-08-11T13:20:59Z"
+        },
+        {
+          "field": "final_read_only_acceptance.collector.all_fresh",
+          "value": "true"
+        },
+        {
+          "field": "final_read_only_acceptance.collector.credential_mode",
+          "value": "PUBLIC_NO_CREDENTIALS"
+        },
+        {
+          "field": "final_read_only_acceptance.collector.dataset_count",
+          "value": "24"
+        },
+        {
+          "field": "final_read_only_acceptance.collector.latest_observation_utc",
+          "value": "2026-08-11T13:20:00Z"
+        },
+        {
+          "field": "final_read_only_acceptance.collector.memory_usage",
+          "value": "33.98MiB / 256MiB"
+        },
+        {
+          "field": "final_read_only_acceptance.collector.published_ports",
+          "value": "0"
+        },
+        {
+          "field": "final_read_only_acceptance.collector.status",
+          "value": "READY"
+        },
+        {
+          "field": "final_read_only_acceptance.collector.total_row_count",
+          "value": "74535"
+        },
+        {
+          "field": "final_read_only_acceptance.config_or_env_values_read",
+          "value": "false"
+        },
+        {
+          "field": "final_read_only_acceptance.container_restart_count_total",
+          "value": "0"
+        },
+        {
+          "field": "final_read_only_acceptance.containers_running",
+          "value": "8"
+        },
+        {
+          "field": "final_read_only_acceptance.docker_health_healthy[0]",
+          "value": "freqtrade"
+        },
+        {
+          "field": "final_read_only_acceptance.docker_health_healthy[1]",
+          "value": "freqtrade-v2r"
+        },
+        {
+          "field": "final_read_only_acceptance.docker_health_healthy[2]",
+          "value": "derivatives-collector"
+        },
+        {
+          "field": "final_read_only_acceptance.existing_container_ids_unchanged",
+          "value": "true"
+        },
+        {
+          "field": "final_read_only_acceptance.forward_decision",
+          "value": "INSUFFICIENT_FORWARD_SAMPLE"
+        },
+        {
+          "field": "final_read_only_acceptance.forward_qualification_status",
+          "value": "EVIDENCE_INCOMPLETE"
+        },
+        {
+          "field": "final_read_only_acceptance.host_resources.memory_available_bytes",
+          "value": "2206617600"
+        },
+        {
+          "field": "final_read_only_acceptance.host_resources.memory_total_bytes",
+          "value": "4106432512"
+        },
+        {
+          "field": "final_read_only_acceptance.host_resources.root_disk_available_bytes",
+          "value": "24590684160"
+        },
+        {
+          "field": "final_read_only_acceptance.host_resources.root_disk_total_bytes",
+          "value": "31608864768"
+        },
+        {
+          "field": "final_read_only_acceptance.host_resources.root_disk_used_percent",
+          "value": "19"
+        },
+        {
+          "field": "final_read_only_acceptance.host_resources.swap_total_bytes",
+          "value": "0"
+        },
+        {
+          "field": "final_read_only_acceptance.live_trading_authorized",
+          "value": "false"
+        },
+        {
+          "field": "final_read_only_acceptance.loopback_published_ports[0]",
+          "value": "127.0.0.1:8080"
+        },
+        {
+          "field": "final_read_only_acceptance.loopback_published_ports[1]",
+          "value": "127.0.0.1:8081"
+        },
+        {
+          "field": "final_read_only_acceptance.loopback_published_ports[2]",
+          "value": "127.0.0.1:8090"
+        },
+        {
+          "field": "final_read_only_acceptance.mutations_performed",
+          "value": "false"
+        },
+        {
+          "field": "final_read_only_acceptance.running_without_docker_healthcheck_count",
+          "value": "5"
+        },
+        {
+          "field": "final_read_only_acceptance.strict_host_key_checking",
+          "value": "true"
+        },
+        {
+          "field": "final_read_only_acceptance.watchdog.snapshot_age_seconds",
+          "value": "4141.106"
+        },
+        {
+          "field": "final_read_only_acceptance.watchdog.stale_after_seconds",
+          "value": "18000"
+        },
+        {
+          "field": "final_read_only_acceptance.watchdog.status",
+          "value": "FRESH"
+        },
+        {
+          "field": "forward_decision",
+          "value": "INSUFFICIENT_FORWARD_SAMPLE"
+        },
+        {
+          "field": "forward_qualification_status",
+          "value": "EVIDENCE_INCOMPLETE"
+        },
+        {
+          "field": "live_trading_authorized",
+          "value": "false"
+        },
+        {
+          "field": "pro_day_bot_deployed",
+          "value": "false"
+        },
+        {
+          "field": "schema_version",
+          "value": "1.0"
+        },
+        {
+          "field": "scope",
+          "value": "PUBLIC_DERIVATIVES_COLLECTOR_ONLY"
+        },
+        {
+          "field": "total_services_after",
+          "value": "8"
+        },
+        {
+          "field": "total_services_before",
+          "value": "7"
+        },
+        {
+          "field": "watchdog.checked_at_utc",
+          "value": "2026-08-11T13:02:36.412687Z"
+        },
+        {
+          "field": "watchdog.snapshot_age_seconds",
+          "value": "3059.549711"
+        },
+        {
+          "field": "watchdog.stale_after_seconds",
+          "value": "18000"
+        },
+        {
+          "field": "watchdog.status",
+          "value": "FRESH"
+        }
+      ],
+      "failure_register": [
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.27397260, compared_days=1095",
+          "pair": "BTC/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "TRAIN",
+          "timeframe": "15m"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.41039672, compared_days=731",
+          "pair": "BTC/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "VALIDATION",
+          "timeframe": "15m"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.27397260, compared_days=1095",
+          "pair": "BTC/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "TRAIN",
+          "timeframe": "1h"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.68399453, compared_days=731",
+          "pair": "BTC/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "VALIDATION",
+          "timeframe": "1h"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+          "pair": "BTC/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "TRAIN",
+          "timeframe": "4h"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.68399453, compared_days=731",
+          "pair": "BTC/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "VALIDATION",
+          "timeframe": "4h"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+          "pair": "ETH/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "TRAIN",
+          "timeframe": "15m"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.41039672, compared_days=731",
+          "pair": "ETH/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "VALIDATION",
+          "timeframe": "15m"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+          "pair": "ETH/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "TRAIN",
+          "timeframe": "1h"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.68399453, compared_days=731",
+          "pair": "ETH/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "VALIDATION",
+          "timeframe": "1h"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.63926941, compared_days=1095",
+          "pair": "ETH/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "TRAIN",
+          "timeframe": "4h"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.68399453, compared_days=731",
+          "pair": "ETH/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "VALIDATION",
+          "timeframe": "4h"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+          "pair": "BNB/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "TRAIN",
+          "timeframe": "15m"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.27359781, compared_days=731",
+          "pair": "BNB/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "VALIDATION",
+          "timeframe": "15m"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+          "pair": "BNB/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "TRAIN",
+          "timeframe": "1h"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.54719562, compared_days=731",
+          "pair": "BNB/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "VALIDATION",
+          "timeframe": "1h"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.45662100, compared_days=1095",
+          "pair": "BNB/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "TRAIN",
+          "timeframe": "4h"
+        },
+        {
+          "code": "TIMEFRAME_RECONCILIATION_FAILED",
+          "detail": "mismatch_days_pct=0.54719562, compared_days=731",
+          "pair": "BNB/USDT:USDT",
+          "severity": "CRITICAL",
+          "split": "VALIDATION",
+          "timeframe": "4h"
+        }
+      ],
+      "file_checks": [
+        {
+          "bytes": "14749050",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "596160",
+          "download_window_observed_candles": "596160",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "BTC_USDT_USDT-5m-futures.feather",
+          "first_utc": "2020-12-01T00:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-01T23:55:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "BTC/USDT:USDT",
+          "path": "user_data/data/binance/futures/BTC_USDT_USDT-5m-futures.feather",
+          "rows": "596160",
+          "sha256": "31607bec5bcb3a4afa6f6f94be8e6e592906f65269f4674e4a8fd34c5693815f",
+          "status": "PASS",
+          "timeframe": "5m"
+        },
+        {
+          "bytes": "5125546",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "198720",
+          "download_window_observed_candles": "198720",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "BTC_USDT_USDT-15m-futures.feather",
+          "first_utc": "2020-12-01T00:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-01T23:45:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "BTC/USDT:USDT",
+          "path": "user_data/data/binance/futures/BTC_USDT_USDT-15m-futures.feather",
+          "rows": "198720",
+          "sha256": "6d2153181ae36b10d66092bdf1f77cb11dc99f7829191c23f504713cbbf48061",
+          "status": "PASS",
+          "timeframe": "15m"
+        },
+        {
+          "bytes": "1336890",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "49680",
+          "download_window_observed_candles": "49680",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "BTC_USDT_USDT-1h-futures.feather",
+          "first_utc": "2020-12-01T00:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-11T02:00:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "BTC/USDT:USDT",
+          "path": "user_data/data/binance/futures/BTC_USDT_USDT-1h-futures.feather",
+          "rows": "49899",
+          "sha256": "ae669c0dccdefdec74c0900291100d9ad647cb6e92d44b3dfcbc26c6831fb574",
+          "status": "PASS",
+          "timeframe": "1h"
+        },
+        {
+          "bytes": "427962",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "12420",
+          "download_window_observed_candles": "12420",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "BTC_USDT_USDT-4h-futures.feather",
+          "first_utc": "2019-09-08T16:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-03T08:00:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "BTC/USDT:USDT",
+          "path": "user_data/data/binance/futures/BTC_USDT_USDT-4h-futures.feather",
+          "rows": "15125",
+          "sha256": "51ee708749dd384438fc363b4520c4cadae883384babf20c4a381ca15014647e",
+          "status": "PASS",
+          "timeframe": "4h"
+        },
+        {
+          "bytes": "14767306",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "596160",
+          "download_window_observed_candles": "596160",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "ETH_USDT_USDT-5m-futures.feather",
+          "first_utc": "2020-12-01T00:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-01T23:55:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "ETH/USDT:USDT",
+          "path": "user_data/data/binance/futures/ETH_USDT_USDT-5m-futures.feather",
+          "rows": "596160",
+          "sha256": "e0c821aa302873bbe83ead01741e038bc1986fd4e50201b33c6db065c80f517c",
+          "status": "PASS",
+          "timeframe": "5m"
+        },
+        {
+          "bytes": "5097370",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "198720",
+          "download_window_observed_candles": "198720",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "ETH_USDT_USDT-15m-futures.feather",
+          "first_utc": "2020-12-01T00:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-01T23:45:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "ETH/USDT:USDT",
+          "path": "user_data/data/binance/futures/ETH_USDT_USDT-15m-futures.feather",
+          "rows": "198720",
+          "sha256": "20433eb32bfe1829216a9b4336521349f6cb8afec31e9ab8c20ab0c08714e108",
+          "status": "PASS",
+          "timeframe": "15m"
+        },
+        {
+          "bytes": "1322202",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "49680",
+          "download_window_observed_candles": "49680",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "ETH_USDT_USDT-1h-futures.feather",
+          "first_utc": "2020-12-01T00:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-11T02:00:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "ETH/USDT:USDT",
+          "path": "user_data/data/binance/futures/ETH_USDT_USDT-1h-futures.feather",
+          "rows": "49899",
+          "sha256": "848b26dd86645745e7d18ce06145709b02d3ad6839379773c344715175d426d8",
+          "status": "PASS",
+          "timeframe": "1h"
+        },
+        {
+          "bytes": "403610",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "12420",
+          "download_window_observed_candles": "12420",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "ETH_USDT_USDT-4h-futures.feather",
+          "first_utc": "2019-11-27T04:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-03T08:00:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "ETH/USDT:USDT",
+          "path": "user_data/data/binance/futures/ETH_USDT_USDT-4h-futures.feather",
+          "rows": "14648",
+          "sha256": "f84a2c198b9d7fc404c2f60c2835011f729a661fc31c6d039e87ba3c0010e5f9",
+          "status": "PASS",
+          "timeframe": "4h"
+        },
+        {
+          "bytes": "13320402",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "596160",
+          "download_window_observed_candles": "596160",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "BNB_USDT_USDT-5m-futures.feather",
+          "first_utc": "2020-12-01T00:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-01T23:55:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "BNB/USDT:USDT",
+          "path": "user_data/data/binance/futures/BNB_USDT_USDT-5m-futures.feather",
+          "rows": "596160",
+          "sha256": "daef207f478695eaff158a30f1070cb9c636deecb477f66a438fee3749452688",
+          "status": "PASS",
+          "timeframe": "5m"
+        },
+        {
+          "bytes": "4672962",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "198720",
+          "download_window_observed_candles": "198720",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "BNB_USDT_USDT-15m-futures.feather",
+          "first_utc": "2020-12-01T00:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-01T23:45:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "BNB/USDT:USDT",
+          "path": "user_data/data/binance/futures/BNB_USDT_USDT-15m-futures.feather",
+          "rows": "198720",
+          "sha256": "94c0eb11287bd4ac9b9d87d24dab4588cfb50c8eebfc2c3306ab71d5a2e0f514",
+          "status": "PASS",
+          "timeframe": "15m"
+        },
+        {
+          "bytes": "1236770",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "49680",
+          "download_window_observed_candles": "49680",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "BNB_USDT_USDT-1h-futures.feather",
+          "first_utc": "2020-12-01T00:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-11T02:00:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "BNB/USDT:USDT",
+          "path": "user_data/data/binance/futures/BNB_USDT_USDT-1h-futures.feather",
+          "rows": "49899",
+          "sha256": "cc907c5900ee757f5dae31f80ad64cc222087bd9afbf6828a5ed2958356e7875",
+          "status": "PASS",
+          "timeframe": "1h"
+        },
+        {
+          "bytes": "375906",
+          "download_window_coverage_pct": "100.0",
+          "download_window_expected_candles": "12420",
+          "download_window_observed_candles": "12420",
+          "duplicate_timestamps": "0",
+          "error": "",
+          "exists": "True",
+          "filename": "BNB_USDT_USDT-4h-futures.feather",
+          "first_utc": "2020-02-10T08:00:00Z",
+          "invalid_ohlc_rows": "0",
+          "last_utc": "2026-08-03T08:00:00Z",
+          "misaligned_timestamps": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "null_timestamps": "0",
+          "pair": "BNB/USDT:USDT",
+          "path": "user_data/data/binance/futures/BNB_USDT_USDT-4h-futures.feather",
+          "rows": "14197",
+          "sha256": "86dd0f877e5bce3c3756b549113b154b9b7731c1556d2b071f6fdf0b97b58fd2",
+          "status": "PASS",
+          "timeframe": "4h"
+        }
+      ],
+      "final_decision_fields": [
+        {
+          "field": "absence_checks.freeze_manifest_present",
+          "value": "false"
+        },
+        {
+          "field": "absence_checks.pro_day_backtest_zip_count",
+          "value": "0"
+        },
+        {
+          "field": "absence_checks.ready_artifacts_present",
+          "value": "false"
+        },
+        {
+          "field": "automatic_promotion_authorized",
+          "value": "false"
+        },
+        {
+          "field": "backtest_executed",
+          "value": "false"
+        },
+        {
+          "field": "candidate",
+          "value": "ProDayTraderV1"
+        },
+        {
+          "field": "data_gate.audit.bytes",
+          "value": "5807607"
+        },
+        {
+          "field": "data_gate.audit.filename",
+          "value": "data_quality.json"
+        },
+        {
+          "field": "data_gate.audit.path",
+          "value": "user_data/reports/pro_day/data_quality.json"
+        },
+        {
+          "field": "data_gate.audit.sha256",
+          "value": "6821267ea34ff5de12035ea19bddd251ab549772c6cac46a5eede4b19c619bf9"
+        },
+        {
+          "field": "data_gate.critical_failure_codes[0]",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failure_count",
+          "value": "18"
+        },
+        {
+          "field": "data_gate.critical_failures[0].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[0].detail",
+          "value": "mismatch_days_pct=0.45662100, compared_days=1095"
+        },
+        {
+          "field": "data_gate.critical_failures[0].pair",
+          "value": "BNB/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[0].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[0].split",
+          "value": "TRAIN"
+        },
+        {
+          "field": "data_gate.critical_failures[0].timeframe",
+          "value": "15m"
+        },
+        {
+          "field": "data_gate.critical_failures[1].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[1].detail",
+          "value": "mismatch_days_pct=0.45662100, compared_days=1095"
+        },
+        {
+          "field": "data_gate.critical_failures[1].pair",
+          "value": "BNB/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[1].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[1].split",
+          "value": "TRAIN"
+        },
+        {
+          "field": "data_gate.critical_failures[1].timeframe",
+          "value": "1h"
+        },
+        {
+          "field": "data_gate.critical_failures[2].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[2].detail",
+          "value": "mismatch_days_pct=0.45662100, compared_days=1095"
+        },
+        {
+          "field": "data_gate.critical_failures[2].pair",
+          "value": "BNB/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[2].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[2].split",
+          "value": "TRAIN"
+        },
+        {
+          "field": "data_gate.critical_failures[2].timeframe",
+          "value": "4h"
+        },
+        {
+          "field": "data_gate.critical_failures[3].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[3].detail",
+          "value": "mismatch_days_pct=0.27397260, compared_days=1095"
+        },
+        {
+          "field": "data_gate.critical_failures[3].pair",
+          "value": "BTC/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[3].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[3].split",
+          "value": "TRAIN"
+        },
+        {
+          "field": "data_gate.critical_failures[3].timeframe",
+          "value": "15m"
+        },
+        {
+          "field": "data_gate.critical_failures[4].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[4].detail",
+          "value": "mismatch_days_pct=0.27397260, compared_days=1095"
+        },
+        {
+          "field": "data_gate.critical_failures[4].pair",
+          "value": "BTC/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[4].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[4].split",
+          "value": "TRAIN"
+        },
+        {
+          "field": "data_gate.critical_failures[4].timeframe",
+          "value": "1h"
+        },
+        {
+          "field": "data_gate.critical_failures[5].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[5].detail",
+          "value": "mismatch_days_pct=0.45662100, compared_days=1095"
+        },
+        {
+          "field": "data_gate.critical_failures[5].pair",
+          "value": "BTC/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[5].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[5].split",
+          "value": "TRAIN"
+        },
+        {
+          "field": "data_gate.critical_failures[5].timeframe",
+          "value": "4h"
+        },
+        {
+          "field": "data_gate.critical_failures[6].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[6].detail",
+          "value": "mismatch_days_pct=0.45662100, compared_days=1095"
+        },
+        {
+          "field": "data_gate.critical_failures[6].pair",
+          "value": "ETH/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[6].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[6].split",
+          "value": "TRAIN"
+        },
+        {
+          "field": "data_gate.critical_failures[6].timeframe",
+          "value": "15m"
+        },
+        {
+          "field": "data_gate.critical_failures[7].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[7].detail",
+          "value": "mismatch_days_pct=0.45662100, compared_days=1095"
+        },
+        {
+          "field": "data_gate.critical_failures[7].pair",
+          "value": "ETH/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[7].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[7].split",
+          "value": "TRAIN"
+        },
+        {
+          "field": "data_gate.critical_failures[7].timeframe",
+          "value": "1h"
+        },
+        {
+          "field": "data_gate.critical_failures[8].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[8].detail",
+          "value": "mismatch_days_pct=0.63926941, compared_days=1095"
+        },
+        {
+          "field": "data_gate.critical_failures[8].pair",
+          "value": "ETH/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[8].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[8].split",
+          "value": "TRAIN"
+        },
+        {
+          "field": "data_gate.critical_failures[8].timeframe",
+          "value": "4h"
+        },
+        {
+          "field": "data_gate.critical_failures[9].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[9].detail",
+          "value": "mismatch_days_pct=0.27359781, compared_days=731"
+        },
+        {
+          "field": "data_gate.critical_failures[9].pair",
+          "value": "BNB/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[9].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[9].split",
+          "value": "VALIDATION"
+        },
+        {
+          "field": "data_gate.critical_failures[9].timeframe",
+          "value": "15m"
+        },
+        {
+          "field": "data_gate.critical_failures[10].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[10].detail",
+          "value": "mismatch_days_pct=0.54719562, compared_days=731"
+        },
+        {
+          "field": "data_gate.critical_failures[10].pair",
+          "value": "BNB/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[10].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[10].split",
+          "value": "VALIDATION"
+        },
+        {
+          "field": "data_gate.critical_failures[10].timeframe",
+          "value": "1h"
+        },
+        {
+          "field": "data_gate.critical_failures[11].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[11].detail",
+          "value": "mismatch_days_pct=0.54719562, compared_days=731"
+        },
+        {
+          "field": "data_gate.critical_failures[11].pair",
+          "value": "BNB/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[11].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[11].split",
+          "value": "VALIDATION"
+        },
+        {
+          "field": "data_gate.critical_failures[11].timeframe",
+          "value": "4h"
+        },
+        {
+          "field": "data_gate.critical_failures[12].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[12].detail",
+          "value": "mismatch_days_pct=0.41039672, compared_days=731"
+        },
+        {
+          "field": "data_gate.critical_failures[12].pair",
+          "value": "BTC/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[12].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[12].split",
+          "value": "VALIDATION"
+        },
+        {
+          "field": "data_gate.critical_failures[12].timeframe",
+          "value": "15m"
+        },
+        {
+          "field": "data_gate.critical_failures[13].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[13].detail",
+          "value": "mismatch_days_pct=0.68399453, compared_days=731"
+        },
+        {
+          "field": "data_gate.critical_failures[13].pair",
+          "value": "BTC/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[13].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[13].split",
+          "value": "VALIDATION"
+        },
+        {
+          "field": "data_gate.critical_failures[13].timeframe",
+          "value": "1h"
+        },
+        {
+          "field": "data_gate.critical_failures[14].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[14].detail",
+          "value": "mismatch_days_pct=0.68399453, compared_days=731"
+        },
+        {
+          "field": "data_gate.critical_failures[14].pair",
+          "value": "BTC/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[14].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[14].split",
+          "value": "VALIDATION"
+        },
+        {
+          "field": "data_gate.critical_failures[14].timeframe",
+          "value": "4h"
+        },
+        {
+          "field": "data_gate.critical_failures[15].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[15].detail",
+          "value": "mismatch_days_pct=0.41039672, compared_days=731"
+        },
+        {
+          "field": "data_gate.critical_failures[15].pair",
+          "value": "ETH/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[15].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[15].split",
+          "value": "VALIDATION"
+        },
+        {
+          "field": "data_gate.critical_failures[15].timeframe",
+          "value": "15m"
+        },
+        {
+          "field": "data_gate.critical_failures[16].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[16].detail",
+          "value": "mismatch_days_pct=0.68399453, compared_days=731"
+        },
+        {
+          "field": "data_gate.critical_failures[16].pair",
+          "value": "ETH/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[16].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[16].split",
+          "value": "VALIDATION"
+        },
+        {
+          "field": "data_gate.critical_failures[16].timeframe",
+          "value": "1h"
+        },
+        {
+          "field": "data_gate.critical_failures[17].code",
+          "value": "TIMEFRAME_RECONCILIATION_FAILED"
+        },
+        {
+          "field": "data_gate.critical_failures[17].detail",
+          "value": "mismatch_days_pct=0.68399453, compared_days=731"
+        },
+        {
+          "field": "data_gate.critical_failures[17].pair",
+          "value": "ETH/USDT:USDT"
+        },
+        {
+          "field": "data_gate.critical_failures[17].severity",
+          "value": "CRITICAL"
+        },
+        {
+          "field": "data_gate.critical_failures[17].split",
+          "value": "VALIDATION"
+        },
+        {
+          "field": "data_gate.critical_failures[17].timeframe",
+          "value": "4h"
+        },
+        {
+          "field": "data_gate.status",
+          "value": "DATA_BLOCKED"
+        },
+        {
+          "field": "data_gate.summary.failure_count",
+          "value": "18"
+        },
+        {
+          "field": "data_gate.summary.files_passed",
+          "value": "12"
+        },
+        {
+          "field": "data_gate.summary.files_total",
+          "value": "12"
+        },
+        {
+          "field": "data_gate.summary.reconciliation_checks_passed",
+          "value": "9"
+        },
+        {
+          "field": "data_gate.summary.reconciliation_checks_total",
+          "value": "27"
+        },
+        {
+          "field": "data_gate.summary.split_checks_passed",
+          "value": "36"
+        },
+        {
+          "field": "data_gate.summary.split_checks_total",
+          "value": "36"
+        },
+        {
+          "field": "decision",
+          "value": "REJECT_PRO_DAY_TRADER"
+        },
+        {
+          "field": "deployment_performed",
+          "value": "false"
+        },
+        {
+          "field": "dry_run_deployment_authorized",
+          "value": "false"
+        },
+        {
+          "field": "evidence_boundary",
+          "value": "Terminal rejection caused only by the locked pre-PnL data gate. No profitability metric, backtest result, or deployment evidence was parsed."
+        },
+        {
+          "field": "live_trading_authorized",
+          "value": "false"
+        },
+        {
+          "field": "locked_inputs.config.bytes",
+          "value": "1713"
+        },
+        {
+          "field": "locked_inputs.config.filename",
+          "value": "config-pro-day-research.json"
+        },
+        {
+          "field": "locked_inputs.config.path",
+          "value": "user_data/config-pro-day-research.json"
+        },
+        {
+          "field": "locked_inputs.config.sha256",
+          "value": "07b9bfbcf2137d0f5dab5fe4d2f60e5daa77e512e36dfcc1828f975cdeeb7352"
+        },
+        {
+          "field": "locked_inputs.plan.bytes",
+          "value": "16182"
+        },
+        {
+          "field": "locked_inputs.plan.filename",
+          "value": "pro_day_trader_v1_locked_plan.md"
+        },
+        {
+          "field": "locked_inputs.plan.path",
+          "value": "docs/pro_day_trader_v1_locked_plan.md"
+        },
+        {
+          "field": "locked_inputs.plan.sha256",
+          "value": "595e3c6558ef16d71d28273a3e49ec02cb77b4f26764c5890e84cda02463bfc0"
+        },
+        {
+          "field": "locked_inputs.risk_policy.bytes",
+          "value": "781"
+        },
+        {
+          "field": "locked_inputs.risk_policy.filename",
+          "value": "risk_policy.json"
+        },
+        {
+          "field": "locked_inputs.risk_policy.path",
+          "value": "user_data/risk_policy.json"
+        },
+        {
+          "field": "locked_inputs.risk_policy.sha256",
+          "value": "6a3e073fd08b21d645b0d4b4151022bef79adc610d8c130b36554a01e6f51e80"
+        },
+        {
+          "field": "locked_inputs.strategy.bytes",
+          "value": "28735"
+        },
+        {
+          "field": "locked_inputs.strategy.filename",
+          "value": "ProDayTraderV1.py"
+        },
+        {
+          "field": "locked_inputs.strategy.path",
+          "value": "user_data/strategies/ProDayTraderV1.py"
+        },
+        {
+          "field": "locked_inputs.strategy.sha256",
+          "value": "57ea7b59698c7abdfe26e00fcdf7896e4a8e108360fa4ad1e0b9ac20e5603a0a"
+        },
+        {
+          "field": "performance_status",
+          "value": "NOT_RUN_BY_LOCKED_DATA_GATE"
+        },
+        {
+          "field": "pnl_evaluated",
+          "value": "false"
+        },
+        {
+          "field": "research_status",
+          "value": "TERMINAL_DATA_BLOCKED"
+        },
+        {
+          "field": "schema_version",
+          "value": "1.0"
+        },
+        {
+          "field": "verified_data_files[0].bytes",
+          "value": "14749050"
+        },
+        {
+          "field": "verified_data_files[0].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[0].pair",
+          "value": "BTC/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[0].path",
+          "value": "user_data/data/binance/futures/BTC_USDT_USDT-5m-futures.feather"
+        },
+        {
+          "field": "verified_data_files[0].sha256",
+          "value": "31607bec5bcb3a4afa6f6f94be8e6e592906f65269f4674e4a8fd34c5693815f"
+        },
+        {
+          "field": "verified_data_files[0].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[0].timeframe",
+          "value": "5m"
+        },
+        {
+          "field": "verified_data_files[1].bytes",
+          "value": "5125546"
+        },
+        {
+          "field": "verified_data_files[1].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[1].pair",
+          "value": "BTC/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[1].path",
+          "value": "user_data/data/binance/futures/BTC_USDT_USDT-15m-futures.feather"
+        },
+        {
+          "field": "verified_data_files[1].sha256",
+          "value": "6d2153181ae36b10d66092bdf1f77cb11dc99f7829191c23f504713cbbf48061"
+        },
+        {
+          "field": "verified_data_files[1].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[1].timeframe",
+          "value": "15m"
+        },
+        {
+          "field": "verified_data_files[2].bytes",
+          "value": "1336890"
+        },
+        {
+          "field": "verified_data_files[2].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[2].pair",
+          "value": "BTC/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[2].path",
+          "value": "user_data/data/binance/futures/BTC_USDT_USDT-1h-futures.feather"
+        },
+        {
+          "field": "verified_data_files[2].sha256",
+          "value": "ae669c0dccdefdec74c0900291100d9ad647cb6e92d44b3dfcbc26c6831fb574"
+        },
+        {
+          "field": "verified_data_files[2].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[2].timeframe",
+          "value": "1h"
+        },
+        {
+          "field": "verified_data_files[3].bytes",
+          "value": "427962"
+        },
+        {
+          "field": "verified_data_files[3].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[3].pair",
+          "value": "BTC/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[3].path",
+          "value": "user_data/data/binance/futures/BTC_USDT_USDT-4h-futures.feather"
+        },
+        {
+          "field": "verified_data_files[3].sha256",
+          "value": "51ee708749dd384438fc363b4520c4cadae883384babf20c4a381ca15014647e"
+        },
+        {
+          "field": "verified_data_files[3].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[3].timeframe",
+          "value": "4h"
+        },
+        {
+          "field": "verified_data_files[4].bytes",
+          "value": "14767306"
+        },
+        {
+          "field": "verified_data_files[4].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[4].pair",
+          "value": "ETH/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[4].path",
+          "value": "user_data/data/binance/futures/ETH_USDT_USDT-5m-futures.feather"
+        },
+        {
+          "field": "verified_data_files[4].sha256",
+          "value": "e0c821aa302873bbe83ead01741e038bc1986fd4e50201b33c6db065c80f517c"
+        },
+        {
+          "field": "verified_data_files[4].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[4].timeframe",
+          "value": "5m"
+        },
+        {
+          "field": "verified_data_files[5].bytes",
+          "value": "5097370"
+        },
+        {
+          "field": "verified_data_files[5].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[5].pair",
+          "value": "ETH/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[5].path",
+          "value": "user_data/data/binance/futures/ETH_USDT_USDT-15m-futures.feather"
+        },
+        {
+          "field": "verified_data_files[5].sha256",
+          "value": "20433eb32bfe1829216a9b4336521349f6cb8afec31e9ab8c20ab0c08714e108"
+        },
+        {
+          "field": "verified_data_files[5].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[5].timeframe",
+          "value": "15m"
+        },
+        {
+          "field": "verified_data_files[6].bytes",
+          "value": "1322202"
+        },
+        {
+          "field": "verified_data_files[6].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[6].pair",
+          "value": "ETH/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[6].path",
+          "value": "user_data/data/binance/futures/ETH_USDT_USDT-1h-futures.feather"
+        },
+        {
+          "field": "verified_data_files[6].sha256",
+          "value": "848b26dd86645745e7d18ce06145709b02d3ad6839379773c344715175d426d8"
+        },
+        {
+          "field": "verified_data_files[6].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[6].timeframe",
+          "value": "1h"
+        },
+        {
+          "field": "verified_data_files[7].bytes",
+          "value": "403610"
+        },
+        {
+          "field": "verified_data_files[7].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[7].pair",
+          "value": "ETH/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[7].path",
+          "value": "user_data/data/binance/futures/ETH_USDT_USDT-4h-futures.feather"
+        },
+        {
+          "field": "verified_data_files[7].sha256",
+          "value": "f84a2c198b9d7fc404c2f60c2835011f729a661fc31c6d039e87ba3c0010e5f9"
+        },
+        {
+          "field": "verified_data_files[7].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[7].timeframe",
+          "value": "4h"
+        },
+        {
+          "field": "verified_data_files[8].bytes",
+          "value": "13320402"
+        },
+        {
+          "field": "verified_data_files[8].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[8].pair",
+          "value": "BNB/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[8].path",
+          "value": "user_data/data/binance/futures/BNB_USDT_USDT-5m-futures.feather"
+        },
+        {
+          "field": "verified_data_files[8].sha256",
+          "value": "daef207f478695eaff158a30f1070cb9c636deecb477f66a438fee3749452688"
+        },
+        {
+          "field": "verified_data_files[8].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[8].timeframe",
+          "value": "5m"
+        },
+        {
+          "field": "verified_data_files[9].bytes",
+          "value": "4672962"
+        },
+        {
+          "field": "verified_data_files[9].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[9].pair",
+          "value": "BNB/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[9].path",
+          "value": "user_data/data/binance/futures/BNB_USDT_USDT-15m-futures.feather"
+        },
+        {
+          "field": "verified_data_files[9].sha256",
+          "value": "94c0eb11287bd4ac9b9d87d24dab4588cfb50c8eebfc2c3306ab71d5a2e0f514"
+        },
+        {
+          "field": "verified_data_files[9].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[9].timeframe",
+          "value": "15m"
+        },
+        {
+          "field": "verified_data_files[10].bytes",
+          "value": "1236770"
+        },
+        {
+          "field": "verified_data_files[10].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[10].pair",
+          "value": "BNB/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[10].path",
+          "value": "user_data/data/binance/futures/BNB_USDT_USDT-1h-futures.feather"
+        },
+        {
+          "field": "verified_data_files[10].sha256",
+          "value": "cc907c5900ee757f5dae31f80ad64cc222087bd9afbf6828a5ed2958356e7875"
+        },
+        {
+          "field": "verified_data_files[10].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[10].timeframe",
+          "value": "1h"
+        },
+        {
+          "field": "verified_data_files[11].bytes",
+          "value": "375906"
+        },
+        {
+          "field": "verified_data_files[11].exists",
+          "value": "true"
+        },
+        {
+          "field": "verified_data_files[11].pair",
+          "value": "BNB/USDT:USDT"
+        },
+        {
+          "field": "verified_data_files[11].path",
+          "value": "user_data/data/binance/futures/BNB_USDT_USDT-4h-futures.feather"
+        },
+        {
+          "field": "verified_data_files[11].sha256",
+          "value": "86dd0f877e5bce3c3756b549113b154b9b7731c1556d2b071f6fdf0b97b58fd2"
+        },
+        {
+          "field": "verified_data_files[11].status",
+          "value": "PASS"
+        },
+        {
+          "field": "verified_data_files[11].timeframe",
+          "value": "4h"
+        }
+      ],
+      "final_gate_results": [],
+      "gap_checks": [],
+      "orderflow_fields": [
+        {
+          "field": "backtest_run",
+          "value": "false"
+        },
+        {
+          "field": "checks.finite_bid_ask_delta.nonnegative_bid_ask",
+          "value": "true"
+        },
+        {
+          "field": "checks.finite_bid_ask_delta.pass",
+          "value": "true"
+        },
+        {
+          "field": "checks.official_columns_present.pass",
+          "value": "true"
+        },
+        {
+          "field": "checks.official_columns_present.required[0]",
+          "value": "ask"
+        },
+        {
+          "field": "checks.official_columns_present.required[1]",
+          "value": "bid"
+        },
+        {
+          "field": "checks.official_columns_present.required[2]",
+          "value": "date"
+        },
+        {
+          "field": "checks.official_columns_present.required[3]",
+          "value": "delta"
+        },
+        {
+          "field": "checks.official_columns_present.required[4]",
+          "value": "orderflow"
+        },
+        {
+          "field": "checks.official_columns_present.required[5]",
+          "value": "total_trades"
+        },
+        {
+          "field": "checks.official_columns_present.required[6]",
+          "value": "trades"
+        },
+        {
+          "field": "checks.orderflow_objects.pass",
+          "value": "true"
+        },
+        {
+          "field": "checks.orderflow_objects.validated_candles",
+          "value": "12"
+        },
+        {
+          "field": "checks.output_candle_count.actual",
+          "value": "12"
+        },
+        {
+          "field": "checks.output_candle_count.expected",
+          "value": "12"
+        },
+        {
+          "field": "checks.output_candle_count.pass",
+          "value": "true"
+        },
+        {
+          "field": "checks.populated_candles.actual",
+          "value": "12"
+        },
+        {
+          "field": "checks.populated_candles.expected",
+          "value": "12"
+        },
+        {
+          "field": "checks.populated_candles.pass",
+          "value": "true"
+        },
+        {
+          "field": "checks.side_consistency.pass",
+          "value": "true"
+        },
+        {
+          "field": "checks.side_consistency.validated_candles",
+          "value": "12"
+        },
+        {
+          "field": "checks.total_trades.actual",
+          "value": "27230"
+        },
+        {
+          "field": "checks.total_trades.expected",
+          "value": "27230"
+        },
+        {
+          "field": "checks.total_trades.pass",
+          "value": "true"
+        },
+        {
+          "field": "freqtrade.api",
+          "value": "freqtrade.data.converter.orderflow.populate_dataframe_with_trades"
+        },
+        {
+          "field": "freqtrade.version",
+          "value": "2026.7"
+        },
+        {
+          "field": "generated_at_utc",
+          "value": "2026-08-11T13:24:12.011816Z"
+        },
+        {
+          "field": "inputs.config",
+          "value": "/freqtrade/user_data/config-pro-day-orderflow-local.json"
+        },
+        {
+          "field": "inputs.config_sha256",
+          "value": "4b5c40bdb6dc0f479be04a12688bd2b12d413a985944ca1535ab0cead8c20c61"
+        },
+        {
+          "field": "inputs.declared_max_candles",
+          "value": "12"
+        },
+        {
+          "field": "inputs.effective_max_buckets",
+          "value": "12"
+        },
+        {
+          "field": "inputs.input_columns[0]",
+          "value": "timestamp"
+        },
+        {
+          "field": "inputs.input_columns[1]",
+          "value": "id"
+        },
+        {
+          "field": "inputs.input_columns[2]",
+          "value": "type"
+        },
+        {
+          "field": "inputs.input_columns[3]",
+          "value": "side"
+        },
+        {
+          "field": "inputs.input_columns[4]",
+          "value": "price"
+        },
+        {
+          "field": "inputs.input_columns[5]",
+          "value": "amount"
+        },
+        {
+          "field": "inputs.input_columns[6]",
+          "value": "cost"
+        },
+        {
+          "field": "inputs.input_rows",
+          "value": "27960"
+        },
+        {
+          "field": "inputs.selected_bucket_count",
+          "value": "12"
+        },
+        {
+          "field": "inputs.selected_end_exclusive_utc",
+          "value": "2026-08-11T12:50:00Z"
+        },
+        {
+          "field": "inputs.selected_rows",
+          "value": "27230"
+        },
+        {
+          "field": "inputs.selected_start_utc",
+          "value": "2026-08-11T11:50:00Z"
+        },
+        {
+          "field": "inputs.tail_record_batches_scanned",
+          "value": "1"
+        },
+        {
+          "field": "inputs.tail_rows_materialized",
+          "value": "27230"
+        },
+        {
+          "field": "inputs.total_record_batches",
+          "value": "1"
+        },
+        {
+          "field": "inputs.trade_feather",
+          "value": "/freqtrade/user_data/data/binance/futures/BTC_USDT_USDT-trades.feather"
+        },
+        {
+          "field": "inputs.trade_feather_sha256",
+          "value": "d9361a49bd17a02b1bb57b4a7374dd403aa0ec68a7d737905a796ec6bb91a9c0"
+        },
+        {
+          "field": "measurements.cache_rows",
+          "value": "12"
+        },
+        {
+          "field": "measurements.peak_rss_growth_bytes",
+          "value": "141209600"
+        },
+        {
+          "field": "measurements.populate_elapsed_seconds",
+          "value": "0.393129"
+        },
+        {
+          "field": "measurements.process_peak_rss_bytes",
+          "value": "321818624"
+        },
+        {
+          "field": "measurements.total_elapsed_seconds",
+          "value": "0.460621"
+        },
+        {
+          "field": "network_used",
+          "value": "false"
+        },
+        {
+          "field": "pnl_computed",
+          "value": "false"
+        },
+        {
+          "field": "results.candles[0].bucket_utc",
+          "value": "2026-08-11T11:50:00Z"
+        },
+        {
+          "field": "results.candles[0].buy_amount",
+          "value": "127.83699999999999"
+        },
+        {
+          "field": "results.candles[0].delta",
+          "value": "41.375"
+        },
+        {
+          "field": "results.candles[0].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[0].sell_amount",
+          "value": "86.46199999999999"
+        },
+        {
+          "field": "results.candles[0].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[0].trades",
+          "value": "1105"
+        },
+        {
+          "field": "results.candles[1].bucket_utc",
+          "value": "2026-08-11T11:55:00Z"
+        },
+        {
+          "field": "results.candles[1].buy_amount",
+          "value": "245.61900000000003"
+        },
+        {
+          "field": "results.candles[1].delta",
+          "value": "65.11100000000002"
+        },
+        {
+          "field": "results.candles[1].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[1].sell_amount",
+          "value": "180.508"
+        },
+        {
+          "field": "results.candles[1].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[1].trades",
+          "value": "1715"
+        },
+        {
+          "field": "results.candles[2].bucket_utc",
+          "value": "2026-08-11T12:00:00Z"
+        },
+        {
+          "field": "results.candles[2].buy_amount",
+          "value": "439.842"
+        },
+        {
+          "field": "results.candles[2].delta",
+          "value": "171.245"
+        },
+        {
+          "field": "results.candles[2].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[2].sell_amount",
+          "value": "268.597"
+        },
+        {
+          "field": "results.candles[2].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[2].trades",
+          "value": "3143"
+        },
+        {
+          "field": "results.candles[3].bucket_utc",
+          "value": "2026-08-11T12:05:00Z"
+        },
+        {
+          "field": "results.candles[3].buy_amount",
+          "value": "448.997"
+        },
+        {
+          "field": "results.candles[3].delta",
+          "value": "201.29000000000002"
+        },
+        {
+          "field": "results.candles[3].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[3].sell_amount",
+          "value": "247.707"
+        },
+        {
+          "field": "results.candles[3].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[3].trades",
+          "value": "2590"
+        },
+        {
+          "field": "results.candles[4].bucket_utc",
+          "value": "2026-08-11T12:10:00Z"
+        },
+        {
+          "field": "results.candles[4].buy_amount",
+          "value": "527.2139999999999"
+        },
+        {
+          "field": "results.candles[4].delta",
+          "value": "205.77099999999996"
+        },
+        {
+          "field": "results.candles[4].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[4].sell_amount",
+          "value": "321.443"
+        },
+        {
+          "field": "results.candles[4].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[4].trades",
+          "value": "3227"
+        },
+        {
+          "field": "results.candles[5].bucket_utc",
+          "value": "2026-08-11T12:15:00Z"
+        },
+        {
+          "field": "results.candles[5].buy_amount",
+          "value": "177.355"
+        },
+        {
+          "field": "results.candles[5].delta",
+          "value": "-372.34899999999993"
+        },
+        {
+          "field": "results.candles[5].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[5].sell_amount",
+          "value": "549.704"
+        },
+        {
+          "field": "results.candles[5].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[5].trades",
+          "value": "3023"
+        },
+        {
+          "field": "results.candles[6].bucket_utc",
+          "value": "2026-08-11T12:20:00Z"
+        },
+        {
+          "field": "results.candles[6].buy_amount",
+          "value": "262.08099999999996"
+        },
+        {
+          "field": "results.candles[6].delta",
+          "value": "-165.723"
+        },
+        {
+          "field": "results.candles[6].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[6].sell_amount",
+          "value": "427.804"
+        },
+        {
+          "field": "results.candles[6].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[6].trades",
+          "value": "3153"
+        },
+        {
+          "field": "results.candles[7].bucket_utc",
+          "value": "2026-08-11T12:25:00Z"
+        },
+        {
+          "field": "results.candles[7].buy_amount",
+          "value": "190.435"
+        },
+        {
+          "field": "results.candles[7].delta",
+          "value": "-90.98399999999998"
+        },
+        {
+          "field": "results.candles[7].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[7].sell_amount",
+          "value": "281.419"
+        },
+        {
+          "field": "results.candles[7].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[7].trades",
+          "value": "2785"
+        },
+        {
+          "field": "results.candles[8].bucket_utc",
+          "value": "2026-08-11T12:30:00Z"
+        },
+        {
+          "field": "results.candles[8].buy_amount",
+          "value": "286.128"
+        },
+        {
+          "field": "results.candles[8].delta",
+          "value": "137.827"
+        },
+        {
+          "field": "results.candles[8].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[8].sell_amount",
+          "value": "148.301"
+        },
+        {
+          "field": "results.candles[8].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[8].trades",
+          "value": "3032"
+        },
+        {
+          "field": "results.candles[9].bucket_utc",
+          "value": "2026-08-11T12:35:00Z"
+        },
+        {
+          "field": "results.candles[9].buy_amount",
+          "value": "201.299"
+        },
+        {
+          "field": "results.candles[9].delta",
+          "value": "-62.02499999999995"
+        },
+        {
+          "field": "results.candles[9].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[9].sell_amount",
+          "value": "263.32399999999996"
+        },
+        {
+          "field": "results.candles[9].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[9].trades",
+          "value": "2004"
+        },
+        {
+          "field": "results.candles[10].bucket_utc",
+          "value": "2026-08-11T12:40:00Z"
+        },
+        {
+          "field": "results.candles[10].buy_amount",
+          "value": "59.55799999999999"
+        },
+        {
+          "field": "results.candles[10].delta",
+          "value": "-69.36399999999998"
+        },
+        {
+          "field": "results.candles[10].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[10].sell_amount",
+          "value": "128.92199999999997"
+        },
+        {
+          "field": "results.candles[10].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[10].trades",
+          "value": "1189"
+        },
+        {
+          "field": "results.candles[11].bucket_utc",
+          "value": "2026-08-11T12:45:00Z"
+        },
+        {
+          "field": "results.candles[11].buy_amount",
+          "value": "60.504000000000005"
+        },
+        {
+          "field": "results.candles[11].delta",
+          "value": "54.684000000000005"
+        },
+        {
+          "field": "results.candles[11].orderflow_object_valid",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[11].sell_amount",
+          "value": "5.820000000000001"
+        },
+        {
+          "field": "results.candles[11].side_consistent",
+          "value": "true"
+        },
+        {
+          "field": "results.candles[11].trades",
+          "value": "264"
+        },
+        {
+          "field": "results.populated_candles",
+          "value": "12"
+        },
+        {
+          "field": "results.total_trades",
+          "value": "27230"
+        },
+        {
+          "field": "schema_version",
+          "value": "1.0"
+        },
+        {
+          "field": "scope",
+          "value": "NO_PNL_LOCAL_ORDERFLOW_COMPATIBILITY"
+        },
+        {
+          "field": "status",
+          "value": "PASS"
+        }
+      ],
+      "quality_definitions": [
+        {
+          "definition": "observed native timestamps / expected aligned timestamps × 100",
+          "locked_requirement": ">= 99.95%",
+          "metric": "Coverage ανά pair/timeframe/split"
+        },
+        {
+          "definition": "διαδοχικά αναμενόμενα native candles που απουσιάζουν χωρίς τεκμηρίωση",
+          "locked_requirement": "<= 3 base candles",
+          "metric": "Undocumented gap"
+        },
+        {
+          "definition": "duplicate/null/non-finite/invalid OHLC, nonpositive low ή negative volume rows",
+          "locked_requirement": "0",
+          "metric": "Timestamp/OHLCV integrity"
+        },
+        {
+          "definition": "ημέρες όπου native 15m/1h/4h δεν συμφωνούν με πλήρη 5m bins, με τις frozen tolerances",
+          "locked_requirement": "mismatch days <= 0.2%",
+          "metric": "Timeframe reconciliation"
+        },
+        {
+          "definition": "absolute και relative tolerance για aggregated OHLCV equality",
+          "locked_requirement": "abs=1e-08, rel=1e-09",
+          "metric": "Numeric tolerance"
+        },
+        {
+          "definition": "δεν εκτελέστηκε qualification PnL επειδή το προαπαιτούμενο data gate απέτυχε",
+          "locked_requirement": "Δεν ισοδυναμεί με μηδενική απόδοση ή μηδενικό κίνδυνο",
+          "metric": "PnL NOT_RUN"
+        }
+      ],
+      "reconciliation_checks": [
+        {
+          "compared_days": "1095",
+          "complete_5m_bins": "105120",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "3",
+          "mismatch_days_pct": "0.273972602739726",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "compared_days": "731",
+          "complete_5m_bins": "70176",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "3",
+          "mismatch_days_pct": "0.4103967168262654",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "compared_days": "212",
+          "complete_5m_bins": "20352",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "0",
+          "mismatch_days_pct": "0.0",
+          "pair": "BTC/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "status": "PASS",
+          "timeframe": "15m"
+        },
+        {
+          "compared_days": "1095",
+          "complete_5m_bins": "26280",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "3",
+          "mismatch_days_pct": "0.273972602739726",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "compared_days": "731",
+          "complete_5m_bins": "17544",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "5",
+          "mismatch_days_pct": "0.6839945280437757",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "compared_days": "212",
+          "complete_5m_bins": "5088",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "0",
+          "mismatch_days_pct": "0.0",
+          "pair": "BTC/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "status": "PASS",
+          "timeframe": "1h"
+        },
+        {
+          "compared_days": "1095",
+          "complete_5m_bins": "6570",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "5",
+          "mismatch_days_pct": "0.45662100456621",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "compared_days": "731",
+          "complete_5m_bins": "4386",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "5",
+          "mismatch_days_pct": "0.6839945280437757",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "compared_days": "212",
+          "complete_5m_bins": "1272",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "0",
+          "mismatch_days_pct": "0.0",
+          "pair": "BTC/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "status": "PASS",
+          "timeframe": "4h"
+        },
+        {
+          "compared_days": "1095",
+          "complete_5m_bins": "105120",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "5",
+          "mismatch_days_pct": "0.45662100456621",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "compared_days": "731",
+          "complete_5m_bins": "70176",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "3",
+          "mismatch_days_pct": "0.4103967168262654",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "compared_days": "212",
+          "complete_5m_bins": "20352",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "0",
+          "mismatch_days_pct": "0.0",
+          "pair": "ETH/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "status": "PASS",
+          "timeframe": "15m"
+        },
+        {
+          "compared_days": "1095",
+          "complete_5m_bins": "26280",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "5",
+          "mismatch_days_pct": "0.45662100456621",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "compared_days": "731",
+          "complete_5m_bins": "17544",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "5",
+          "mismatch_days_pct": "0.6839945280437757",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "compared_days": "212",
+          "complete_5m_bins": "5088",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "0",
+          "mismatch_days_pct": "0.0",
+          "pair": "ETH/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "status": "PASS",
+          "timeframe": "1h"
+        },
+        {
+          "compared_days": "1095",
+          "complete_5m_bins": "6570",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "7",
+          "mismatch_days_pct": "0.639269406392694",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "compared_days": "731",
+          "complete_5m_bins": "4386",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "5",
+          "mismatch_days_pct": "0.6839945280437757",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "compared_days": "212",
+          "complete_5m_bins": "1272",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "0",
+          "mismatch_days_pct": "0.0",
+          "pair": "ETH/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "status": "PASS",
+          "timeframe": "4h"
+        },
+        {
+          "compared_days": "1095",
+          "complete_5m_bins": "105120",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "5",
+          "mismatch_days_pct": "0.45662100456621",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "compared_days": "731",
+          "complete_5m_bins": "70176",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "2",
+          "mismatch_days_pct": "0.27359781121751026",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "compared_days": "212",
+          "complete_5m_bins": "20352",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "0",
+          "mismatch_days_pct": "0.0",
+          "pair": "BNB/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "status": "PASS",
+          "timeframe": "15m"
+        },
+        {
+          "compared_days": "1095",
+          "complete_5m_bins": "26280",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "5",
+          "mismatch_days_pct": "0.45662100456621",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "compared_days": "731",
+          "complete_5m_bins": "17544",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "4",
+          "mismatch_days_pct": "0.5471956224350205",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "compared_days": "212",
+          "complete_5m_bins": "5088",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "0",
+          "mismatch_days_pct": "0.0",
+          "pair": "BNB/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "status": "PASS",
+          "timeframe": "1h"
+        },
+        {
+          "compared_days": "1095",
+          "complete_5m_bins": "6570",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "5",
+          "mismatch_days_pct": "0.45662100456621",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "compared_days": "731",
+          "complete_5m_bins": "4386",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "4",
+          "mismatch_days_pct": "0.5471956224350205",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "compared_days": "212",
+          "complete_5m_bins": "1272",
+          "maximum_mismatch_days_pct": "0.2",
+          "mismatch_days": "0",
+          "mismatch_days_pct": "0.0",
+          "pair": "BNB/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "status": "PASS",
+          "timeframe": "4h"
+        }
+      ],
+      "reconciliation_daily_failures": [
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2022-06-23T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2022-07-04T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2023-11-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2024-10-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "low;open",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2025-01-29T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "high;open;volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2025-08-29T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "open",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2022-06-23T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2022-07-04T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2023-11-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2024-03-27T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2024-03-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "3",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2024-10-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "close;high;low;open;volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2025-01-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "low;volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2025-01-29T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2022-06-23T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2022-07-04T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2022-07-16T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2023-11-10T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "close;volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2023-11-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2024-03-27T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2024-03-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2024-10-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "open",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2025-01-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2025-01-29T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2021-02-22T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2022-05-01T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "open",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2022-06-23T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2022-07-04T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2023-11-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2024-10-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "low;open",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2025-01-29T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "open;volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2025-08-29T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "open",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2021-02-22T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2021-05-06T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2022-06-23T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2022-07-04T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2023-11-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2024-03-27T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2024-03-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2024-10-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "close;high;low;open;volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2025-01-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "low;volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2025-01-29T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2021-02-22T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2021-05-06T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2022-06-23T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2022-07-04T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2022-07-16T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2023-11-10T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "close;volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2023-11-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2024-03-27T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2024-03-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2024-10-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "low;open",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2025-01-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2025-01-29T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2022-05-01T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "open",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2022-06-23T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2022-07-04T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2023-09-12T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "open",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2023-11-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2024-10-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "low;open",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "96",
+          "date_utc": "2025-01-29T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "open;volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "15m"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2022-05-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "open",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2022-06-23T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2022-07-04T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2023-11-10T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "close;high",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2023-11-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2024-03-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2024-10-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "close;high;low;open;volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2025-01-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "low;volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "24",
+          "date_utc": "2025-01-29T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "1h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2022-06-23T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2022-07-04T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2022-07-16T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2023-11-10T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "close;volume",
+          "mismatched_bins": "2",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2023-11-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2024-03-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2024-10-28T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "low;open",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2025-01-14T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        },
+        {
+          "complete_5m_bins": "6",
+          "date_utc": "2025-01-29T00:00:00Z",
+          "duplicate_native_bins": "0",
+          "mismatch_fields": "volume",
+          "mismatched_bins": "1",
+          "missing_native_bins": "0",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "timeframe": "4h"
+        }
+      ],
+      "reconciliation_status_counts": [
+        {
+          "category": "TRAIN · PASS",
+          "check_count": 0,
+          "fail_count": 9,
+          "pass_count": 0,
+          "pass_rate": 0.0,
+          "split": "TRAIN",
+          "status": "PASS",
+          "total_split_checks": 9
+        },
+        {
+          "category": "TRAIN · FAIL",
+          "check_count": 9,
+          "fail_count": 9,
+          "pass_count": 0,
+          "pass_rate": 0.0,
+          "split": "TRAIN",
+          "status": "FAIL",
+          "total_split_checks": 9
+        },
+        {
+          "category": "VALIDATION · PASS",
+          "check_count": 0,
+          "fail_count": 9,
+          "pass_count": 0,
+          "pass_rate": 0.0,
+          "split": "VALIDATION",
+          "status": "PASS",
+          "total_split_checks": 9
+        },
+        {
+          "category": "VALIDATION · FAIL",
+          "check_count": 9,
+          "fail_count": 9,
+          "pass_count": 0,
+          "pass_rate": 0.0,
+          "split": "VALIDATION",
+          "status": "FAIL",
+          "total_split_checks": 9
+        },
+        {
+          "category": "CURRENT_PARTIAL · PASS",
+          "check_count": 9,
+          "fail_count": 0,
+          "pass_count": 9,
+          "pass_rate": 1.0,
+          "split": "CURRENT_PARTIAL",
+          "status": "PASS",
+          "total_split_checks": 9
+        },
+        {
+          "category": "CURRENT_PARTIAL · FAIL",
+          "check_count": 0,
+          "fail_count": 0,
+          "pass_count": 9,
+          "pass_rate": 1.0,
+          "split": "CURRENT_PARTIAL",
+          "status": "FAIL",
+          "total_split_checks": 9
+        }
+      ],
+      "scope_definitions": [
+        {
+          "definition": "ProDayTraderV1",
+          "dimension": "Candidate",
+          "requirement": "Μοναδικός frozen υποψήφιος του κύκλου"
+        },
+        {
+          "definition": "BTC/USDT:USDT, ETH/USDT:USDT, BNB/USDT:USDT",
+          "dimension": "Universe",
+          "requirement": "Κανένα pair δεν αφαιρείται μετά το lock"
+        },
+        {
+          "definition": "5m, 15m, 1h, 4h",
+          "dimension": "Χρονική ανάλυση",
+          "requirement": "one native UTC candle per pair, timeframe, and candle-open timestamp"
+        },
+        {
+          "definition": "[2021-01-01T00:00:00Z, 2024-01-01T00:00:00Z)",
+          "dimension": "TRAIN",
+          "requirement": "UTC, το δεξί άκρο εξαιρείται"
+        },
+        {
+          "definition": "[2024-01-01T00:00:00Z, 2026-01-01T00:00:00Z)",
+          "dimension": "VALIDATION",
+          "requirement": "UTC, το δεξί άκρο εξαιρείται"
+        },
+        {
+          "definition": "[2026-01-01T00:00:00Z, 2026-08-01T00:00:00Z)",
+          "dimension": "CURRENT_PARTIAL",
+          "requirement": "UTC, το δεξί άκρο εξαιρείται"
+        },
+        {
+          "definition": "DATA_BLOCKED ⇒ qualification PnL NOT_RUN",
+          "dimension": "Qualification boundary",
+          "requirement": "Αποτυχία data/source gate δεν επιτρέπει performance qualification"
+        }
+      ],
+      "split_checks": [
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "315360",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "315360",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "5m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "210528",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "210528",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "5m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "61056",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "61056",
+          "pair": "BTC/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "5m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "105120",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "105120",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "15m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "70176",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "70176",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "15m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "20352",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "20352",
+          "pair": "BTC/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "15m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "26280",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "26280",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "1h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "17544",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "17544",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "1h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "5088",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "5088",
+          "pair": "BTC/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "1h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "6570",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "6570",
+          "pair": "BTC/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "4h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "4386",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "4386",
+          "pair": "BTC/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "4h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "1272",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "1272",
+          "pair": "BTC/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "4h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "315360",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "315360",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "5m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "210528",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "210528",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "5m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "61056",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "61056",
+          "pair": "ETH/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "5m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "105120",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "105120",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "15m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "70176",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "70176",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "15m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "20352",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "20352",
+          "pair": "ETH/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "15m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "26280",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "26280",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "1h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "17544",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "17544",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "1h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "5088",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "5088",
+          "pair": "ETH/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "1h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "6570",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "6570",
+          "pair": "ETH/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "4h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "4386",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "4386",
+          "pair": "ETH/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "4h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "1272",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "1272",
+          "pair": "ETH/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "4h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "315360",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "315360",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "5m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "210528",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "210528",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "5m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "61056",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "61056",
+          "pair": "BNB/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "5m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "105120",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "105120",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "15m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "70176",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "70176",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "15m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "20352",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "20352",
+          "pair": "BNB/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "15m",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "26280",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "26280",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "1h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "17544",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "17544",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "1h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "5088",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "5088",
+          "pair": "BNB/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "1h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2024-01-01T00:00:00Z",
+          "expected_candles": "6570",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "6570",
+          "pair": "BNB/USDT:USDT",
+          "split": "TRAIN",
+          "start_utc": "2021-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "4h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-01-01T00:00:00Z",
+          "expected_candles": "4386",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "4386",
+          "pair": "BNB/USDT:USDT",
+          "split": "VALIDATION",
+          "start_utc": "2024-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "4h",
+          "undocumented_gaps_over_limit": "0"
+        },
+        {
+          "coverage_pct": "100.0",
+          "duplicate_timestamps": "0",
+          "end_utc": "2026-08-01T00:00:00Z",
+          "expected_candles": "1272",
+          "invalid_ohlc_rows": "0",
+          "largest_undocumented_gap_candles": "0",
+          "minimum_coverage_pct": "99.95",
+          "misaligned_timestamps": "0",
+          "missing_candles": "0",
+          "negative_volume_rows": "0",
+          "nonfinite_ohlcv_cells": "0",
+          "nonpositive_low_rows": "0",
+          "null_ohlcv_cells": "0",
+          "observed_candles": "1272",
+          "pair": "BNB/USDT:USDT",
+          "split": "CURRENT_PARTIAL",
+          "start_utc": "2026-01-01T00:00:00Z",
+          "status": "PASS",
+          "timeframe": "4h",
+          "undocumented_gaps_over_limit": "0"
+        }
+      ]
+    },
+    "generatedAt": "2026-08-11T13:17:27.688316Z",
+    "status": "blocked",
+    "version": 1
+  },
+  "sources": [
+    {
+      "id": "locked_plan",
+      "label": "Frozen ProDay research plan",
+      "path": "docs/pro_day_trader_v1_locked_plan.md",
+      "query": {
+        "description": "Defines the pre-PnL universe, periods, data gates, methodology and decision boundary. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+        "engine": "sqlite3",
+        "executed_at": "2026-08-11T13:17:27.688316Z",
+        "language": "sql",
+        "metric_definitions": [
+          "DATA_BLOCKED prevents qualification PnL from running.",
+          "Historical evidence is not a sealed holdout, forward evidence, a profit guarantee, or live-trading authorization."
+        ],
+        "sql": "SELECT * FROM report_rows",
+        "tables_used": [
+          "docs/pro_day_trader_v1_locked_plan.md",
+          "main.report_rows"
+        ]
+      }
+    },
+    {
+      "id": "data_quality_json",
+      "label": "ProDay data-quality decision",
+      "path": "user_data/reports/pro_day/data_quality.json",
+      "query": {
+        "description": "Reads the saved data gate, thresholds, failure register and PnL boundary. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+        "engine": "sqlite3",
+        "executed_at": "2026-08-11T13:17:27.688316Z",
+        "language": "sql",
+        "metric_definitions": [
+          "PNL NOT_RUN means qualification PnL was not executed; it is not a zero-return observation.",
+          "Failure count is the number of recorded critical data-quality failures."
+        ],
+        "sql": "SELECT * FROM report_rows",
+        "tables_used": [
+          "user_data/reports/pro_day/data_quality.json",
+          "main.report_rows"
+        ]
+      }
+    },
+    {
+      "id": "dq_files_csv",
+      "label": "Native futures file audit",
+      "path": "user_data/reports/pro_day/data_quality_files.csv",
+      "query": {
+        "description": "Loads every required pair/timeframe file audit row without sampling. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+        "engine": "sqlite3",
+        "executed_at": "2026-08-11T13:17:27.688316Z",
+        "filters": [
+          "No rows omitted"
+        ],
+        "language": "sql",
+        "sql": "SELECT * FROM report_rows",
+        "tables_used": [
+          "user_data/reports/pro_day/data_quality_files.csv",
+          "main.report_rows"
+        ]
+      }
+    },
+    {
+      "id": "dq_splits_csv",
+      "label": "Pair/timeframe/split coverage audit",
+      "path": "user_data/reports/pro_day/data_quality_splits.csv",
+      "query": {
+        "description": "Loads every split-level coverage and integrity check without sampling. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+        "engine": "sqlite3",
+        "executed_at": "2026-08-11T13:17:27.688316Z",
+        "filters": [
+          "No rows omitted"
+        ],
+        "language": "sql",
+        "sql": "SELECT * FROM report_rows",
+        "tables_used": [
+          "user_data/reports/pro_day/data_quality_splits.csv",
+          "main.report_rows"
+        ]
+      }
+    },
+    {
+      "id": "dq_reconciliation_csv",
+      "label": "Timeframe reconciliation checks",
+      "path": "user_data/reports/pro_day/data_quality_reconciliation.csv",
+      "query": {
+        "description": "Loads all aggregate 5m-to-15m/1h/4h reconciliation checks. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+        "engine": "sqlite3",
+        "executed_at": "2026-08-11T13:17:27.688316Z",
+        "filters": [
+          "No rows omitted"
+        ],
+        "language": "sql",
+        "metric_definitions": [
+          "PASS requires mismatch_days_pct to be no greater than maximum_mismatch_days_pct.",
+          "Chart counts include explicit zero rows for the absent PASS/FAIL status within each split."
+        ],
+        "sql": "SELECT * FROM report_rows",
+        "tables_used": [
+          "user_data/reports/pro_day/data_quality_reconciliation.csv",
+          "main.report_rows"
+        ]
+      }
+    },
+    {
+      "id": "dq_reconciliation_daily_csv",
+      "label": "Daily timeframe reconciliation detail",
+      "path": "user_data/reports/pro_day/data_quality_reconciliation_daily.csv",
+      "query": {
+        "description": "Loads the exact failed daily rows into the bounded report; the complete CSV remains the canonical source. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+        "engine": "sqlite3",
+        "executed_at": "2026-08-11T13:17:27.688316Z",
+        "filters": [
+          "Visible table includes status = FAIL only",
+          "All failed rows retained"
+        ],
+        "language": "sql",
+        "sql": "SELECT * FROM report_rows",
+        "tables_used": [
+          "user_data/reports/pro_day/data_quality_reconciliation_daily.csv",
+          "main.report_rows"
+        ]
+      }
+    },
+    {
+      "id": "dq_gaps_csv",
+      "label": "Documented and undocumented gap audit",
+      "path": "user_data/reports/pro_day/data_quality_gaps.csv",
+      "query": {
+        "description": "Loads all recorded gap rows without sampling. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+        "engine": "sqlite3",
+        "executed_at": "2026-08-11T13:17:27.688316Z",
+        "filters": [
+          "No rows omitted"
+        ],
+        "language": "sql",
+        "sql": "SELECT * FROM report_rows",
+        "tables_used": [
+          "user_data/reports/pro_day/data_quality_gaps.csv",
+          "main.report_rows"
+        ]
+      }
+    },
+    {
+      "id": "final_decision_json",
+      "label": "ProDay final evaluator decision",
+      "path": "user_data/reports/pro_day/final_decision.json",
+      "query": {
+        "description": "Reads a caller-provided saved evaluator decision and its locked gate rows. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+        "engine": "sqlite3",
+        "executed_at": "2026-08-11T13:17:27.688316Z",
+        "language": "sql",
+        "sql": "SELECT * FROM report_rows",
+        "tables_used": [
+          "user_data/reports/pro_day/final_decision.json",
+          "main.report_rows"
+        ]
+      }
+    },
+    {
+      "id": "orderflow_json",
+      "label": "Local order-flow compatibility evidence",
+      "path": "user_data/reports/pro_day/orderflow_compatibility.json",
+      "query": {
+        "description": "Reads caller-provided local compatibility evidence; it is not a qualification gate. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+        "engine": "sqlite3",
+        "executed_at": "2026-08-11T13:17:27.688316Z",
+        "language": "sql",
+        "sql": "SELECT * FROM report_rows",
+        "tables_used": [
+          "user_data/reports/pro_day/orderflow_compatibility.json",
+          "main.report_rows"
+        ]
+      }
+    },
+    {
+      "id": "deployment_json",
+      "label": "Deployment and runtime isolation evidence",
+      "path": "user_data/reports/pro_day/vps_deployment_evidence.json",
+      "query": {
+        "description": "Reads caller-provided saved deployment evidence without contacting the VPS. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+        "engine": "sqlite3",
+        "executed_at": "2026-08-11T13:17:27.688316Z",
+        "language": "sql",
+        "sql": "SELECT * FROM report_rows",
+        "tables_used": [
+          "user_data/reports/pro_day/vps_deployment_evidence.json",
+          "main.report_rows"
+        ]
+      }
+    },
+    {
+      "id": "archive_security_json",
+      "label": "Backtest archive security audit",
+      "path": "user_data/reports/pro_day/archive_security_audit.json",
+      "query": {
+        "description": "Reads caller-provided aggregate ZIP integrity, config cardinality, redaction and ProDay archive-presence evidence; no archive contents are embedded. The builder deterministically parses/transforms the saved source, materializes the reviewed native artifact rows into an in-memory SQLite table named report_rows, and executes the recorded SQL.",
+        "engine": "sqlite3",
+        "executed_at": "2026-08-11T13:17:27.688316Z",
+        "language": "sql",
+        "sql": "SELECT * FROM report_rows",
+        "tables_used": [
+          "user_data/reports/pro_day/archive_security_audit.json",
+          "main.report_rows"
+        ]
+      }
+    }
+  ],
+  "surface": "report"
+}

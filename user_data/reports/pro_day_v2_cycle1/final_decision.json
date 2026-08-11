@@ -1,0 +1,63 @@
+{
+  "active_v1_v2r_changed": false,
+  "automatic_promotion_authorized": false,
+  "candidate": "ProDayTraderV2",
+  "cycle": "pro_day_v2_cycle1",
+  "decision": "REJECT_PRO_DAY_TRADER_V2",
+  "decision_stage": "PRE_PNL_TECHNICAL_GATE",
+  "deployment_performed": false,
+  "evidence_boundary": "Terminal Cycle 1 technical decision before qualification PnL. No historical return, profit factor, drawdown, validation, current, dry-run, or live claim.",
+  "gates": {
+    "canonical_data": "PASS",
+    "current_partial_oos": "LOCKED_NOT_REVEALED",
+    "execution_stress": "NOT_RUN",
+    "lookahead_analysis": "NOT_RUN_AFTER_RECURSIVE_FAIL",
+    "recursive_analysis": "FAIL_CLI_STARTUP_LIMIT",
+    "runtime_compatibility": "PASS",
+    "train_oos": "NOT_RUN_AFTER_TECHNICAL_FAIL",
+    "unit_config_discovery": "PASS_24_TESTS",
+    "validation_oos": "LOCKED_NOT_REVEALED"
+  },
+  "generated_at_utc": "2026-08-11T15:09:35.402909Z",
+  "live_trading_authorized": false,
+  "manifest": {
+    "path": "user_data/reports/pro_day_v2_cycle1/research_freeze_manifest.json",
+    "sha256": "348ca3a8de437ecd98b3a2a5701644a65984df7a76aa3b8fed186a2d22691ba9",
+    "status": "RESEARCH_FROZEN"
+  },
+  "next_safe_action": "A new, separately frozen cycle may reuse the unchanged candidate only with technically supported recursive counts and a new FreqAI identifier.",
+  "performance": {
+    "pnl_parsed": false,
+    "profitability_claim": false,
+    "qualification_backtests": 0,
+    "status": "NOT_RUN_BY_LOCKED_TECHNICAL_GATE"
+  },
+  "recursive_failure": {
+    "canonical_data_mount": "read_only_bind_to_/canonical/futures",
+    "exchange_credentials_present": false,
+    "first_unsupported_locked_count": 3199,
+    "public_exchange_metadata_used": true,
+    "reason": "The locked recursive set requires 3199/6399/12799 candles, while the official tool refuses counts above the reported Binance 5m limit of 2494.",
+    "reported_binance_5m_recursive_limit": 2494,
+    "requested_startup_counts": [
+      199,
+      399,
+      799,
+      1599,
+      3199,
+      6399,
+      12799
+    ],
+    "status": "TERMINATED_WITH_FREQTRADE_CONFIGURATION_ERROR",
+    "strategy_startup_candle_count": 399,
+    "tool": "freqtrade 2026.7 recursive-analysis"
+  },
+  "schema_version": "1.0",
+  "technical_model_activity": {
+    "model_files_currently_present": 0,
+    "performed": true,
+    "prediction_files_currently_present": 0,
+    "purpose": "recursive indicator/model compatibility only",
+    "qualification_model": false
+  }
+}

@@ -1,0 +1,3 @@
+pair,complete_hours_compared,open_mismatches,high_mismatches,low_mismatches,close_mismatches,volume_mismatches,open_max_relative_diff,high_max_relative_diff,low_max_relative_diff,close_max_relative_diff,volume_max_relative_diff
+BTC/USDC,36275,0,0,0,0,0,0.0,0.0,0.0,0.0,2.452366333399946e-16
+ETH/USDC,36275,0,0,0,0,0,0.0,0.0,0.0,0.0,2.2204078859897727e-16

@@ -1,0 +1,1928 @@
+{
+  "manifest": {
+    "blocks": [
+      {
+        "body": "## \u03a4\u03c1\u03ad\u03c7\u03bf\u03c5\u03c3\u03b1 forward \u03ba\u03b1\u03c4\u03ac\u03c3\u03c4\u03b1\u03c3\u03b7\n\n**\u039a\u03b1\u03c4\u03ac\u03c3\u03c4\u03b1\u03c3\u03b7: \u03a3\u03c5\u03bb\u03bb\u03bf\u03b3\u03ae \u03b4\u03b5\u03af\u03b3\u03bc\u03b1\u03c4\u03bf\u03c2.** \u03a4\u03bf live trading \u03ba\u03b1\u03b9 \u03b7 \u03b1\u03c5\u03c4\u03cc\u03bc\u03b1\u03c4\u03b7 \u03c0\u03c1\u03bf\u03ce\u03b8\u03b7\u03c3\u03b7 \u03c3\u03c4\u03c1\u03b1\u03c4\u03b7\u03b3\u03b9\u03ba\u03ae\u03c2 \u03c0\u03b1\u03c1\u03b1\u03bc\u03ad\u03bd\u03bf\u03c5\u03bd \u03b1\u03c0\u03b5\u03bd\u03b5\u03c1\u03b3\u03bf\u03c0\u03bf\u03b9\u03b7\u03bc\u03ad\u03bd\u03b1.",
+        "id": "current_status",
+        "sourceId": "forward_decision",
+        "type": "markdown"
+      },
+      {
+        "body": "## \u039b\u03b5\u03b9\u03c4\u03bf\u03c5\u03c1\u03b3\u03af\u03b1 \u03ba\u03b1\u03b9 \u03b1\u03c3\u03c6\u03ac\u03bb\u03b5\u03b9\u03b1\n\n\u03a4\u03b1 \u03b2\u03b1\u03c3\u03b9\u03ba\u03ac \u03c3\u03c4\u03bf\u03b9\u03c7\u03b5\u03af\u03b1 \u03c0\u03bf\u03c5 \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03b5\u03af\u03bd\u03b1\u03b9 \u03c0\u03c1\u03ac\u03c3\u03b9\u03bd\u03b1 \u03c0\u03c1\u03b9\u03bd \u03b5\u03be\u03b5\u03c4\u03ac\u03c3\u03bf\u03c5\u03bc\u03b5 \u03bf\u03c0\u03bf\u03b9\u03b1\u03b4\u03ae\u03c0\u03bf\u03c4\u03b5 \u03b1\u03c0\u03cc\u03b4\u03bf\u03c3\u03b7.",
+        "id": "operations_heading",
+        "type": "markdown"
+      },
+      {
+        "cardIds": [
+          "forward_decision",
+          "validated_days",
+          "snapshot_coverage",
+          "snapshot_freshness",
+          "backup_freshness",
+          "live_readiness",
+          "execution_stress",
+          "v1_entry_guard",
+          "v2r_entry_guard"
+        ],
+        "id": "operations_metrics",
+        "type": "metric-strip"
+      },
+      {
+        "body": "## Forward \u03b1\u03c0\u03cc\u03b4\u03bf\u03c3\u03b7\n\n\u03a3\u03cd\u03b3\u03ba\u03c1\u03b9\u03c3\u03b7 \u03c4\u03bf\u03c5 V1 control \u03bc\u03b5 \u03c4\u03bf V2R candidate. \u039f\u03b9 \u03bc\u03b7\u03b4\u03b5\u03bd\u03b9\u03ba\u03ad\u03c2 \u03c4\u03b9\u03bc\u03ad\u03c2 \u03c3\u03b7\u03bc\u03b1\u03af\u03bd\u03bf\u03c5\u03bd \u03cc\u03c4\u03b9 \u03b4\u03b5\u03bd \u03ad\u03c7\u03b5\u03b9 \u03ba\u03bb\u03b5\u03af\u03c3\u03b5\u03b9 \u03b1\u03ba\u03cc\u03bc\u03b7 trade.",
+        "id": "performance_heading",
+        "type": "markdown"
+      },
+      {
+        "cardIds": [
+          "v1_closed",
+          "v2r_closed",
+          "v2r_net_profit",
+          "v2r_profit_factor",
+          "v2r_drawdown"
+        ],
+        "id": "performance_metrics",
+        "type": "metric-strip"
+      },
+      {
+        "chartId": "closed_trade_trend",
+        "id": "closed_trades_chart",
+        "layout": "full",
+        "type": "chart"
+      },
+      {
+        "chartId": "net_profit_trend",
+        "id": "profit_chart",
+        "layout": "full",
+        "type": "chart"
+      },
+      {
+        "id": "comparison_table",
+        "layout": "full",
+        "tableId": "bot_comparison",
+        "type": "table"
+      },
+      {
+        "id": "gates_table",
+        "layout": "full",
+        "tableId": "gate_status",
+        "type": "table"
+      },
+      {
+        "id": "risk_table",
+        "layout": "full",
+        "tableId": "risk_status",
+        "type": "table"
+      },
+      {
+        "id": "stress_table",
+        "layout": "full",
+        "tableId": "stress_results",
+        "type": "table"
+      },
+      {
+        "id": "alerts_table",
+        "layout": "full",
+        "tableId": "recent_alerts",
+        "type": "table"
+      },
+      {
+        "body": "## \u038c\u03c1\u03b9\u03bf \u03b1\u03c0\u03cc\u03c6\u03b1\u03c3\u03b7\u03c2\n\n\u03a4\u03bf review \u03b1\u03c0\u03b1\u03b9\u03c4\u03b5\u03af \u03c4\u03bf\u03bd \u03ba\u03bb\u03b5\u03b9\u03b4\u03c9\u03bc\u03ad\u03bd\u03bf \u03b5\u03bb\u03ac\u03c7\u03b9\u03c3\u03c4\u03bf \u03c7\u03c1\u03cc\u03bd\u03bf, \u03c4\u03bf \u03b1\u03c0\u03b1\u03b9\u03c4\u03bf\u03cd\u03bc\u03b5\u03bd\u03bf \u03b4\u03b5\u03af\u03b3\u03bc\u03b1 trades \u03ba\u03b1\u03b9 \u03b5\u03c0\u03b9\u03c4\u03c5\u03c7\u03af\u03b1 \u03cc\u03bb\u03c9\u03bd \u03c4\u03c9\u03bd integrity/performance gates. \u0391\u03ba\u03cc\u03bc\u03b7 \u03ba\u03b1\u03b9 \u03c4\u03bf review-ready \u03b4\u03b5\u03bd \u03b1\u03c0\u03bf\u03c4\u03b5\u03bb\u03b5\u03af \u03ac\u03b4\u03b5\u03b9\u03b1 \u03b3\u03b9\u03b1 live trading \u03bf\u03cd\u03c4\u03b5 \u03b5\u03b3\u03b3\u03cd\u03b7\u03c3\u03b7 \u03ba\u03ad\u03c1\u03b4\u03bf\u03c5\u03c2.",
+        "id": "methodology",
+        "sourceId": "forward_decision",
+        "type": "markdown"
+      }
+    ],
+    "cards": [
+      {
+        "dataset": "overview",
+        "description": "\u0397 \u03c4\u03c1\u03ad\u03c7\u03bf\u03c5\u03c3\u03b1 machine decision \u03c4\u03bf\u03c5 locked forward-review workflow\u00b7 \u03b4\u03b5\u03bd \u03b1\u03c0\u03bf\u03c4\u03b5\u03bb\u03b5\u03af \u03ac\u03b4\u03b5\u03b9\u03b1 \u03b3\u03b9\u03b1 live trading.",
+        "id": "forward_decision",
+        "metrics": [
+          {
+            "field": "decision_status",
+            "format": "text",
+            "label": "\u039a\u03b1\u03c4\u03ac\u03c3\u03c4\u03b1\u03c3\u03b7"
+          },
+          {
+            "field": "live_trading_status",
+            "format": "text",
+            "label": "Live trading"
+          }
+        ],
+        "sourceId": "forward_decision"
+      },
+      {
+        "dataset": "overview",
+        "description": "\u0397\u03bc\u03ad\u03c1\u03b5\u03c2 \u03c0\u03bf\u03c5 \u03bc\u03b5\u03c4\u03c1\u03bf\u03cd\u03bd \u03bc\u03cc\u03bd\u03bf \u03bc\u03ad\u03c3\u03b1 \u03c3\u03c4\u03bf \u03c4\u03c1\u03ad\u03c7\u03bf\u03bd \u03ad\u03b3\u03ba\u03c5\u03c1\u03bf segment \u03ba\u03b1\u03b9 \u03c3\u03c4\u03b1\u03b8\u03bc\u03af\u03b6\u03bf\u03bd\u03c4\u03b1\u03b9 \u03bc\u03b5 \u03c4\u03b7\u03bd \u03ba\u03ac\u03bb\u03c5\u03c8\u03b7 \u03c4\u03c9\u03bd \u03c0\u03c1\u03bf\u03b3\u03c1\u03b1\u03bc\u03bc\u03b1\u03c4\u03b9\u03c3\u03bc\u03ad\u03bd\u03c9\u03bd snapshots.",
+        "id": "validated_days",
+        "metrics": [
+          {
+            "field": "validated_observation_days",
+            "format": "number",
+            "label": "\u0388\u03b3\u03ba\u03c5\u03c1\u03b5\u03c2 \u03b7\u03bc\u03ad\u03c1\u03b5\u03c2"
+          },
+          {
+            "field": "monitoring_days_target",
+            "format": "number",
+            "label": "\u0395\u03bb\u03ac\u03c7\u03b9\u03c3\u03c4\u03bf\u03c2 \u03c3\u03c4\u03cc\u03c7\u03bf\u03c2"
+          }
+        ],
+        "sourceId": "latest_overview"
+      },
+      {
+        "dataset": "overview",
+        "description": "\u0388\u03b3\u03ba\u03c5\u03c1\u03b1 \u03c0\u03c1\u03bf\u03b3\u03c1\u03b1\u03bc\u03bc\u03b1\u03c4\u03b9\u03c3\u03bc\u03ad\u03bd\u03b1 4\u03c9\u03c1\u03b1 slots \u03c0\u03c1\u03bf\u03c2 \u03cc\u03bb\u03b1 \u03c4\u03b1 \u03b1\u03bd\u03b1\u03bc\u03b5\u03bd\u03cc\u03bc\u03b5\u03bd\u03b1 slots \u03c4\u03bf\u03c5 \u03c4\u03c1\u03ad\u03c7\u03bf\u03bd\u03c4\u03bf\u03c2 segment.",
+        "id": "snapshot_coverage",
+        "metrics": [
+          {
+            "field": "snapshot_coverage_pct",
+            "format": "number",
+            "label": "\u039a\u03ac\u03bb\u03c5\u03c8\u03b7 snapshots (%)"
+          },
+          {
+            "field": "calendar_monitoring_days",
+            "format": "number",
+            "label": "\u0397\u03bc\u03b5\u03c1\u03bf\u03bb\u03bf\u03b3\u03b9\u03b1\u03ba\u03ad\u03c2 \u03b7\u03bc\u03ad\u03c1\u03b5\u03c2"
+          }
+        ],
+        "sourceId": "latest_overview"
+      },
+      {
+        "dataset": "overview",
+        "description": "\u0391\u03bd\u03b5\u03be\u03ac\u03c1\u03c4\u03b7\u03c4\u03bf\u03c2 \u03ad\u03bb\u03b5\u03b3\u03c7\u03bf\u03c2 \u03b7\u03bb\u03b9\u03ba\u03af\u03b1\u03c2 \u03c4\u03bf\u03c5 \u03c4\u03b5\u03bb\u03b5\u03c5\u03c4\u03b1\u03af\u03bf\u03c5 \u03bf\u03bb\u03bf\u03ba\u03bb\u03b7\u03c1\u03c9\u03bc\u03ad\u03bd\u03bf\u03c5 \u03c0\u03c1\u03bf\u03b3\u03c1\u03b1\u03bc\u03bc\u03b1\u03c4\u03b9\u03c3\u03bc\u03ad\u03bd\u03bf\u03c5 snapshot.",
+        "id": "snapshot_freshness",
+        "metrics": [
+          {
+            "field": "snapshot_age_hours",
+            "format": "number",
+            "label": "\u0397\u03bb\u03b9\u03ba\u03af\u03b1 snapshot (\u03ce\u03c1\u03b5\u03c2)"
+          },
+          {
+            "field": "watchdog_status",
+            "format": "text",
+            "label": "Watchdog"
+          },
+          {
+            "field": "heartbeat_status",
+            "format": "text",
+            "label": "\u0395\u03be\u03c9\u03c4\u03b5\u03c1\u03b9\u03ba\u03cc heartbeat"
+          }
+        ],
+        "sourceId": "watchdog_status"
+      },
+      {
+        "dataset": "overview",
+        "description": "\u0397\u03bb\u03b9\u03ba\u03af\u03b1 \u03ba\u03b1\u03b9 \u03b1\u03c0\u03bf\u03c4\u03ad\u03bb\u03b5\u03c3\u03bc\u03b1 \u03c4\u03bf\u03c5 \u03c4\u03b5\u03bb\u03b5\u03c5\u03c4\u03b1\u03af\u03bf\u03c5 \u03b7\u03bc\u03b5\u03c1\u03ae\u03c3\u03b9\u03bf\u03c5 integrity-checked backup.",
+        "id": "backup_freshness",
+        "metrics": [
+          {
+            "field": "backup_age_hours",
+            "format": "number",
+            "label": "\u0397\u03bb\u03b9\u03ba\u03af\u03b1 backup (\u03ce\u03c1\u03b5\u03c2)"
+          },
+          {
+            "field": "backup_status",
+            "format": "text",
+            "label": "Backup"
+          }
+        ],
+        "sourceId": "backup_status"
+      },
+      {
+        "dataset": "overview",
+        "description": "Fail-closed qualification status. \u0391\u03ba\u03cc\u03bc\u03b7 \u03ba\u03b1\u03b9 \u03c4\u03bf review-ready \u03b4\u03b5\u03bd \u03b5\u03bd\u03b5\u03c1\u03b3\u03bf\u03c0\u03bf\u03b9\u03b5\u03af live trading.",
+        "id": "live_readiness",
+        "metrics": [
+          {
+            "field": "qualification_status",
+            "format": "text",
+            "label": "Live readiness"
+          }
+        ],
+        "sourceId": "live_readiness"
+      },
+      {
+        "dataset": "overview",
+        "description": "\u0391\u03c0\u03bf\u03c4\u03ad\u03bb\u03b5\u03c3\u03bc\u03b1 \u03b4\u03c5\u03c3\u03bc\u03b5\u03bd\u03ce\u03bd \u03c3\u03b5\u03bd\u03b1\u03c1\u03af\u03c9\u03bd \u03b3\u03b9\u03b1 fees, slippage, latency \u03ba\u03b1\u03b9 funding.",
+        "id": "execution_stress",
+        "metrics": [
+          {
+            "field": "execution_stress_status",
+            "format": "text",
+            "label": "Execution stress"
+          }
+        ],
+        "sourceId": "execution_stress"
+      },
+      {
+        "dataset": "overview",
+        "description": "Account-level risk guard \u03c0\u03bf\u03c5 \u03b5\u03c0\u03b9\u03c4\u03c1\u03ad\u03c0\u03b5\u03b9 \u03ae \u03b1\u03c0\u03bf\u03c1\u03c1\u03af\u03c0\u03c4\u03b5\u03b9 \u03bd\u03ad\u03b5\u03c2 V1 \u03b5\u03b9\u03c3\u03cc\u03b4\u03bf\u03c5\u03c2.",
+        "id": "v1_entry_guard",
+        "metrics": [
+          {
+            "field": "v1_entry_guard",
+            "format": "text",
+            "label": "V1 \u03bd\u03ad\u03b5\u03c2 \u03b5\u03af\u03c3\u03bf\u03b4\u03bf\u03b9"
+          }
+        ],
+        "sourceId": "latest_overview"
+      },
+      {
+        "dataset": "overview",
+        "description": "Account-level risk guard \u03c0\u03bf\u03c5 \u03b5\u03c0\u03b9\u03c4\u03c1\u03ad\u03c0\u03b5\u03b9 \u03ae \u03b1\u03c0\u03bf\u03c1\u03c1\u03af\u03c0\u03c4\u03b5\u03b9 \u03bd\u03ad\u03b5\u03c2 V2R \u03b5\u03b9\u03c3\u03cc\u03b4\u03bf\u03c5\u03c2.",
+        "id": "v2r_entry_guard",
+        "metrics": [
+          {
+            "field": "v2r_entry_guard",
+            "format": "text",
+            "label": "V2R \u03bd\u03ad\u03b5\u03c2 \u03b5\u03af\u03c3\u03bf\u03b4\u03bf\u03b9"
+          }
+        ],
+        "sourceId": "latest_overview"
+      },
+      {
+        "dataset": "overview",
+        "description": "\u039a\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03b5\u03c2 \u03c3\u03c5\u03bd\u03b1\u03bb\u03bb\u03b1\u03b3\u03ad\u03c2 \u03c4\u03bf\u03c5 V1 control \u03bc\u03b5\u03c4\u03ac \u03c4\u03b7\u03bd \u03ad\u03bd\u03b1\u03c1\u03be\u03b7 \u03c4\u03bf\u03c5 forward epoch.",
+        "id": "v1_closed",
+        "metrics": [
+          {
+            "field": "v1_closed",
+            "format": "number",
+            "label": "V1 \u03ba\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03b5\u03c2"
+          },
+          {
+            "field": "v1_closed_target",
+            "format": "number",
+            "label": "\u0395\u03bb\u03ac\u03c7\u03b9\u03c3\u03c4\u03bf\u03c2 \u03c3\u03c4\u03cc\u03c7\u03bf\u03c2"
+          }
+        ],
+        "sourceId": "latest_overview"
+      },
+      {
+        "dataset": "overview",
+        "description": "\u039a\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03b5\u03c2 \u03c3\u03c5\u03bd\u03b1\u03bb\u03bb\u03b1\u03b3\u03ad\u03c2 \u03c4\u03bf\u03c5 V2R candidate \u03bc\u03b5\u03c4\u03ac \u03c4\u03b7\u03bd \u03ad\u03bd\u03b1\u03c1\u03be\u03b7 \u03c4\u03bf\u03c5 forward epoch.",
+        "id": "v2r_closed",
+        "metrics": [
+          {
+            "field": "v2r_closed",
+            "format": "number",
+            "label": "V2R \u03ba\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03b5\u03c2"
+          },
+          {
+            "field": "v2r_closed_target",
+            "format": "number",
+            "label": "\u0395\u03bb\u03ac\u03c7\u03b9\u03c3\u03c4\u03bf\u03c2 \u03c3\u03c4\u03cc\u03c7\u03bf\u03c2"
+          }
+        ],
+        "sourceId": "latest_overview"
+      },
+      {
+        "dataset": "overview",
+        "description": "\u0386\u03b8\u03c1\u03bf\u03b9\u03c3\u03bc\u03b1 \u03ba\u03ad\u03c1\u03b4\u03bf\u03c5\u03c2 \u03c4\u03c9\u03bd \u03ba\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03c9\u03bd V2R trades \u03c3\u03c4\u03bf USDT dry-run wallet.",
+        "id": "v2r_net_profit",
+        "metrics": [
+          {
+            "field": "v2r_net_profit",
+            "format": "number",
+            "label": "V2R \u03ba\u03b1\u03b8\u03b1\u03c1\u03cc PnL (USDT)",
+            "signed": true
+          }
+        ],
+        "sourceId": "latest_overview"
+      },
+      {
+        "dataset": "overview",
+        "description": "\u039c\u03b9\u03ba\u03c4\u03cc \u03ba\u03ad\u03c1\u03b4\u03bf\u03c2 V2R \u03c0\u03c1\u03bf\u03c2 \u03b1\u03c0\u03cc\u03bb\u03c5\u03c4\u03b7 \u03bc\u03b9\u03ba\u03c4\u03ae \u03b6\u03b7\u03bc\u03b9\u03ac\u00b7 \u03c0\u03b1\u03c1\u03b1\u03bc\u03ad\u03bd\u03b5\u03b9 \u03ba\u03b5\u03bd\u03cc \u03bc\u03ad\u03c7\u03c1\u03b9 \u03bd\u03b1 \u03c5\u03c0\u03ac\u03c1\u03be\u03bf\u03c5\u03bd \u03b6\u03b7\u03bc\u03b9\u03bf\u03b3\u03cc\u03bd\u03b1 trades.",
+        "id": "v2r_profit_factor",
+        "metrics": [
+          {
+            "field": "v2r_profit_factor",
+            "format": "number",
+            "label": "V2R profit factor"
+          },
+          {
+            "field": "v2r_profit_factor_target",
+            "format": "number",
+            "label": "\u0395\u03bb\u03ac\u03c7\u03b9\u03c3\u03c4\u03bf\u03c2 \u03c3\u03c4\u03cc\u03c7\u03bf\u03c2"
+          }
+        ],
+        "sourceId": "latest_overview"
+      },
+      {
+        "dataset": "overview",
+        "description": "\u039c\u03ad\u03b3\u03b9\u03c3\u03c4\u03b7 \u03c0\u03c4\u03ce\u03c3\u03b7 \u03c4\u03bf\u03c5 V2R equity \u03c9\u03c2 \u03c0\u03bf\u03c3\u03bf\u03c3\u03c4\u03cc \u03c4\u03bf\u03c5 \u03b1\u03c1\u03c7\u03b9\u03ba\u03bf\u03cd dry-run wallet.",
+        "id": "v2r_drawdown",
+        "metrics": [
+          {
+            "field": "v2r_drawdown_pct",
+            "format": "number",
+            "label": "V2R drawdown (%)"
+          },
+          {
+            "field": "v2r_drawdown_limit",
+            "format": "number",
+            "label": "\u039c\u03ad\u03b3\u03b9\u03c3\u03c4\u03bf \u03cc\u03c1\u03b9\u03bf (%)"
+          }
+        ],
+        "sourceId": "latest_overview"
+      }
+    ],
+    "charts": [
+      {
+        "dataset": "history",
+        "emptyState": "\u0394\u03b5\u03bd \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9 \u03b1\u03ba\u03cc\u03bc\u03b7 \u03b9\u03c3\u03c4\u03bf\u03c1\u03b9\u03ba\u03cc monitor.",
+        "encodings": {
+          "color": {
+            "field": "bot",
+            "label": "Bot",
+            "type": "nominal"
+          },
+          "x": {
+            "field": "snapshot_utc",
+            "label": "Snapshot",
+            "type": "temporal"
+          },
+          "y": {
+            "field": "closed_trades",
+            "format": "number",
+            "label": "\u039a\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03b5\u03c2 \u03c3\u03c5\u03bd\u03b1\u03bb\u03bb\u03b1\u03b3\u03ad\u03c2",
+            "type": "quantitative"
+          }
+        },
+        "id": "closed_trade_trend",
+        "layout": "full",
+        "sourceId": "monitor_history",
+        "subtitle": "\u03a3\u03c5\u03c3\u03c3\u03ce\u03c1\u03b5\u03c5\u03c3\u03b7 \u03ba\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03c9\u03bd trades \u03b3\u03b9\u03b1 \u03c4\u03bf V1 control \u03ba\u03b1\u03b9 \u03c4\u03bf V2R candidate.",
+        "title": "\u0391\u03bd\u03ac\u03c0\u03c4\u03c5\u03be\u03b7 forward \u03b4\u03b5\u03af\u03b3\u03bc\u03b1\u03c4\u03bf\u03c2",
+        "type": "line"
+      },
+      {
+        "dataset": "history",
+        "emptyState": "\u0394\u03b5\u03bd \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9 \u03b1\u03ba\u03cc\u03bc\u03b7 PnL \u03b1\u03c0\u03cc \u03ba\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03b5\u03c2 \u03c3\u03c5\u03bd\u03b1\u03bb\u03bb\u03b1\u03b3\u03ad\u03c2.",
+        "encodings": {
+          "color": {
+            "field": "bot",
+            "label": "Bot",
+            "type": "nominal"
+          },
+          "x": {
+            "field": "snapshot_utc",
+            "label": "Snapshot",
+            "type": "temporal"
+          },
+          "y": {
+            "field": "net_profit_abs",
+            "format": "number",
+            "label": "\u039a\u03b1\u03b8\u03b1\u03c1\u03cc PnL",
+            "type": "quantitative",
+            "unit": "USDT"
+          }
+        },
+        "id": "net_profit_trend",
+        "layout": "full",
+        "sourceId": "monitor_history",
+        "subtitle": "PnL \u03ba\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03c9\u03bd trades \u03c3\u03b5 \u03ba\u03ac\u03b8\u03b5 dry-run wallet \u03c4\u03c9\u03bd 1.000 USDT.",
+        "title": "\u0395\u03be\u03ad\u03bb\u03b9\u03be\u03b7 forward \u03ba\u03b1\u03b8\u03b1\u03c1\u03bf\u03cd PnL",
+        "type": "line"
+      }
+    ],
+    "description": "\u0391\u03c0\u03bb\u03ae read-only \u03b5\u03b9\u03ba\u03cc\u03bd\u03b1 \u03b3\u03b9\u03b1 \u03bb\u03b5\u03b9\u03c4\u03bf\u03c5\u03c1\u03b3\u03af\u03b1, forward sample, V1/V2R \u03b1\u03c0\u03cc\u03b4\u03bf\u03c3\u03b7, risk gates \u03ba\u03b1\u03b9 alerts.",
+    "filters": [
+      {
+        "dataset": "history",
+        "field": "bot",
+        "id": "bot_filter",
+        "includeAll": true,
+        "label": "Bot \u03c3\u03c4\u03b1 \u03b3\u03c1\u03b1\u03c6\u03ae\u03bc\u03b1\u03c4\u03b1",
+        "targets": [
+          {
+            "dataset": "history",
+            "field": "bot"
+          }
+        ]
+      }
+    ],
+    "generatedAt": "2026-08-10T10:42:12.593059Z",
+    "sources": [
+      {
+        "id": "latest_overview",
+        "label": "Latest forward-monitor KPI extract",
+        "path": "user_data/reports/forward_monitor_latest.json",
+        "query": {
+          "description": "Extracts validated continuity, coverage, freshness, and V1/V2R headline metrics.",
+          "engine": "duckdb",
+          "executed_at": "2026-08-10T10:42:12.593059Z",
+          "language": "sql",
+          "metric_definitions": [
+            "Net profit is the sum of closed-trade profit_abs in USDT.",
+            "Profit factor is gross positive profit divided by absolute gross negative profit and is null when undefined.",
+            "Drawdown percent is maximum chronological equity decline divided by starting dry-run wallet."
+          ],
+          "sql": "SELECT monitoring.elapsed_days AS calendar_monitoring_days, monitoring.continuity.validated_observation_days AS validated_observation_days, monitoring.continuity.coverage_ratio * 100 AS snapshot_coverage_pct, locked_thresholds.minimum_monitoring_days AS monitoring_days_target, bots.v1.metrics.closed_trades AS v1_closed, bots.v2r.metrics.closed_trades AS v2r_closed, bots.v2r.metrics.net_profit_abs AS v2r_net_profit, bots.v2r.metrics.profit_factor AS v2r_profit_factor, bots.v2r.metrics.max_drawdown_pct_of_start_wallet AS v2r_drawdown_pct, bots.v1.account_risk.new_entries_allowed AS v1_entry_guard, bots.v2r.account_risk.new_entries_allowed AS v2r_entry_guard FROM read_json_auto('user_data/reports/forward_monitor_latest.json')",
+          "tables_used": [
+            "user_data/reports/forward_monitor_latest.json"
+          ]
+        }
+      },
+      {
+        "id": "latest_comparison",
+        "label": "Latest V1 versus V2R comparison extract",
+        "path": "user_data/reports/forward_monitor_latest.json",
+        "query": {
+          "description": "Normalizes the two latest bot metric objects into comparison rows.",
+          "engine": "duckdb",
+          "executed_at": "2026-08-10T10:42:12.593059Z",
+          "language": "sql",
+          "sql": "WITH src AS (SELECT bots FROM read_json_auto('user_data/reports/forward_monitor_latest.json')) SELECT 'V1' AS bot, bots.v1.strategy AS strategy, bots.v1.metrics.closed_trades AS closed_trades, bots.v1.metrics.net_profit_abs AS net_profit_usdt, bots.v1.metrics.profit_factor AS profit_factor, bots.v1.runtime.bot_loop_age_seconds AS bot_loop_age_seconds, bots.v1.market_data_freshness.maximum_candle_close_age_seconds AS candle_age_seconds FROM src UNION ALL SELECT 'V2R', bots.v2r.strategy, bots.v2r.metrics.closed_trades, bots.v2r.metrics.net_profit_abs, bots.v2r.metrics.profit_factor, bots.v2r.runtime.bot_loop_age_seconds, bots.v2r.market_data_freshness.maximum_candle_close_age_seconds FROM src",
+          "tables_used": [
+            "user_data/reports/forward_monitor_latest.json"
+          ]
+        }
+      },
+      {
+        "id": "forward_decision",
+        "label": "Current forward decision",
+        "path": "user_data/reports/forward_monitor_decision.json",
+        "query": {
+          "description": "Reads the current machine decision and safety flags.",
+          "engine": "duckdb",
+          "executed_at": "2026-08-10T10:42:12.593059Z",
+          "language": "sql",
+          "sql": "SELECT snapshot_utc, decision, auto_promotion_enabled, live_trading_authorized, profit_guaranteed FROM read_json_auto('user_data/reports/forward_monitor_decision.json')",
+          "tables_used": [
+            "user_data/reports/forward_monitor_decision.json"
+          ]
+        }
+      },
+      {
+        "id": "forward_gates",
+        "label": "Locked forward gate extract",
+        "path": "user_data/reports/forward_monitor_decision.json",
+        "query": {
+          "description": "Expands integrity, account-risk, sample, and performance gates into one review table.",
+          "engine": "duckdb",
+          "executed_at": "2026-08-10T10:42:12.593059Z",
+          "language": "sql",
+          "sql": "SELECT decision, integrity_gates, risk_gates, sample_gates, performance_gates FROM read_json_auto('user_data/reports/forward_monitor_decision.json')",
+          "tables_used": [
+            "user_data/reports/forward_monitor_decision.json"
+          ]
+        }
+      },
+      {
+        "id": "monitor_history",
+        "label": "Forward-monitor snapshot history",
+        "path": "user_data/reports/forward_monitor_history.csv",
+        "query": {
+          "description": "Loads the most recent bounded bot-level snapshots for the time-series charts.",
+          "engine": "duckdb",
+          "executed_at": "2026-08-10T10:42:12.593059Z",
+          "filters": [
+            "Most recent 500 rows maximum"
+          ],
+          "language": "sql",
+          "sql": "SELECT snapshot_utc, upper(bot_key) AS bot, closed_trades, open_trades, net_profit_abs, return_pct_of_start_wallet AS return_pct, profit_factor, max_drawdown_pct_of_start_wallet AS drawdown_pct, return_to_drawdown, distinct_pairs FROM read_csv_auto('user_data/reports/forward_monitor_history.csv', header=true) ORDER BY snapshot_utc DESC LIMIT 500",
+          "tables_used": [
+            "user_data/reports/forward_monitor_history.csv"
+          ]
+        }
+      },
+      {
+        "id": "alert_journal",
+        "label": "Combined deduplicated forward alert journal",
+        "path": "user_data/reports/forward*_alerts.jsonl",
+        "query": {
+          "description": "Loads recent state-transition alerts emitted by the monitor and watchdog.",
+          "engine": "duckdb",
+          "executed_at": "2026-08-10T10:42:12.593059Z",
+          "filters": [
+            "Most recent 50 alerts maximum"
+          ],
+          "language": "sql",
+          "sql": "SELECT timestamp_utc, severity, event_type, coalesce(bot, 'SYSTEM') AS bot, message FROM read_json_auto('user_data/reports/forward*_alerts.jsonl', format='newline_delimited') ORDER BY timestamp_utc DESC LIMIT 50",
+          "tables_used": [
+            "user_data/reports/forward_alerts.jsonl",
+            "user_data/reports/forward_watchdog_alerts.jsonl"
+          ]
+        }
+      },
+      {
+        "id": "watchdog_status",
+        "label": "Local snapshot freshness watchdog",
+        "path": "user_data/reports/forward_watchdog_latest.json",
+        "query": {
+          "description": "Reads the latest independent watchdog freshness state.",
+          "engine": "duckdb",
+          "executed_at": "2026-08-10T10:42:12.593059Z",
+          "language": "sql",
+          "sql": "SELECT checked_utc, snapshot_age_seconds / 3600.0 AS snapshot_age_hours, stale_after_seconds, status AS watchdog_status, stale, deadman_heartbeat.status AS heartbeat_status FROM read_json_auto('user_data/reports/forward_watchdog_latest.json')",
+          "tables_used": [
+            "user_data/reports/forward_watchdog_latest.json"
+          ]
+        }
+      },
+      {
+        "id": "backup_status",
+        "label": "Latest forward evidence backup status",
+        "path": "user_data/reports/forward_backup_status.json",
+        "query": {
+          "description": "Reads the latest daily backup result and next due timestamp.",
+          "engine": "duckdb",
+          "executed_at": "2026-08-10T10:42:12.593059Z",
+          "language": "sql",
+          "sql": "SELECT status AS backup_status, last_successful_backup_utc, date_diff('second', last_successful_backup_utc::TIMESTAMPTZ, TIMESTAMPTZ '2026-08-10T10:42:12.593059Z') / 3600.0 AS backup_age_hours, next_due_utc, retention_days FROM read_json_auto('user_data/reports/forward_backup_status.json')",
+          "tables_used": [
+            "user_data/reports/forward_backup_status.json"
+          ]
+        }
+      },
+      {
+        "id": "live_readiness",
+        "label": "Fail-closed live qualification status",
+        "path": "user_data/reports/live_readiness.json",
+        "query": {
+          "description": "Reads qualification gates while preserving the hard live-trading block.",
+          "engine": "duckdb",
+          "executed_at": "2026-08-10T10:42:12.593059Z",
+          "language": "sql",
+          "sql": "SELECT qualification_status, live_trading_authorized, automatic_live_launch_available, evidence_gates, safety_gates FROM read_json_auto('user_data/reports/live_readiness.json')",
+          "tables_used": [
+            "user_data/reports/live_readiness.json"
+          ]
+        }
+      },
+      {
+        "id": "execution_stress",
+        "label": "Adverse execution-cost stress report",
+        "path": "user_data/reports/execution_stress_report.json",
+        "query": {
+          "description": "Reads deterministic moderate and severe fee, slippage, latency, and funding diagnostics.",
+          "engine": "duckdb",
+          "executed_at": "2026-08-10T10:42:12.593059Z",
+          "language": "sql",
+          "sql": "SELECT status, unnest(results) AS stress_result FROM read_json_auto('user_data/reports/execution_stress_report.json')",
+          "tables_used": [
+            "user_data/reports/execution_stress_report.json"
+          ]
+        }
+      }
+    ],
+    "surface": "dashboard",
+    "tables": [
+      {
+        "columns": [
+          {
+            "field": "bot",
+            "label": "Bot",
+            "type": "text"
+          },
+          {
+            "field": "strategy",
+            "label": "\u03a3\u03c4\u03c1\u03b1\u03c4\u03b7\u03b3\u03b9\u03ba\u03ae",
+            "type": "text"
+          },
+          {
+            "field": "closed_trades",
+            "format": "number",
+            "label": "\u039a\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03b5\u03c2"
+          },
+          {
+            "field": "open_trades",
+            "format": "number",
+            "label": "\u0391\u03bd\u03bf\u03b9\u03c7\u03c4\u03ad\u03c2"
+          },
+          {
+            "field": "net_profit_usdt",
+            "format": "number",
+            "label": "\u039a\u03b1\u03b8\u03b1\u03c1\u03cc PnL (USDT)"
+          },
+          {
+            "field": "profit_factor",
+            "format": "number",
+            "label": "PF"
+          },
+          {
+            "field": "drawdown_pct",
+            "format": "number",
+            "label": "DD (%)"
+          },
+          {
+            "field": "return_to_drawdown",
+            "format": "number",
+            "label": "Return/DD"
+          },
+          {
+            "field": "distinct_pairs",
+            "format": "number",
+            "label": "\u0396\u03b5\u03cd\u03b3\u03b7"
+          },
+          {
+            "field": "bot_loop_age_seconds",
+            "format": "number",
+            "label": "\u0397\u03bb\u03b9\u03ba\u03af\u03b1 loop (s)"
+          },
+          {
+            "field": "max_candle_age_hours",
+            "format": "number",
+            "label": "\u0397\u03bb\u03b9\u03ba\u03af\u03b1 candle (h)"
+          },
+          {
+            "field": "restart_count",
+            "format": "number",
+            "label": "\u0395\u03c0\u03b1\u03bd\u03b5\u03ba\u03ba\u03b9\u03bd\u03ae\u03c3\u03b5\u03b9\u03c2"
+          },
+          {
+            "field": "runtime_pass",
+            "label": "Runtime",
+            "type": "text"
+          },
+          {
+            "field": "data_quality_pass",
+            "label": "\u03a0\u03bf\u03b9\u03cc\u03c4\u03b7\u03c4\u03b1 \u03b4\u03b5\u03b4\u03bf\u03bc\u03ad\u03bd\u03c9\u03bd",
+            "type": "text"
+          },
+          {
+            "field": "new_entries_allowed",
+            "label": "\u039d\u03ad\u03b5\u03c2 \u03b5\u03af\u03c3\u03bf\u03b4\u03bf\u03b9",
+            "type": "text"
+          }
+        ],
+        "dataset": "bot_compare",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "bot"
+        },
+        "density": "dense",
+        "id": "bot_comparison",
+        "layout": "full",
+        "sourceId": "latest_comparison",
+        "subtitle": "\u03a4\u03b5\u03bb\u03b5\u03c5\u03c4\u03b1\u03af\u03b1 forward metrics, \u03c5\u03c0\u03bf\u03bb\u03bf\u03b3\u03b9\u03c3\u03bc\u03ad\u03bd\u03b1 \u03b1\u03bd\u03b5\u03be\u03ac\u03c1\u03c4\u03b7\u03c4\u03b1 \u03b1\u03c0\u03cc \u03c4\u03bf API summary.",
+        "title": "\u03a4\u03c1\u03ad\u03c7\u03bf\u03c5\u03c3\u03b1 \u03c3\u03cd\u03b3\u03ba\u03c1\u03b9\u03c3\u03b7 V1 \u03ba\u03b1\u03b9 V2R"
+      },
+      {
+        "columns": [
+          {
+            "field": "category",
+            "label": "\u039a\u03b1\u03c4\u03b7\u03b3\u03bf\u03c1\u03af\u03b1",
+            "type": "text"
+          },
+          {
+            "field": "gate",
+            "label": "\u0388\u03bb\u03b5\u03b3\u03c7\u03bf\u03c2",
+            "type": "text"
+          },
+          {
+            "field": "status",
+            "label": "\u039a\u03b1\u03c4\u03ac\u03c3\u03c4\u03b1\u03c3\u03b7",
+            "type": "text"
+          },
+          {
+            "field": "actual",
+            "label": "\u03a4\u03c1\u03ad\u03c7\u03bf\u03c5\u03c3\u03b1 \u03c4\u03b9\u03bc\u03ae",
+            "type": "text"
+          },
+          {
+            "field": "requirement",
+            "label": "\u0391\u03c0\u03b1\u03af\u03c4\u03b7\u03c3\u03b7",
+            "type": "text"
+          }
+        ],
+        "dataset": "gates",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "category"
+        },
+        "density": "dense",
+        "id": "gate_status",
+        "layout": "full",
+        "sourceId": "forward_gates",
+        "subtitle": "\u039a\u03bb\u03b5\u03b9\u03b4\u03c9\u03bc\u03ad\u03bd\u03b5\u03c2 \u03b1\u03c0\u03b1\u03b9\u03c4\u03ae\u03c3\u03b5\u03b9\u03c2 \u03b1\u03ba\u03b5\u03c1\u03b1\u03b9\u03cc\u03c4\u03b7\u03c4\u03b1\u03c2, \u03b5\u03bb\u03ac\u03c7\u03b9\u03c3\u03c4\u03bf\u03c5 \u03b4\u03b5\u03af\u03b3\u03bc\u03b1\u03c4\u03bf\u03c2 \u03ba\u03b1\u03b9 \u03b1\u03c0\u03cc\u03b4\u03bf\u03c3\u03b7\u03c2.",
+        "title": "\u03a4\u03b9 \u03c7\u03c1\u03b5\u03b9\u03ac\u03b6\u03b5\u03c4\u03b1\u03b9 \u03b1\u03ba\u03cc\u03bc\u03b7"
+      },
+      {
+        "columns": [
+          {
+            "field": "bot",
+            "label": "Bot",
+            "type": "text"
+          },
+          {
+            "field": "policy_id",
+            "label": "Policy",
+            "type": "text"
+          },
+          {
+            "field": "new_entries_allowed",
+            "label": "\u039d\u03ad\u03b5\u03c2 \u03b5\u03af\u03c3\u03bf\u03b4\u03bf\u03b9",
+            "type": "text"
+          },
+          {
+            "field": "daily_loss_pct",
+            "format": "number",
+            "label": "\u0397\u03bc\u03b5\u03c1\u03ae\u03c3\u03b9\u03b1 \u03b6\u03b7\u03bc\u03b9\u03ac (%)"
+          },
+          {
+            "field": "weekly_loss_pct",
+            "format": "number",
+            "label": "\u0395\u03b2\u03b4\u03bf\u03bc\u03b1\u03b4\u03b9\u03b1\u03af\u03b1 \u03b6\u03b7\u03bc\u03b9\u03ac (%)"
+          },
+          {
+            "field": "open_stake_pct",
+            "format": "number",
+            "label": "Open stake (%)"
+          },
+          {
+            "field": "failed_checks",
+            "label": "\u0391\u03c0\u03bf\u03c4\u03c5\u03c7\u03b7\u03bc\u03ad\u03bd\u03bf\u03b9 \u03ad\u03bb\u03b5\u03b3\u03c7\u03bf\u03b9",
+            "type": "text"
+          }
+        ],
+        "dataset": "risk_status",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "bot"
+        },
+        "density": "dense",
+        "id": "risk_status",
+        "layout": "full",
+        "sourceId": "latest_overview",
+        "subtitle": "\u0397\u03bc\u03b5\u03c1\u03ae\u03c3\u03b9\u03b1/\u03b5\u03b2\u03b4\u03bf\u03bc\u03b1\u03b4\u03b9\u03b1\u03af\u03b1 \u03b6\u03b7\u03bc\u03b9\u03ac \u03ba\u03b1\u03b9 \u03c3\u03c5\u03bd\u03c4\u03b7\u03c1\u03b7\u03c4\u03b9\u03ba\u03ae \u03b5\u03ba\u03c4\u03af\u03bc\u03b7\u03c3\u03b7 \u03b1\u03bd\u03bf\u03b9\u03ba\u03c4\u03bf\u03cd exposure.",
+        "title": "Account-level risk policy"
+      },
+      {
+        "columns": [
+          {
+            "field": "split",
+            "label": "\u03a0\u03b5\u03c1\u03af\u03bf\u03b4\u03bf\u03c2",
+            "type": "text"
+          },
+          {
+            "field": "scenario",
+            "label": "\u03a3\u03b5\u03bd\u03ac\u03c1\u03b9\u03bf",
+            "type": "text"
+          },
+          {
+            "field": "status",
+            "label": "\u039a\u03b1\u03c4\u03ac\u03c3\u03c4\u03b1\u03c3\u03b7",
+            "type": "text"
+          },
+          {
+            "field": "trades",
+            "format": "number",
+            "label": "Trades"
+          },
+          {
+            "field": "net_profit_usdt",
+            "format": "number",
+            "label": "Net PnL (USDT)"
+          },
+          {
+            "field": "profit_factor",
+            "format": "number",
+            "label": "PF"
+          },
+          {
+            "field": "realized_drawdown_pct",
+            "format": "number",
+            "label": "Realized DD (%)"
+          }
+        ],
+        "dataset": "stress_results",
+        "defaultSort": {
+          "direction": "asc",
+          "field": "split"
+        },
+        "density": "dense",
+        "id": "stress_results",
+        "layout": "full",
+        "sourceId": "execution_stress",
+        "subtitle": "Moderate \u03ba\u03b1\u03b9 severe \u03c0\u03c1\u03cc\u03c3\u03b8\u03b5\u03c4\u03b1 \u03ba\u03cc\u03c3\u03c4\u03b7 \u03c0\u03ac\u03bd\u03c9 \u03c3\u03c4\u03b1 \u03ba\u03bb\u03b5\u03b9\u03b4\u03c9\u03bc\u03ad\u03bd\u03b1 trade exports.",
+        "title": "Execution stress \u03b1\u03bd\u03ac market regime"
+      },
+      {
+        "columns": [
+          {
+            "field": "timestamp_utc",
+            "label": "\u038f\u03c1\u03b1 UTC",
+            "type": "date"
+          },
+          {
+            "field": "severity",
+            "label": "\u03a3\u03bf\u03b2\u03b1\u03c1\u03cc\u03c4\u03b7\u03c4\u03b1",
+            "type": "text"
+          },
+          {
+            "field": "event_type",
+            "label": "\u03a3\u03c5\u03bc\u03b2\u03ac\u03bd",
+            "type": "text"
+          },
+          {
+            "field": "bot",
+            "label": "Bot",
+            "type": "text"
+          },
+          {
+            "field": "message",
+            "label": "\u039c\u03ae\u03bd\u03c5\u03bc\u03b1",
+            "type": "text"
+          }
+        ],
+        "dataset": "alerts",
+        "defaultSort": {
+          "direction": "desc",
+          "field": "timestamp_utc"
+        },
+        "density": "dense",
+        "id": "recent_alerts",
+        "layout": "full",
+        "sourceId": "alert_journal",
+        "subtitle": "\u0391\u03bb\u03bb\u03b1\u03b3\u03ad\u03c2 \u03ba\u03b1\u03c4\u03ac\u03c3\u03c4\u03b1\u03c3\u03b7\u03c2, \u03bd\u03ad\u03b1 trades, \u03c0\u03c1\u03bf\u03b5\u03b9\u03b4\u03bf\u03c0\u03bf\u03b9\u03ae\u03c3\u03b5\u03b9\u03c2 \u03b1\u03c3\u03c6\u03b1\u03bb\u03b5\u03af\u03b1\u03c2 \u03ba\u03b1\u03b9 recoveries \u03c7\u03c9\u03c1\u03af\u03c2 \u03b4\u03b9\u03c0\u03bb\u03bf\u03b5\u03b3\u03b3\u03c1\u03b1\u03c6\u03ad\u03c2.",
+        "title": "\u03a0\u03c1\u03cc\u03c3\u03c6\u03b1\u03c4\u03b5\u03c2 \u03b5\u03b9\u03b4\u03bf\u03c0\u03bf\u03b9\u03ae\u03c3\u03b5\u03b9\u03c2"
+      }
+    ],
+    "title": "\u039a\u03ad\u03bd\u03c4\u03c1\u03bf \u0395\u03bb\u03ad\u03b3\u03c7\u03bf\u03c5 Trading Bot",
+    "version": 1
+  },
+  "snapshot": {
+    "datasets": {
+      "alerts": [
+        {
+          "bot": "SYSTEM",
+          "event_type": "MONITOR_BASELINE",
+          "message": "Alert baseline initialized with decision INSUFFICIENT_FORWARD_SAMPLE.",
+          "severity": "INFO",
+          "timestamp_utc": "2026-08-03T23:06:17.107091Z"
+        },
+        {
+          "bot": "SYSTEM",
+          "event_type": "DECISION_CHANGED",
+          "message": "Forward decision changed from INSUFFICIENT_FORWARD_SAMPLE to MONITORING_ERROR.",
+          "severity": "CRITICAL",
+          "timestamp_utc": "2026-08-05T14:38:03.137931Z"
+        },
+        {
+          "bot": "SYSTEM",
+          "event_type": "MONITORING_ERROR_ACTIVE",
+          "message": "A runtime, API, schema, or data-integrity gate is failing.",
+          "severity": "CRITICAL",
+          "timestamp_utc": "2026-08-05T14:38:03.137931Z"
+        },
+        {
+          "bot": "SYSTEM",
+          "event_type": "STALE_MONITOR",
+          "message": "The scheduled monitor snapshot is older than the five-hour freshness limit.",
+          "severity": "CRITICAL",
+          "timestamp_utc": "2026-08-10T10:03:01.676307Z"
+        },
+        {
+          "bot": "SYSTEM",
+          "event_type": "STALE_MONITOR_RECOVERED",
+          "message": "Scheduled monitor snapshots are fresh again.",
+          "severity": "INFO",
+          "timestamp_utc": "2026-08-10T10:04:01.830056Z"
+        },
+        {
+          "bot": "SYSTEM",
+          "event_type": "DECISION_CHANGED",
+          "message": "Forward decision changed from MONITORING_ERROR to INSUFFICIENT_FORWARD_SAMPLE.",
+          "severity": "INFO",
+          "timestamp_utc": "2026-08-10T10:28:16.972588Z"
+        },
+        {
+          "bot": "SYSTEM",
+          "event_type": "MONITORING_ERROR_RECOVERED",
+          "message": "Runtime and data-integrity monitoring recovered.",
+          "severity": "INFO",
+          "timestamp_utc": "2026-08-10T10:28:16.972588Z"
+        },
+        {
+          "bot": "SYSTEM",
+          "event_type": "CONTINUITY_SEGMENT_RESET",
+          "message": "A gap above 8 hours reset the validated 30-day continuity segment.",
+          "severity": "WARNING",
+          "timestamp_utc": "2026-08-10T10:28:16.972588Z"
+        }
+      ],
+      "bot_compare": [
+        {
+          "bot": "V1",
+          "bot_loop_age_seconds": 1.851265,
+          "closed_trades": 0,
+          "data_quality_pass": true,
+          "distinct_pairs": 0,
+          "drawdown_pct": 0.0,
+          "max_candle_age_hours": 2.6702523233333335,
+          "net_profit_usdt": 0,
+          "new_entries_allowed": true,
+          "open_trades": 0,
+          "profit_factor": null,
+          "restart_count": 0,
+          "return_pct": 0.0,
+          "return_to_drawdown": null,
+          "runtime_pass": true,
+          "status": "OK",
+          "strategy": "DualTrendFuturesV1"
+        },
+        {
+          "bot": "V2R",
+          "bot_loop_age_seconds": 2.007611,
+          "closed_trades": 0,
+          "data_quality_pass": true,
+          "distinct_pairs": 0,
+          "drawdown_pct": 0.0,
+          "max_candle_age_hours": 2.6702523233333335,
+          "net_profit_usdt": 0,
+          "new_entries_allowed": true,
+          "open_trades": 0,
+          "profit_factor": null,
+          "restart_count": 0,
+          "return_pct": 0.0,
+          "return_to_drawdown": null,
+          "runtime_pass": true,
+          "status": "OK",
+          "strategy": "DualTrendFuturesV2R"
+        }
+      ],
+      "gates": [
+        {
+          "actual": "data_quality=True, runtime=True",
+          "category": "Integrity",
+          "gate": "v1_runtime_and_data_quality",
+          "requirement": "both true",
+          "status": "PASS"
+        },
+        {
+          "actual": "data_quality=True, runtime=True",
+          "category": "Integrity",
+          "gate": "v2r_runtime_and_data_quality",
+          "requirement": "both true",
+          "status": "PASS"
+        },
+        {
+          "actual": "True",
+          "category": "Risk",
+          "gate": "v1_account_risk",
+          "requirement": "true",
+          "status": "PASS"
+        },
+        {
+          "actual": "True",
+          "category": "Risk",
+          "gate": "v2r_account_risk",
+          "requirement": "true",
+          "status": "PASS"
+        },
+        {
+          "actual": "0.0083",
+          "category": "Sample",
+          "gate": "validated_observation_days",
+          "requirement": ">= 30",
+          "status": "FAIL"
+        },
+        {
+          "actual": "1.0000",
+          "category": "Sample",
+          "gate": "scheduled_snapshot_coverage",
+          "requirement": ">= 95%",
+          "status": "PASS"
+        },
+        {
+          "actual": "379.1863",
+          "category": "Sample",
+          "gate": "current_segment_max_gap",
+          "requirement": "<= 28800 seconds",
+          "status": "PASS"
+        },
+        {
+          "actual": "0",
+          "category": "Sample",
+          "gate": "v1_closed_trades",
+          "requirement": ">= 30",
+          "status": "FAIL"
+        },
+        {
+          "actual": "0",
+          "category": "Sample",
+          "gate": "v2r_closed_trades",
+          "requirement": ">= 30",
+          "status": "FAIL"
+        },
+        {
+          "actual": "0",
+          "category": "Performance",
+          "gate": "v2r_pair_breadth",
+          "requirement": ">= 4",
+          "status": "FAIL"
+        },
+        {
+          "actual": "0",
+          "category": "Performance",
+          "gate": "v2r_positive_net_profit",
+          "requirement": "> 0",
+          "status": "FAIL"
+        },
+        {
+          "actual": "Not available",
+          "category": "Performance",
+          "gate": "v2r_profit_factor",
+          "requirement": ">= 1.20",
+          "status": "FAIL"
+        },
+        {
+          "actual": "0.0000",
+          "category": "Performance",
+          "gate": "v2r_max_drawdown",
+          "requirement": "<= 10.0% of starting wallet",
+          "status": "PASS"
+        },
+        {
+          "actual": "Not available",
+          "category": "Performance",
+          "gate": "v2r_positive_defined_return_to_drawdown",
+          "requirement": "> 0 and defined",
+          "status": "FAIL"
+        },
+        {
+          "actual": "v1=Not available, v2r=Not available",
+          "category": "Performance",
+          "gate": "v2r_profit_factor_vs_v1",
+          "requirement": "V2R >= V1 - 0.10",
+          "status": "FAIL"
+        },
+        {
+          "actual": "v1=Not available, v2r=Not available",
+          "category": "Performance",
+          "gate": "v2r_return_to_drawdown_vs_v1",
+          "requirement": "V2R >= V1",
+          "status": "FAIL"
+        }
+      ],
+      "history": [
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:28:51.269602Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:28:51.269602Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:29:16.991579Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:29:16.991579Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:30:21.341780Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:30:21.341780Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:31:11.886976Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:31:11.886976Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:32:03.640949Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:32:03.640949Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:32:10.335370Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T22:32:10.335370Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:06:17.107091Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:06:17.107091Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:09:59.981468Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:09:59.981468Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:11:27.900333Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:11:27.900333Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:30:22.092786Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:30:22.092786Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:30:57.820618Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:30:57.820618Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:33:06.918171Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:33:06.918171Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:50:12.484726Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-03T23:50:12.484726Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-04T00:16:05.844426Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-04T00:16:05.844426Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": null,
+          "collection_status": "ERROR",
+          "distinct_pairs": null,
+          "drawdown_pct": null,
+          "net_profit_abs": null,
+          "open_trades": null,
+          "profit_factor": null,
+          "return_pct": null,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-05T14:38:03.137931Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": null,
+          "collection_status": "ERROR",
+          "distinct_pairs": null,
+          "drawdown_pct": null,
+          "net_profit_abs": null,
+          "open_trades": null,
+          "profit_factor": null,
+          "return_pct": null,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-05T14:38:03.137931Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": null,
+          "collection_status": "ERROR",
+          "distinct_pairs": null,
+          "drawdown_pct": null,
+          "net_profit_abs": null,
+          "open_trades": null,
+          "profit_factor": null,
+          "return_pct": null,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-10T10:03:01.770558Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": null,
+          "collection_status": "ERROR",
+          "distinct_pairs": null,
+          "drawdown_pct": null,
+          "net_profit_abs": null,
+          "open_trades": null,
+          "profit_factor": null,
+          "return_pct": null,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-10T10:03:01.770558Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": null,
+          "collection_status": "ERROR",
+          "distinct_pairs": null,
+          "drawdown_pct": null,
+          "net_profit_abs": null,
+          "open_trades": null,
+          "profit_factor": null,
+          "return_pct": null,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-10T10:27:16.702209Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": null,
+          "collection_status": "ERROR",
+          "distinct_pairs": null,
+          "drawdown_pct": null,
+          "net_profit_abs": null,
+          "open_trades": null,
+          "profit_factor": null,
+          "return_pct": null,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-10T10:27:16.702209Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-10T10:28:16.972588Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-10T10:28:16.972588Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-10T10:34:36.158880Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-10T10:34:36.158880Z"
+        },
+        {
+          "bot": "V1",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-10T10:40:12.908364Z"
+        },
+        {
+          "bot": "V2R",
+          "closed_trades": 0,
+          "collection_status": "OK",
+          "distinct_pairs": 0,
+          "drawdown_pct": 0,
+          "net_profit_abs": 0,
+          "open_trades": 0,
+          "profit_factor": null,
+          "return_pct": 0,
+          "return_to_drawdown": null,
+          "snapshot_utc": "2026-08-10T10:40:12.908364Z"
+        }
+      ],
+      "overview": [
+        {
+          "backup_age_hours": 0.6530062502777778,
+          "backup_status": "NOT_DUE",
+          "calendar_monitoring_days": 6.507889337523149,
+          "decision_status": "\u03a3\u03c5\u03bb\u03bb\u03bf\u03b3\u03ae \u03b4\u03b5\u03af\u03b3\u03bc\u03b1\u03c4\u03bf\u03c2",
+          "execution_stress_status": "FAIL",
+          "heartbeat_status": "DISABLED",
+          "live_trading_status": "\u0391\u03c0\u03b5\u03bd\u03b5\u03c1\u03b3\u03bf\u03c0\u03bf\u03b9\u03b7\u03bc\u03ad\u03bd\u03bf",
+          "monitoring_days_target": 30.0,
+          "qualification_status": "EVIDENCE_INCOMPLETE",
+          "snapshot_age_hours": 0.03324574861111111,
+          "snapshot_coverage_pct": 100.0,
+          "v1_closed": 0,
+          "v1_closed_target": 30,
+          "v1_entry_guard": true,
+          "v2r_closed": 0,
+          "v2r_closed_target": 30,
+          "v2r_drawdown_limit": 10.0,
+          "v2r_drawdown_pct": 0.0,
+          "v2r_entry_guard": true,
+          "v2r_net_profit": 0,
+          "v2r_profit_factor": null,
+          "v2r_profit_factor_target": 1.2,
+          "validated_observation_days": 0.008286293703703705,
+          "watchdog_status": "FRESH"
+        }
+      ],
+      "risk_status": [
+        {
+          "bot": "V1",
+          "daily_loss_pct": 0.0,
+          "failed_checks": "",
+          "new_entries_allowed": true,
+          "open_stake_pct": 0.0,
+          "policy_id": "professional-account-risk-v1",
+          "weekly_loss_pct": 0.0
+        },
+        {
+          "bot": "V2R",
+          "daily_loss_pct": 0.0,
+          "failed_checks": "",
+          "new_entries_allowed": true,
+          "open_stake_pct": 0.0,
+          "policy_id": "professional-account-risk-v1",
+          "weekly_loss_pct": 0.0
+        }
+      ],
+      "stress_results": [
+        {
+          "net_profit_usdt": 24.06184071261613,
+          "profit_factor": 1.7990266883004344,
+          "realized_drawdown_pct": 0.7039241164456825,
+          "scenario": "moderate",
+          "split": "validation",
+          "status": "PASS",
+          "trades": 79
+        },
+        {
+          "net_profit_usdt": 17.091003949464515,
+          "profit_factor": 1.5112601556635772,
+          "realized_drawdown_pct": 0.8066397146402551,
+          "scenario": "severe",
+          "split": "validation",
+          "status": "PASS",
+          "trades": 79
+        },
+        {
+          "net_profit_usdt": 56.35627918786499,
+          "profit_factor": 4.002577024162301,
+          "realized_drawdown_pct": 0.6779296351937318,
+          "scenario": "moderate",
+          "split": "2021",
+          "status": "PASS",
+          "trades": 37
+        },
+        {
+          "net_profit_usdt": 42.84263434805994,
+          "profit_factor": 3.0155091725089687,
+          "realized_drawdown_pct": 0.8821355890979703,
+          "scenario": "severe",
+          "split": "2021",
+          "status": "PASS",
+          "trades": 37
+        },
+        {
+          "net_profit_usdt": 0.19266859458654687,
+          "profit_factor": 1.010945782605804,
+          "realized_drawdown_pct": 0.9630903319732623,
+          "scenario": "moderate",
+          "split": "2022",
+          "status": "FAIL",
+          "trades": 46
+        },
+        {
+          "net_profit_usdt": -3.800576014653814,
+          "profit_factor": 0.8098571720129887,
+          "realized_drawdown_pct": 1.155120503793023,
+          "scenario": "severe",
+          "split": "2022",
+          "status": "FAIL",
+          "trades": 46
+        },
+        {
+          "net_profit_usdt": 9.674339636985907,
+          "profit_factor": 2.3520598732829496,
+          "realized_drawdown_pct": 0.45682313955571774,
+          "scenario": "moderate",
+          "split": "2023",
+          "status": "PASS",
+          "trades": 22
+        },
+        {
+          "net_profit_usdt": 6.98889011694363,
+          "profit_factor": 1.8436440494220665,
+          "realized_drawdown_pct": 0.4931966934228626,
+          "scenario": "severe",
+          "split": "2023",
+          "status": "PASS",
+          "trades": 22
+        },
+        {
+          "net_profit_usdt": 21.10427583239414,
+          "profit_factor": 2.4392070065687985,
+          "realized_drawdown_pct": 0.5740935271091189,
+          "scenario": "moderate",
+          "split": "2024",
+          "status": "PASS",
+          "trades": 40
+        },
+        {
+          "net_profit_usdt": 17.00040709557657,
+          "profit_factor": 2.0280373232271964,
+          "realized_drawdown_pct": 0.8066397146402551,
+          "scenario": "severe",
+          "split": "2024",
+          "status": "PASS",
+          "trades": 40
+        },
+        {
+          "net_profit_usdt": 2.9575648802219887,
+          "profit_factor": 1.1914267056619041,
+          "realized_drawdown_pct": 0.7039241164456825,
+          "scenario": "moderate",
+          "split": "2025",
+          "status": "PASS",
+          "trades": 39
+        },
+        {
+          "net_profit_usdt": 0.09059685388794728,
+          "profit_factor": 1.0053631686374747,
+          "realized_drawdown_pct": 0.7603701230827141,
+          "scenario": "severe",
+          "split": "2025",
+          "status": "PASS",
+          "trades": 39
+        },
+        {
+          "net_profit_usdt": 4.602184458826229,
+          "profit_factor": 1.598843951100146,
+          "realized_drawdown_pct": 0.3261189861304274,
+          "scenario": "moderate",
+          "split": "current_2026",
+          "status": "PASS",
+          "trades": 22
+        },
+        {
+          "net_profit_usdt": 3.016074912304915,
+          "profit_factor": 1.3497108297349094,
+          "realized_drawdown_pct": 0.37413549672173757,
+          "scenario": "severe",
+          "split": "current_2026",
+          "status": "PASS",
+          "trades": 22
+        }
+      ]
+    },
+    "generatedAt": "2026-08-10T10:42:12.593059Z",
+    "status": "ready",
+    "version": 1
+  },
+  "sources": [
+    {
+      "id": "latest_overview",
+      "label": "Latest forward-monitor KPI extract",
+      "path": "user_data/reports/forward_monitor_latest.json",
+      "query": {
+        "description": "Extracts validated continuity, coverage, freshness, and V1/V2R headline metrics.",
+        "engine": "duckdb",
+        "executed_at": "2026-08-10T10:42:12.593059Z",
+        "language": "sql",
+        "metric_definitions": [
+          "Net profit is the sum of closed-trade profit_abs in USDT.",
+          "Profit factor is gross positive profit divided by absolute gross negative profit and is null when undefined.",
+          "Drawdown percent is maximum chronological equity decline divided by starting dry-run wallet."
+        ],
+        "sql": "SELECT monitoring.elapsed_days AS calendar_monitoring_days, monitoring.continuity.validated_observation_days AS validated_observation_days, monitoring.continuity.coverage_ratio * 100 AS snapshot_coverage_pct, locked_thresholds.minimum_monitoring_days AS monitoring_days_target, bots.v1.metrics.closed_trades AS v1_closed, bots.v2r.metrics.closed_trades AS v2r_closed, bots.v2r.metrics.net_profit_abs AS v2r_net_profit, bots.v2r.metrics.profit_factor AS v2r_profit_factor, bots.v2r.metrics.max_drawdown_pct_of_start_wallet AS v2r_drawdown_pct, bots.v1.account_risk.new_entries_allowed AS v1_entry_guard, bots.v2r.account_risk.new_entries_allowed AS v2r_entry_guard FROM read_json_auto('user_data/reports/forward_monitor_latest.json')",
+        "tables_used": [
+          "user_data/reports/forward_monitor_latest.json"
+        ]
+      }
+    },
+    {
+      "id": "latest_comparison",
+      "label": "Latest V1 versus V2R comparison extract",
+      "path": "user_data/reports/forward_monitor_latest.json",
+      "query": {
+        "description": "Normalizes the two latest bot metric objects into comparison rows.",
+        "engine": "duckdb",
+        "executed_at": "2026-08-10T10:42:12.593059Z",
+        "language": "sql",
+        "sql": "WITH src AS (SELECT bots FROM read_json_auto('user_data/reports/forward_monitor_latest.json')) SELECT 'V1' AS bot, bots.v1.strategy AS strategy, bots.v1.metrics.closed_trades AS closed_trades, bots.v1.metrics.net_profit_abs AS net_profit_usdt, bots.v1.metrics.profit_factor AS profit_factor, bots.v1.runtime.bot_loop_age_seconds AS bot_loop_age_seconds, bots.v1.market_data_freshness.maximum_candle_close_age_seconds AS candle_age_seconds FROM src UNION ALL SELECT 'V2R', bots.v2r.strategy, bots.v2r.metrics.closed_trades, bots.v2r.metrics.net_profit_abs, bots.v2r.metrics.profit_factor, bots.v2r.runtime.bot_loop_age_seconds, bots.v2r.market_data_freshness.maximum_candle_close_age_seconds FROM src",
+        "tables_used": [
+          "user_data/reports/forward_monitor_latest.json"
+        ]
+      }
+    },
+    {
+      "id": "forward_decision",
+      "label": "Current forward decision",
+      "path": "user_data/reports/forward_monitor_decision.json",
+      "query": {
+        "description": "Reads the current machine decision and safety flags.",
+        "engine": "duckdb",
+        "executed_at": "2026-08-10T10:42:12.593059Z",
+        "language": "sql",
+        "sql": "SELECT snapshot_utc, decision, auto_promotion_enabled, live_trading_authorized, profit_guaranteed FROM read_json_auto('user_data/reports/forward_monitor_decision.json')",
+        "tables_used": [
+          "user_data/reports/forward_monitor_decision.json"
+        ]
+      }
+    },
+    {
+      "id": "forward_gates",
+      "label": "Locked forward gate extract",
+      "path": "user_data/reports/forward_monitor_decision.json",
+      "query": {
+        "description": "Expands integrity, account-risk, sample, and performance gates into one review table.",
+        "engine": "duckdb",
+        "executed_at": "2026-08-10T10:42:12.593059Z",
+        "language": "sql",
+        "sql": "SELECT decision, integrity_gates, risk_gates, sample_gates, performance_gates FROM read_json_auto('user_data/reports/forward_monitor_decision.json')",
+        "tables_used": [
+          "user_data/reports/forward_monitor_decision.json"
+        ]
+      }
+    },
+    {
+      "id": "monitor_history",
+      "label": "Forward-monitor snapshot history",
+      "path": "user_data/reports/forward_monitor_history.csv",
+      "query": {
+        "description": "Loads the most recent bounded bot-level snapshots for the time-series charts.",
+        "engine": "duckdb",
+        "executed_at": "2026-08-10T10:42:12.593059Z",
+        "filters": [
+          "Most recent 500 rows maximum"
+        ],
+        "language": "sql",
+        "sql": "SELECT snapshot_utc, upper(bot_key) AS bot, closed_trades, open_trades, net_profit_abs, return_pct_of_start_wallet AS return_pct, profit_factor, max_drawdown_pct_of_start_wallet AS drawdown_pct, return_to_drawdown, distinct_pairs FROM read_csv_auto('user_data/reports/forward_monitor_history.csv', header=true) ORDER BY snapshot_utc DESC LIMIT 500",
+        "tables_used": [
+          "user_data/reports/forward_monitor_history.csv"
+        ]
+      }
+    },
+    {
+      "id": "alert_journal",
+      "label": "Combined deduplicated forward alert journal",
+      "path": "user_data/reports/forward*_alerts.jsonl",
+      "query": {
+        "description": "Loads recent state-transition alerts emitted by the monitor and watchdog.",
+        "engine": "duckdb",
+        "executed_at": "2026-08-10T10:42:12.593059Z",
+        "filters": [
+          "Most recent 50 alerts maximum"
+        ],
+        "language": "sql",
+        "sql": "SELECT timestamp_utc, severity, event_type, coalesce(bot, 'SYSTEM') AS bot, message FROM read_json_auto('user_data/reports/forward*_alerts.jsonl', format='newline_delimited') ORDER BY timestamp_utc DESC LIMIT 50",
+        "tables_used": [
+          "user_data/reports/forward_alerts.jsonl",
+          "user_data/reports/forward_watchdog_alerts.jsonl"
+        ]
+      }
+    },
+    {
+      "id": "watchdog_status",
+      "label": "Local snapshot freshness watchdog",
+      "path": "user_data/reports/forward_watchdog_latest.json",
+      "query": {
+        "description": "Reads the latest independent watchdog freshness state.",
+        "engine": "duckdb",
+        "executed_at": "2026-08-10T10:42:12.593059Z",
+        "language": "sql",
+        "sql": "SELECT checked_utc, snapshot_age_seconds / 3600.0 AS snapshot_age_hours, stale_after_seconds, status AS watchdog_status, stale, deadman_heartbeat.status AS heartbeat_status FROM read_json_auto('user_data/reports/forward_watchdog_latest.json')",
+        "tables_used": [
+          "user_data/reports/forward_watchdog_latest.json"
+        ]
+      }
+    },
+    {
+      "id": "backup_status",
+      "label": "Latest forward evidence backup status",
+      "path": "user_data/reports/forward_backup_status.json",
+      "query": {
+        "description": "Reads the latest daily backup result and next due timestamp.",
+        "engine": "duckdb",
+        "executed_at": "2026-08-10T10:42:12.593059Z",
+        "language": "sql",
+        "sql": "SELECT status AS backup_status, last_successful_backup_utc, date_diff('second', last_successful_backup_utc::TIMESTAMPTZ, TIMESTAMPTZ '2026-08-10T10:42:12.593059Z') / 3600.0 AS backup_age_hours, next_due_utc, retention_days FROM read_json_auto('user_data/reports/forward_backup_status.json')",
+        "tables_used": [
+          "user_data/reports/forward_backup_status.json"
+        ]
+      }
+    },
+    {
+      "id": "live_readiness",
+      "label": "Fail-closed live qualification status",
+      "path": "user_data/reports/live_readiness.json",
+      "query": {
+        "description": "Reads qualification gates while preserving the hard live-trading block.",
+        "engine": "duckdb",
+        "executed_at": "2026-08-10T10:42:12.593059Z",
+        "language": "sql",
+        "sql": "SELECT qualification_status, live_trading_authorized, automatic_live_launch_available, evidence_gates, safety_gates FROM read_json_auto('user_data/reports/live_readiness.json')",
+        "tables_used": [
+          "user_data/reports/live_readiness.json"
+        ]
+      }
+    },
+    {
+      "id": "execution_stress",
+      "label": "Adverse execution-cost stress report",
+      "path": "user_data/reports/execution_stress_report.json",
+      "query": {
+        "description": "Reads deterministic moderate and severe fee, slippage, latency, and funding diagnostics.",
+        "engine": "duckdb",
+        "executed_at": "2026-08-10T10:42:12.593059Z",
+        "language": "sql",
+        "sql": "SELECT status, unnest(results) AS stress_result FROM read_json_auto('user_data/reports/execution_stress_report.json')",
+        "tables_used": [
+          "user_data/reports/execution_stress_report.json"
+        ]
+      }
+    }
+  ],
+  "surface": "dashboard"
+}

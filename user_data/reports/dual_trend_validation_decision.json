@@ -1,0 +1,13 @@
+{
+  "decision": "DRY_RUN_APPROVED_AND_RUNNING",
+  "strategy": "DualTrendFuturesV1",
+  "performance_gates_pass": true,
+  "technical_gates_pass": true,
+  "runtime_verified": true,
+  "live_trading_authorized": false,
+  "live_api_keys_present": false,
+  "baseline_fee_per_side_pct": 0.05,
+  "stress_fee_per_side_pct": 0.15,
+  "backcast_holdout_is_forward_test": false,
+  "future_profit_guaranteed": false
+}

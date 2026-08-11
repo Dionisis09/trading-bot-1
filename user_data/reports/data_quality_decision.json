@@ -1,0 +1,8 @@
+{
+  "decision": "READY FOR SEGMENTED RESEARCH",
+  "validity_failures": 0,
+  "timeframe_mismatches": 0,
+  "minimum_split_coverage_pct": 100.0,
+  "largest_historical_gap_candles": 15758,
+  "as_of_utc": "2026-08-03T18:00:00+00:00"
+}

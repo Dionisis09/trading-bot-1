@@ -1,0 +1,2 @@
+{"actual": 415498.538376, "bot": null, "event_type": "STALE_MONITOR", "message": "The scheduled monitor snapshot is older than the five-hour freshness limit.", "severity": "CRITICAL", "threshold": 18000, "timestamp_utc": "2026-08-10T10:03:01.676307Z"}
+{"actual": 60.059498, "bot": null, "event_type": "STALE_MONITOR_RECOVERED", "message": "Scheduled monitor snapshots are fresh again.", "severity": "INFO", "threshold": 18000, "timestamp_utc": "2026-08-10T10:04:01.830056Z"}

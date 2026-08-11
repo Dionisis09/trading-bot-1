@@ -1,0 +1,5 @@
+{
+  "monitoring_started_utc": "2026-08-03T22:28:51.269602Z",
+  "note": "Persistent forward epoch; normal monitor restarts must not reset it.",
+  "schema_version": "1.0"
+}

@@ -1,0 +1,14 @@
+{
+  "status": "READY",
+  "generated_at": "2026-08-10T10:42:12.593059Z",
+  "artifact": "/workspace/user_data/dashboard/forward_dashboard_artifact.json",
+  "output": "/workspace/user_data/dashboard/forward_dashboard.html",
+  "verification": "structural_only",
+  "counts": {
+    "blocks": 25,
+    "charts": 2,
+    "html": 0,
+    "metrics": 14,
+    "tables": 5
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "audience": "technical",
+  "chart_map": [
+    {
+      "analytical_question": "Where do PASS and FAIL aggregate reconciliation checks occur across locked splits?",
+      "chart_id": "reconciliation_status_chart",
+      "dataset": "reconciliation_status_counts",
+      "expected_rows": 6,
+      "family": "Comparison & Ranking",
+      "fields": {
+        "x": "category",
+        "y": "check_count"
+      },
+      "non_color_distinction": "Axis category includes split and status; every bar has a direct value label.",
+      "palette_policy": "Single default neutral series; no color or legend encoding.",
+      "report_segment": "Key findings with visual evidence",
+      "source_id": "dq_reconciliation_csv",
+      "supported_claim": "The pre-PnL blocker is isolated to aggregate timeframe reconciliation checks.",
+      "type": "bar",
+      "variant": "single-series vertical bar",
+      "zero_baseline": true
+    }
+  ],
+  "delivery_mode": "html",
+  "generated_at": "2026-08-11T12:36:46.099255Z",
+  "required_structure_map": [
+    {
+      "block_id": "title",
+      "role": "Title"
+    },
+    {
+      "block_id": "technical_summary",
+      "role": "Technical summary"
+    },
+    {
+      "block_id": "reconciliation_finding",
+      "role": "Key findings with visual evidence"
+    },
+    {
+      "block_id": "scope_heading",
+      "role": "Scope, data, and metric definitions"
+    },
+    {
+      "block_id": "methodology",
+      "role": "Methodology"
+    },
+    {
+      "block_id": "limitations",
+      "role": "Limitations, uncertainty, and robustness checks"
+    },
+    {
+      "block_id": "recommended_steps",
+      "role": "Recommended next steps"
+    },
+    {
+      "block_id": "further_questions",
+      "role": "Further questions"
+    }
+  ],
+  "schema_version": "1.0",
+  "source_notes": {
+    "bounded_dataset_counts": {
+      "audit_summary": 1,
+      "deployment_fields": 41,
+      "failure_register": 18,
+      "file_checks": 12,
+      "final_decision_fields": 237,
+      "final_gate_results": 0,
+      "gap_checks": 0,
+      "orderflow_fields": 141,
+      "quality_definitions": 6,
+      "reconciliation_checks": 27,
+      "reconciliation_daily_failures": 79,
+      "reconciliation_status_counts": 6,
+      "scope_definitions": 7,
+      "split_checks": 36
+    },
+    "daily_detail": "The source contains 18342 daily rows. The bounded artifact includes all 79 FAIL day-check rows across 16 distinct UTC dates and omits PASS rows from the visible table.",
+    "omitted_metrics": [
+      {
+        "metric_family": "qualification PnL and downstream diagnostics",
+        "needed_evidence": "A complete PASS of every frozen data/source check before PnL execution",
+        "reason": "NOT_RUN because the required data/source gate is blocked"
+      }
+    ],
+    "optional_deployment": "included",
+    "optional_final_decision": "included",
+    "optional_orderflow": "included",
+    "pnl_boundary": "PNL_NOT_RUN",
+    "reconciliation_chart": "Counts are computed from every aggregate reconciliation row. Explicit zero rows preserve the absent status within each split; no category is silently dropped.",
+    "snapshot_status": "blocked"
+  },
+  "surface": "report"
+}

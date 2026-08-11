@@ -1,0 +1,60 @@
+{
+  "artifacts": [
+    {
+      "file": "professional_live_profile-2026-08-10_10-25-39.zip",
+      "sha256": "f31a527838ca852789d035783df6d8b9d08b0583a7bd095ff3b474c80f2d922b",
+      "split": "validation"
+    },
+    {
+      "file": "professional_live_profile-2026-08-10_10-25-01.zip",
+      "sha256": "13f0a44fb16a9f101928706b65e3ad61908137ca47ac1a837b8f12ffb6f25bcb",
+      "split": "2021"
+    },
+    {
+      "file": "professional_live_profile-2026-08-10_10-25-07.zip",
+      "sha256": "505033767b3656747839fd31672152fdf0c981a1cacc9dd95bb37c88d9bc08e8",
+      "split": "2022"
+    },
+    {
+      "file": "professional_live_profile-2026-08-10_10-25-13.zip",
+      "sha256": "9393cc1b100732d6c8d0d54e906e3f40c9bf5ec187e56e09463bfab6a1bda03c",
+      "split": "2023"
+    },
+    {
+      "file": "professional_live_profile-2026-08-10_10-25-19.zip",
+      "sha256": "3775146332836a1ebf06dc5cc4fcffa5417140e564243a8e548e4c65aaf497e0",
+      "split": "2024"
+    },
+    {
+      "file": "professional_live_profile-2026-08-10_10-25-26.zip",
+      "sha256": "8e8fdd09b34f605e82ac264fc504a8c2c8967e98869d552e1e242a4693139fef",
+      "split": "2025"
+    },
+    {
+      "file": "professional_live_profile-2026-08-10_10-25-32.zip",
+      "sha256": "568abddb471919b7fc8198cfac88f85b0d4609e4e918758aa76ecd6ce9023929",
+      "split": "current_2026"
+    }
+  ],
+  "generated_at_utc": "2026-08-10T10:42:32.619401Z",
+  "live_trading_authorized": false,
+  "profile": {
+    "fee_per_side": 0.0005,
+    "leverage": 1.0,
+    "margin_mode": "isolated",
+    "max_open_trades": 2,
+    "protections_enabled": true,
+    "stake_amount_usdt": 25.0,
+    "starting_wallet_usdt": 1000.0
+  },
+  "schema_version": "1.0",
+  "source_hashes": {
+    "user_data/config-dual-futures-v2r-dry-run.json": "201edb74931e7cf3009e9be3451e38ab68a284f041863cfb975d9b6932b3b352",
+    "user_data/risk_policy.json": "6a3e073fd08b21d645b0d4b4151022bef79adc610d8c130b36554a01e6f51e80",
+    "user_data/strategies/DualTrendFuturesRisk.py": "9e0533cc4b8a02c938f20dde6ec2a6dcda7576d0ec95b2f1c6fde6aab9ca7ea0",
+    "user_data/strategies/DualTrendFuturesV1.py": "efcc644285a3a15a210e4db9a8471294a715419b92887961f5b4425fe9e2164e",
+    "user_data/strategies/DualTrendFuturesV2.py": "1d0f6c6b0ffd77cdfa537fa588bbe3cc337ae30ec221947370afe18886794edf",
+    "user_data/strategies/ProfessionalRisk.py": "459f8209e1a5ec8255839ce79e920cd343f571623bb759bdf6cfd32ad03334b8"
+  },
+  "strategy": "DualTrendFuturesV2R"
+}

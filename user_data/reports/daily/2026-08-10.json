@@ -1,0 +1,241 @@
+{
+  "bot_comparison": [
+    {
+      "bot": "V1",
+      "bot_loop_age_seconds": 1.851265,
+      "closed_trades": 0,
+      "data_quality_pass": true,
+      "distinct_pairs": 0,
+      "drawdown_pct": 0.0,
+      "max_candle_age_hours": 2.6702523233333335,
+      "net_profit_usdt": 0,
+      "new_entries_allowed": true,
+      "open_trades": 0,
+      "profit_factor": null,
+      "restart_count": 0,
+      "return_pct": 0.0,
+      "return_to_drawdown": null,
+      "runtime_pass": true,
+      "status": "OK",
+      "strategy": "DualTrendFuturesV1"
+    },
+    {
+      "bot": "V2R",
+      "bot_loop_age_seconds": 2.007611,
+      "closed_trades": 0,
+      "data_quality_pass": true,
+      "distinct_pairs": 0,
+      "drawdown_pct": 0.0,
+      "max_candle_age_hours": 2.6702523233333335,
+      "net_profit_usdt": 0,
+      "new_entries_allowed": true,
+      "open_trades": 0,
+      "profit_factor": null,
+      "restart_count": 0,
+      "return_pct": 0.0,
+      "return_to_drawdown": null,
+      "runtime_pass": true,
+      "status": "OK",
+      "strategy": "DualTrendFuturesV2R"
+    }
+  ],
+  "daily_change": [
+    {
+      "actual": 0.008286293703703705,
+      "delta": null,
+      "metric": "\u0388\u03b3\u03ba\u03c5\u03c1\u03b5\u03c2 forward \u03b7\u03bc\u03ad\u03c1\u03b5\u03c2",
+      "previous": null,
+      "status": "COLLECTING",
+      "target": 30.0
+    },
+    {
+      "actual": 100.0,
+      "delta": null,
+      "metric": "\u039a\u03ac\u03bb\u03c5\u03c8\u03b7 \u03c0\u03c1\u03bf\u03b3\u03c1\u03b1\u03bc\u03bc\u03b1\u03c4\u03b9\u03c3\u03bc\u03ad\u03bd\u03c9\u03bd snapshots (%)",
+      "previous": null,
+      "status": "PASS",
+      "target": 95.0
+    },
+    {
+      "actual": 0,
+      "delta": null,
+      "metric": "V1 \u03ba\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03b5\u03c2 \u03c3\u03c5\u03bd\u03b1\u03bb\u03bb\u03b1\u03b3\u03ad\u03c2",
+      "previous": null,
+      "status": "COLLECTING",
+      "target": 30.0
+    },
+    {
+      "actual": 0,
+      "delta": null,
+      "metric": "V2R \u03ba\u03bb\u03b5\u03b9\u03c3\u03bc\u03ad\u03bd\u03b5\u03c2 \u03c3\u03c5\u03bd\u03b1\u03bb\u03bb\u03b1\u03b3\u03ad\u03c2",
+      "previous": null,
+      "status": "COLLECTING",
+      "target": 30.0
+    },
+    {
+      "actual": 0,
+      "delta": null,
+      "metric": "V2R \u03ba\u03b1\u03b8\u03b1\u03c1\u03cc PnL (USDT)",
+      "previous": null,
+      "status": "INCOMPLETE",
+      "target": 0.0
+    },
+    {
+      "actual": 0.0,
+      "delta": null,
+      "metric": "V2R \u03bc\u03ad\u03b3\u03b9\u03c3\u03c4\u03bf drawdown (%)",
+      "previous": null,
+      "status": "PASS",
+      "target": 10.0
+    }
+  ],
+  "gates": [
+    {
+      "actual": "data_quality=True, runtime=True",
+      "category": "Integrity",
+      "gate": "v1_runtime_and_data_quality",
+      "requirement": "both true",
+      "status": "PASS"
+    },
+    {
+      "actual": "data_quality=True, runtime=True",
+      "category": "Integrity",
+      "gate": "v2r_runtime_and_data_quality",
+      "requirement": "both true",
+      "status": "PASS"
+    },
+    {
+      "actual": "True",
+      "category": "Risk",
+      "gate": "v1_account_risk",
+      "requirement": "true",
+      "status": "PASS"
+    },
+    {
+      "actual": "True",
+      "category": "Risk",
+      "gate": "v2r_account_risk",
+      "requirement": "true",
+      "status": "PASS"
+    },
+    {
+      "actual": "0.0083",
+      "category": "Sample",
+      "gate": "validated_observation_days",
+      "requirement": ">= 30",
+      "status": "FAIL"
+    },
+    {
+      "actual": "1.0000",
+      "category": "Sample",
+      "gate": "scheduled_snapshot_coverage",
+      "requirement": ">= 95%",
+      "status": "PASS"
+    },
+    {
+      "actual": "379.1863",
+      "category": "Sample",
+      "gate": "current_segment_max_gap",
+      "requirement": "<= 28800 seconds",
+      "status": "PASS"
+    },
+    {
+      "actual": "0",
+      "category": "Sample",
+      "gate": "v1_closed_trades",
+      "requirement": ">= 30",
+      "status": "FAIL"
+    },
+    {
+      "actual": "0",
+      "category": "Sample",
+      "gate": "v2r_closed_trades",
+      "requirement": ">= 30",
+      "status": "FAIL"
+    },
+    {
+      "actual": "0",
+      "category": "Performance",
+      "gate": "v2r_pair_breadth",
+      "requirement": ">= 4",
+      "status": "FAIL"
+    },
+    {
+      "actual": "0",
+      "category": "Performance",
+      "gate": "v2r_positive_net_profit",
+      "requirement": "> 0",
+      "status": "FAIL"
+    },
+    {
+      "actual": "Not available",
+      "category": "Performance",
+      "gate": "v2r_profit_factor",
+      "requirement": ">= 1.20",
+      "status": "FAIL"
+    },
+    {
+      "actual": "0.0000",
+      "category": "Performance",
+      "gate": "v2r_max_drawdown",
+      "requirement": "<= 10.0% of starting wallet",
+      "status": "PASS"
+    },
+    {
+      "actual": "Not available",
+      "category": "Performance",
+      "gate": "v2r_positive_defined_return_to_drawdown",
+      "requirement": "> 0 and defined",
+      "status": "FAIL"
+    },
+    {
+      "actual": "v1=Not available, v2r=Not available",
+      "category": "Performance",
+      "gate": "v2r_profit_factor_vs_v1",
+      "requirement": "V2R >= V1 - 0.10",
+      "status": "FAIL"
+    },
+    {
+      "actual": "v1=Not available, v2r=Not available",
+      "category": "Performance",
+      "gate": "v2r_return_to_drawdown_vs_v1",
+      "requirement": "V2R >= V1",
+      "status": "FAIL"
+    }
+  ],
+  "generated_at_utc": "2026-08-10T14:23:19.114139Z",
+  "kpis": {
+    "alert_delivery_mode": "LOCAL_ONLY",
+    "backup_age_hours": 4.338150994722222,
+    "backup_status": "NOT_DUE",
+    "calendar_monitoring_days": 6.507889337523149,
+    "daily_alert_count": 5,
+    "daily_critical_alert_count": 1,
+    "decision_status": "\u03a3\u03c5\u03bb\u03bb\u03bf\u03b3\u03ae \u03b4\u03b5\u03af\u03b3\u03bc\u03b1\u03c4\u03bf\u03c2",
+    "execution_stress_status": "FAIL",
+    "heartbeat_status": "DISABLED",
+    "last_alert_delivery_status": "NO_NEW_ALERTS",
+    "live_trading_status": "\u0391\u03c0\u03b5\u03bd\u03b5\u03c1\u03b3\u03bf\u03c0\u03bf\u03b9\u03b7\u03bc\u03ad\u03bd\u03bf",
+    "monitoring_days_target": 30.0,
+    "prior_report_date_utc": null,
+    "qualification_status": "EVIDENCE_INCOMPLETE",
+    "report_date_utc": "2026-08-10",
+    "snapshot_age_hours": 3.718390493055556,
+    "snapshot_coverage_pct": 100.0,
+    "v1_closed": 0,
+    "v1_closed_target": 30,
+    "v1_entry_guard": true,
+    "v2r_closed": 0,
+    "v2r_closed_target": 30,
+    "v2r_drawdown_limit": 10.0,
+    "v2r_drawdown_pct": 0.0,
+    "v2r_entry_guard": true,
+    "v2r_net_profit": 0,
+    "v2r_profit_factor": null,
+    "v2r_profit_factor_target": 1.2,
+    "validated_observation_days": 0.008286293703703705,
+    "watchdog_status": "FRESH"
+  },
+  "report_date_utc": "2026-08-10",
+  "schema_version": "1.0"
+}

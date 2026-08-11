@@ -1,0 +1,374 @@
+{
+  "active_strategies_changed": false,
+  "artifacts": {
+    "canonical": {
+      "filename": "prodayv2-cycle1-canonical.zip",
+      "path": "user_data/backtest_results/prodayv2-cycle1-canonical.zip",
+      "sha256": null,
+      "status": "PLANNED_NOT_RUN"
+    },
+    "current_partial": {
+      "filename": "prodayv2-cycle1-current-partial.zip",
+      "path": "user_data/backtest_results/prodayv2-cycle1-current-partial.zip",
+      "sha256": null,
+      "status": "PLANNED_NOT_RUN"
+    },
+    "train": {
+      "filename": "prodayv2-cycle1-train.zip",
+      "path": "user_data/backtest_results/prodayv2-cycle1-train.zip",
+      "sha256": null,
+      "status": "PLANNED_NOT_RUN"
+    },
+    "validation": {
+      "filename": "prodayv2-cycle1-validation.zip",
+      "path": "user_data/backtest_results/prodayv2-cycle1-validation.zip",
+      "sha256": null,
+      "status": "PLANNED_NOT_RUN"
+    }
+  },
+  "automatic_promotion_authorized": false,
+  "candidate": "ProDayTraderV2",
+  "cycle": "pro_day_v2_cycle1",
+  "data_files": {
+    "auxiliary_canonical_files": [
+      {
+        "bytes": 79738,
+        "filename": "BTC_USDT_USDT-1h-funding_rate.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BTC_USDT_USDT-1h-funding_rate.feather",
+        "sha256": "c56a30080f9b7abd04442e745d20a1c88777d6a232109378b433680b412c92f0"
+      },
+      {
+        "bytes": 1808138,
+        "filename": "BTC_USDT_USDT-1h-mark.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BTC_USDT_USDT-1h-mark.feather",
+        "sha256": "07fbf36f59e23de80530471d036c57810b69e5317130e467dbf058f59b861991"
+      },
+      {
+        "bytes": 78338,
+        "filename": "ETH_USDT_USDT-1h-funding_rate.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/ETH_USDT_USDT-1h-funding_rate.feather",
+        "sha256": "12852b6bd1a871ed0d7c823a6826385475e61a23a78d24168895a2d9ed221699"
+      },
+      {
+        "bytes": 1794538,
+        "filename": "ETH_USDT_USDT-1h-mark.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/ETH_USDT_USDT-1h-mark.feather",
+        "sha256": "63321e43ea137781751fc85f279d15ebf5588dbd4fcf7f26ed16e63703cffc1b"
+      },
+      {
+        "bytes": 72042,
+        "filename": "BNB_USDT_USDT-1h-funding_rate.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BNB_USDT_USDT-1h-funding_rate.feather",
+        "sha256": "810985a972280666e557a9a85039da0cdfd959a5a8ae0eb3fae5447d6be6a961"
+      },
+      {
+        "bytes": 1754058,
+        "filename": "BNB_USDT_USDT-1h-mark.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BNB_USDT_USDT-1h-mark.feather",
+        "sha256": "a11579880d80979c5f86f81a69535db83de1ff33bbc3cd6d4638f26113eee0ee"
+      }
+    ],
+    "auxiliary_source_files": [
+      {
+        "bytes": 79738,
+        "filename": "BTC_USDT_USDT-1h-funding_rate.feather",
+        "path": "user_data/data/binance/futures/BTC_USDT_USDT-1h-funding_rate.feather",
+        "sha256": "c56a30080f9b7abd04442e745d20a1c88777d6a232109378b433680b412c92f0"
+      },
+      {
+        "bytes": 1808138,
+        "filename": "BTC_USDT_USDT-1h-mark.feather",
+        "path": "user_data/data/binance/futures/BTC_USDT_USDT-1h-mark.feather",
+        "sha256": "07fbf36f59e23de80530471d036c57810b69e5317130e467dbf058f59b861991"
+      },
+      {
+        "bytes": 78338,
+        "filename": "ETH_USDT_USDT-1h-funding_rate.feather",
+        "path": "user_data/data/binance/futures/ETH_USDT_USDT-1h-funding_rate.feather",
+        "sha256": "12852b6bd1a871ed0d7c823a6826385475e61a23a78d24168895a2d9ed221699"
+      },
+      {
+        "bytes": 1794538,
+        "filename": "ETH_USDT_USDT-1h-mark.feather",
+        "path": "user_data/data/binance/futures/ETH_USDT_USDT-1h-mark.feather",
+        "sha256": "63321e43ea137781751fc85f279d15ebf5588dbd4fcf7f26ed16e63703cffc1b"
+      },
+      {
+        "bytes": 72042,
+        "filename": "BNB_USDT_USDT-1h-funding_rate.feather",
+        "path": "user_data/data/binance/futures/BNB_USDT_USDT-1h-funding_rate.feather",
+        "sha256": "810985a972280666e557a9a85039da0cdfd959a5a8ae0eb3fae5447d6be6a961"
+      },
+      {
+        "bytes": 1754058,
+        "filename": "BNB_USDT_USDT-1h-mark.feather",
+        "path": "user_data/data/binance/futures/BNB_USDT_USDT-1h-mark.feather",
+        "sha256": "a11579880d80979c5f86f81a69535db83de1ff33bbc3cd6d4638f26113eee0ee"
+      }
+    ],
+    "canonical_files": [
+      {
+        "bytes": 14749050,
+        "filename": "BTC_USDT_USDT-5m-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BTC_USDT_USDT-5m-futures.feather",
+        "sha256": "31607bec5bcb3a4afa6f6f94be8e6e592906f65269f4674e4a8fd34c5693815f"
+      },
+      {
+        "bytes": 6063322,
+        "filename": "BTC_USDT_USDT-15m-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BTC_USDT_USDT-15m-futures.feather",
+        "sha256": "02afee99c3cdf793ab336c490326d164d27294a07c0cb892c77bc0256bb0cea5"
+      },
+      {
+        "bytes": 1565258,
+        "filename": "BTC_USDT_USDT-1h-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BTC_USDT_USDT-1h-futures.feather",
+        "sha256": "acf49c48fef1cf27f19d112f412935f9f3ed0a2e7a127a247e8d9e9633696a96"
+      },
+      {
+        "bytes": 401970,
+        "filename": "BTC_USDT_USDT-4h-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BTC_USDT_USDT-4h-futures.feather",
+        "sha256": "4da011ec1da84fd4ed40f002d3d6377d313a7f748a55b82aff9683fff139e96c"
+      },
+      {
+        "bytes": 14767306,
+        "filename": "ETH_USDT_USDT-5m-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/ETH_USDT_USDT-5m-futures.feather",
+        "sha256": "e0c821aa302873bbe83ead01741e038bc1986fd4e50201b33c6db065c80f517c"
+      },
+      {
+        "bytes": 5879114,
+        "filename": "ETH_USDT_USDT-15m-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/ETH_USDT_USDT-15m-futures.feather",
+        "sha256": "bd920a64383c41098a26f476b48cbbda395e97dcf619b298b054548ca943089f"
+      },
+      {
+        "bytes": 1511434,
+        "filename": "ETH_USDT_USDT-1h-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/ETH_USDT_USDT-1h-futures.feather",
+        "sha256": "80ec39cdb02fba9e31c53d3e3beeb0c95ec4b9b734ca582e456d62d9dea28541"
+      },
+      {
+        "bytes": 393546,
+        "filename": "ETH_USDT_USDT-4h-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/ETH_USDT_USDT-4h-futures.feather",
+        "sha256": "7ad40aa733de2bfde993f0c41aca8450a9ac21449c113283e77364eb08a6aee9"
+      },
+      {
+        "bytes": 13320402,
+        "filename": "BNB_USDT_USDT-5m-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BNB_USDT_USDT-5m-futures.feather",
+        "sha256": "daef207f478695eaff158a30f1070cb9c636deecb477f66a438fee3749452688"
+      },
+      {
+        "bytes": 5486018,
+        "filename": "BNB_USDT_USDT-15m-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BNB_USDT_USDT-15m-futures.feather",
+        "sha256": "72a9c5ba110bc987e3a9b9165f50b8ce4076cae3ec0408bf079b3859391f2c18"
+      },
+      {
+        "bytes": 1409946,
+        "filename": "BNB_USDT_USDT-1h-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BNB_USDT_USDT-1h-futures.feather",
+        "sha256": "008861f158db533210dd84dbbc7d0354af456f385dbd606436f8056e9590832e"
+      },
+      {
+        "bytes": 363954,
+        "filename": "BNB_USDT_USDT-4h-futures.feather",
+        "path": "user_data/data/binance/pro_day_v2_canonical/BNB_USDT_USDT-4h-futures.feather",
+        "sha256": "3c7084ca4001ee67981015a895489c85c13fb514f63fa24882b13a78f380b57d"
+      }
+    ],
+    "source_files": [
+      {
+        "bytes": 14749050,
+        "filename": "BTC_USDT_USDT-5m-futures.feather",
+        "path": "user_data/data/binance/futures/BTC_USDT_USDT-5m-futures.feather",
+        "sha256": "31607bec5bcb3a4afa6f6f94be8e6e592906f65269f4674e4a8fd34c5693815f"
+      },
+      {
+        "bytes": 14767306,
+        "filename": "ETH_USDT_USDT-5m-futures.feather",
+        "path": "user_data/data/binance/futures/ETH_USDT_USDT-5m-futures.feather",
+        "sha256": "e0c821aa302873bbe83ead01741e038bc1986fd4e50201b33c6db065c80f517c"
+      },
+      {
+        "bytes": 13320402,
+        "filename": "BNB_USDT_USDT-5m-futures.feather",
+        "path": "user_data/data/binance/futures/BNB_USDT_USDT-5m-futures.feather",
+        "sha256": "daef207f478695eaff158a30f1070cb9c636deecb477f66a438fee3749452688"
+      }
+    ]
+  },
+  "evidence_boundary": "Immutable pre-PnL freeze only. No model was fit and no backtest result, trade, PnL, profitability, forward, deployment, or live evidence was parsed.",
+  "files": {
+    "config": {
+      "bytes": 3701,
+      "filename": "config-pro-day-v2-research.json",
+      "path": "user_data/config-pro-day-v2-research.json",
+      "sha256": "87222d70946a1cbbeeb308bfb0798eab48693799e869303bcb2aa5ebcb8d5653"
+    },
+    "data_audit": {
+      "bytes": 41074,
+      "filename": "canonical_data_audit.json",
+      "path": "user_data/reports/pro_day_v2_cycle1/canonical_data_audit.json",
+      "sha256": "f8382831e70604e233efc5428c9ed44b1f1046467feb9459d7fd78c0f1a4f772"
+    },
+    "data_audit_checksum": {
+      "bytes": 92,
+      "filename": "canonical_data_audit.sha256",
+      "path": "user_data/reports/pro_day_v2_cycle1/canonical_data_audit.sha256",
+      "sha256": "b1285ad1283fa50abf058236da9d3af6e5ffc1d8496cc8f61de7349088e47d2f"
+    },
+    "data_generator": {
+      "bytes": 44375,
+      "filename": "build_pro_day_v2_canonical_data.py",
+      "path": "tools/build_pro_day_v2_canonical_data.py",
+      "sha256": "0042009f097c606e6a10fdc638b71abe23d8e23eba57b9865bb0c91ad95dfd83"
+    },
+    "plan": {
+      "bytes": 16186,
+      "filename": "pro_day_trader_v2_locked_plan.md",
+      "path": "docs/pro_day_trader_v2_locked_plan.md",
+      "sha256": "707793fc95cc99f9663e354ed5ddae90cfb753a48e773d46ac1759d11bc11e6d"
+    },
+    "pre_pnl_technical_evidence": {
+      "bytes": 2602,
+      "filename": "pre_pnl_technical_evidence.json",
+      "path": "user_data/reports/pro_day_v2_cycle1/pre_pnl_technical_evidence.json",
+      "sha256": "219a1b4ececdf84152e4a9cdb76485ac547d41cfbe8bf508cc9b2405de65c2e3"
+    },
+    "risk_policy": {
+      "bytes": 781,
+      "filename": "risk_policy.json",
+      "path": "user_data/risk_policy.json",
+      "sha256": "6a3e073fd08b21d645b0d4b4151022bef79adc610d8c130b36554a01e6f51e80"
+    },
+    "runtime_checker": {
+      "bytes": 6598,
+      "filename": "check_pro_day_v2_runtime.py",
+      "path": "tools/check_pro_day_v2_runtime.py",
+      "sha256": "107f1d2395814572d8fc8a052c4ede6aa1b761a9307105d4a182ae0f2c547345"
+    },
+    "runtime_compatibility": {
+      "bytes": 1038,
+      "filename": "runtime_compatibility.json",
+      "path": "user_data/reports/pro_day_v2_cycle1/runtime_compatibility.json",
+      "sha256": "155dbfe16892d5d4616ee1186d29678ea2baaab51cb84ea1673caaa7ed22ca1b"
+    },
+    "strategy": {
+      "bytes": 28397,
+      "filename": "ProDayTraderV2.py",
+      "path": "user_data/strategies/ProDayTraderV2.py",
+      "sha256": "6041f416e4c951b83b5f9cef5438319fd4f24d1d296eb37fd499415a00e47f45"
+    }
+  },
+  "frozen_parameters": {
+    "backtest_period_days": 30,
+    "buffer_train_data_candles": 13,
+    "canonical_timerange": "20220101-20260801",
+    "closed_candles_only": true,
+    "current_partial_timerange": "20260101-20260801",
+    "data_dir": "user_data/data/binance/pro_day_v2_canonical",
+    "earliest_fill": "next_5m_open",
+    "feature_count": 19,
+    "features": [
+      "%-ret_5m_1",
+      "%-ret_5m_3",
+      "%-ret_5m_12",
+      "%-ema_gap_atr_15m",
+      "%-momentum_1h_24",
+      "%-adx_1h_14",
+      "%-trend_gap_atr_4h",
+      "%-channel_position_15m_20",
+      "%-z48_5m",
+      "%-atr_close_5m_14",
+      "%-realized_vol_5m_24h",
+      "%-log_volume_vs_median_5m_20",
+      "%-btc_momentum_1h_24",
+      "%-btc_trend_gap_atr_4h",
+      "%-btc_realized_vol_5m_24h",
+      "%-pair_minus_btc_momentum_1h_24",
+      "%-setup_T1",
+      "%-setup_R1",
+      "%-candidate_side"
+    ],
+    "identifier": "proday-v2-cycle1-canonical5m-lgbm-20260811",
+    "initial_history": "20210101-20220101",
+    "model": "LightGBMRegressor",
+    "pairs": [
+      "BTC/USDT:USDT",
+      "ETH/USDT:USDT",
+      "BNB/USDT:USDT"
+    ],
+    "runtime_digest": "sha256:2a3ed85c4b27700de3a48feb7e7544a56ca2fa7addebc424f08cea5ddcefd000",
+    "runtime_image": "freqtradeorg/freqtrade@sha256:2a3ed85c4b27700de3a48feb7e7544a56ca2fa7addebc424f08cea5ddcefd000",
+    "startup_candle_count": 399,
+    "target_cost_hurdle": 0.0026,
+    "target_horizon_candles": 12,
+    "timeframes": [
+      "5m",
+      "15m",
+      "1h",
+      "4h"
+    ],
+    "train_period_days": 365,
+    "train_timerange": "20220101-20240101",
+    "validation_timerange": "20240101-20260101"
+  },
+  "inputs": {
+    "data_audit": {
+      "bytes": 41074,
+      "filename": "canonical_data_audit.json",
+      "path": "user_data/reports/pro_day_v2_cycle1/canonical_data_audit.json",
+      "sha256": "f8382831e70604e233efc5428c9ed44b1f1046467feb9459d7fd78c0f1a4f772"
+    },
+    "plan": {
+      "bytes": 16186,
+      "filename": "pro_day_trader_v2_locked_plan.md",
+      "path": "docs/pro_day_trader_v2_locked_plan.md",
+      "sha256": "707793fc95cc99f9663e354ed5ddae90cfb753a48e773d46ac1759d11bc11e6d"
+    },
+    "research_config": {
+      "bytes": 3701,
+      "filename": "config-pro-day-v2-research.json",
+      "path": "user_data/config-pro-day-v2-research.json",
+      "sha256": "87222d70946a1cbbeeb308bfb0798eab48693799e869303bcb2aa5ebcb8d5653"
+    },
+    "risk_policy": {
+      "bytes": 781,
+      "filename": "risk_policy.json",
+      "path": "user_data/risk_policy.json",
+      "sha256": "6a3e073fd08b21d645b0d4b4151022bef79adc610d8c130b36554a01e6f51e80"
+    },
+    "runtime_compatibility": {
+      "bytes": 1038,
+      "filename": "runtime_compatibility.json",
+      "path": "user_data/reports/pro_day_v2_cycle1/runtime_compatibility.json",
+      "sha256": "155dbfe16892d5d4616ee1186d29678ea2baaab51cb84ea1673caaa7ed22ca1b"
+    },
+    "strategy": {
+      "bytes": 28397,
+      "filename": "ProDayTraderV2.py",
+      "path": "user_data/strategies/ProDayTraderV2.py",
+      "sha256": "6041f416e4c951b83b5f9cef5438319fd4f24d1d296eb37fd499415a00e47f45"
+    }
+  },
+  "live_trading_authorized": false,
+  "locked_at_utc": "2026-08-11T15:04:15.314719Z",
+  "model_training_performed": false,
+  "pnl_parsed": false,
+  "qualification_state": "NOT_STARTED_NO_PNL_PARSED",
+  "schema_version": "1.0",
+  "status": "RESEARCH_FROZEN",
+  "technical_evidence": {
+    "config_validation": "PASS_OUTPUT_SUPPRESSED",
+    "data_gate": "PASS",
+    "lookahead_analysis": "PENDING",
+    "recursive_analysis": "PENDING",
+    "runtime_gate": "PASS",
+    "strategy_discovery": "PASS_UNIQUE_STATUS_OK",
+    "unit_tests": "PASS_24"
+  }
+}

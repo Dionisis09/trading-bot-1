@@ -1,0 +1,10 @@
+{
+  "same_archives_as_v1": true,
+  "rows_profiled": 100251,
+  "duplicate_timestamps": 0,
+  "null_cells": 0,
+  "invalid_ohlcv": 0,
+  "largest_gap_candles": 0,
+  "minimum_split_coverage_pct": 100.0,
+  "maximum_4h_1d_mismatch_pct": 0.1666666666666666
+}

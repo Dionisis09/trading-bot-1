@@ -1,0 +1,7 @@
+{
+  "interval_seconds": 1,
+  "last_backup_directory": "2026-08-10T14-24-22Z",
+  "last_successful_backup_utc": "2026-08-10T14:24:22.152300Z",
+  "retention_days": 35,
+  "schema_version": "1.0"
+}

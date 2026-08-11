@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schema.freqtrade.io/schema.json",
+  "bot_name": "pro-day-orderflow-local-bounded-test",
+  "initial_state": "stopped",
+  "strategy": "ProDayTraderV1",
+  "dry_run": true,
+  "dry_run_wallet": 1000,
+  "trading_mode": "futures",
+  "margin_mode": "isolated",
+  "max_open_trades": 1,
+  "stake_currency": "USDT",
+  "stake_amount": 25,
+  "tradable_balance_ratio": 0.95,
+  "timeframe": "5m",
+  "exchange": {
+    "name": "binance",
+    "key": "",
+    "secret": "",
+    "use_public_trades": true,
+    "ccxt_config": {
+      "enableRateLimit": true
+    },
+    "ccxt_async_config": {
+      "enableRateLimit": true
+    },
+    "pair_whitelist": [
+      "BTC/USDT:USDT"
+    ],
+    "pair_blacklist": []
+  },
+  "pairlists": [
+    {
+      "method": "StaticPairList"
+    }
+  ],
+  "orderflow": {
+    "cache_size": 12,
+    "max_candles": 12,
+    "scale": 10.0,
+    "stacked_imbalance_range": 3,
+    "imbalance_volume": 1.0,
+    "imbalance_ratio": 3.0
+  },
+  "experiment_metadata": {
+    "scope": "LOCAL_BTC_5M_MEMORY_AND_COMPATIBILITY_ONLY",
+    "may_influence_pro_day_v1_entries": false,
+    "vps_enabled": false,
+    "live_trading_authorized": false
+  }
+}

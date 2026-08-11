@@ -1,0 +1,2 @@
+strategy,status,source_commit,error_type,error
+SupertrendRisk,UNAVAILABLE_INCOMPATIBLE,dbd5b0b21cfbf5ee80588d37458ace2467b7f8a4,TypeError,Invalid value '0' for dtype 'str' in Supertrend.py result.fillna(0)

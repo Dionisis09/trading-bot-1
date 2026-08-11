@@ -1,0 +1,5 @@
+{
+  "max_open_trades": 2,
+  "stake_amount": "unlimited",
+  "tradable_balance_ratio": 0.95
+}

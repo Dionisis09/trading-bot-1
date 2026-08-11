@@ -1,0 +1,18 @@
+{
+  "alerts": [],
+  "checked_utc": "2026-08-10T14:23:19.114139Z",
+  "deadman_heartbeat": {
+    "status": "DISABLED"
+  },
+  "new_alert_count": 0,
+  "schema_version": "1.0",
+  "snapshot_age_seconds": 13386.205775,
+  "snapshot_utc": "2026-08-10T10:40:12.908364Z",
+  "stale": false,
+  "stale_after_seconds": 18000,
+  "status": "FRESH",
+  "webhook_delivery": {
+    "delivered": 0,
+    "status": "NO_NEW_ALERTS"
+  }
+}

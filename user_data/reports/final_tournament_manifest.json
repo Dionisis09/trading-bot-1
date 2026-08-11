@@ -1,0 +1,16 @@
+{
+  "strategies": ["DualTrendFuturesV2R", "DualTrendFuturesV3R"],
+  "runs": [
+    {"artifact": "backtest-result-2026-08-03_21-23-08.zip", "split": "backcast", "fee_per_side": 0.0005},
+    {"artifact": "backtest-result-2026-08-03_21-23-19.zip", "split": "train", "fee_per_side": 0.0005},
+    {"artifact": "backtest-result-2026-08-03_21-23-28.zip", "split": "2021", "fee_per_side": 0.0005},
+    {"artifact": "backtest-result-2026-08-03_21-23-36.zip", "split": "2022", "fee_per_side": 0.0005},
+    {"artifact": "backtest-result-2026-08-03_21-23-43.zip", "split": "2023", "fee_per_side": 0.0005},
+    {"artifact": "backtest-result-2026-08-03_21-23-51.zip", "split": "2024", "fee_per_side": 0.0005},
+    {"artifact": "backtest-result-2026-08-03_21-24-00.zip", "split": "2025", "fee_per_side": 0.0005},
+    {"artifact": "backtest-result-2026-08-03_21-24-06.zip", "split": "current_2026", "fee_per_side": 0.0005},
+    {"artifact": "backtest-result-2026-08-03_21-22-44.zip", "split": "validation", "fee_per_side": 0.0005},
+    {"artifact": "backtest-result-2026-08-03_21-24-18.zip", "split": "fee_train", "fee_per_side": 0.0015},
+    {"artifact": "backtest-result-2026-08-03_21-24-28.zip", "split": "fee_validation", "fee_per_side": 0.0015}
+  ]
+}

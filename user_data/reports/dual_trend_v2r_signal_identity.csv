@@ -1,0 +1,15 @@
+split,risk_strategy,base_strategy,base_trades,risk_trades,missing_from_risk,extra_in_risk,identical
+train,DualTrendFuturesV1R,DualTrendFuturesV1,203,203,0,0,True
+train,DualTrendFuturesV2R,DualTrendFuturesV2,192,192,0,0,True
+validation,DualTrendFuturesV1R,DualTrendFuturesV1,139,139,0,0,True
+validation,DualTrendFuturesV2R,DualTrendFuturesV2,128,128,0,0,True
+2024,DualTrendFuturesV1R,DualTrendFuturesV1,71,71,0,0,True
+2024,DualTrendFuturesV2R,DualTrendFuturesV2,65,65,0,0,True
+2025,DualTrendFuturesV1R,DualTrendFuturesV1,68,68,0,0,True
+2025,DualTrendFuturesV2R,DualTrendFuturesV2,63,63,0,0,True
+current_2026,DualTrendFuturesV1R,DualTrendFuturesV1,38,38,0,0,True
+current_2026,DualTrendFuturesV2R,DualTrendFuturesV2,34,34,0,0,True
+fee_train,DualTrendFuturesV1R,DualTrendFuturesV1,203,203,0,0,True
+fee_train,DualTrendFuturesV2R,DualTrendFuturesV2,192,192,0,0,True
+fee_validation,DualTrendFuturesV1R,DualTrendFuturesV1,139,139,0,0,True
+fee_validation,DualTrendFuturesV2R,DualTrendFuturesV2,128,128,0,0,True

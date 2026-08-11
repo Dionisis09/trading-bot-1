@@ -1,0 +1,436 @@
+{
+  "gates": [
+    {
+      "actual": 26.73335575,
+      "name": "validation_source_reconciliation",
+      "requirement": 26.73335575,
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 24.06184071261613,
+        "profit_factor": 1.7990266883004344,
+        "realized_drawdown_pct": 0.7039241164456825
+      },
+      "name": "validation_moderate",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 15.0,
+        "minimum_profit_factor": 1.1,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 17.091003949464515,
+        "profit_factor": 1.5112601556635772,
+        "realized_drawdown_pct": 0.8066397146402551
+      },
+      "name": "validation_severe",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 20.0,
+        "minimum_profit_factor": 1.0,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": 61.007306590000006,
+      "name": "2021_source_reconciliation",
+      "requirement": 61.007306590000006,
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 56.35627918786499,
+        "profit_factor": 4.002577024162301,
+        "realized_drawdown_pct": 0.6779296351937318
+      },
+      "name": "2021_moderate",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 15.0,
+        "minimum_profit_factor": 1.1,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 42.84263434805994,
+        "profit_factor": 3.0155091725089687,
+        "realized_drawdown_pct": 0.8821355890979703
+      },
+      "name": "2021_severe",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 20.0,
+        "minimum_profit_factor": 1.0,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": 1.7322256999999999,
+      "name": "2022_source_reconciliation",
+      "requirement": 1.7322257000000003,
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 0.19266859458654687,
+        "profit_factor": 1.010945782605804,
+        "realized_drawdown_pct": 0.9630903319732623
+      },
+      "name": "2022_moderate",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 15.0,
+        "minimum_profit_factor": 1.1,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "FAIL"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": -3.800576014653814,
+        "profit_factor": 0.8098571720129887,
+        "realized_drawdown_pct": 1.155120503793023
+      },
+      "name": "2022_severe",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 20.0,
+        "minimum_profit_factor": 1.0,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "FAIL"
+    },
+    {
+      "actual": 10.67049437,
+      "name": "2023_source_reconciliation",
+      "requirement": 10.670494369999998,
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 9.674339636985907,
+        "profit_factor": 2.3520598732829496,
+        "realized_drawdown_pct": 0.45682313955571774
+      },
+      "name": "2023_moderate",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 15.0,
+        "minimum_profit_factor": 1.1,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 6.98889011694363,
+        "profit_factor": 1.8436440494220665,
+        "realized_drawdown_pct": 0.4931966934228626
+      },
+      "name": "2023_severe",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 20.0,
+        "minimum_profit_factor": 1.0,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": 22.64791804,
+      "name": "2024_source_reconciliation",
+      "requirement": 22.64791804,
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 21.10427583239414,
+        "profit_factor": 2.4392070065687985,
+        "realized_drawdown_pct": 0.5740935271091189
+      },
+      "name": "2024_moderate",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 15.0,
+        "minimum_profit_factor": 1.1,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 17.00040709557657,
+        "profit_factor": 2.0280373232271964,
+        "realized_drawdown_pct": 0.8066397146402551
+      },
+      "name": "2024_severe",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 20.0,
+        "minimum_profit_factor": 1.0,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": 4.085437710000001,
+      "name": "2025_source_reconciliation",
+      "requirement": 4.085437709999999,
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 2.9575648802219887,
+        "profit_factor": 1.1914267056619041,
+        "realized_drawdown_pct": 0.7039241164456825
+      },
+      "name": "2025_moderate",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 15.0,
+        "minimum_profit_factor": 1.1,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 0.09059685388794728,
+        "profit_factor": 1.0053631686374747,
+        "realized_drawdown_pct": 0.7603701230827141
+      },
+      "name": "2025_severe",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 20.0,
+        "minimum_profit_factor": 1.0,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": 5.23280985,
+      "name": "current_2026_source_reconciliation",
+      "requirement": 5.23280985,
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 4.602184458826229,
+        "profit_factor": 1.598843951100146,
+        "realized_drawdown_pct": 0.3261189861304274
+      },
+      "name": "current_2026_moderate",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 15.0,
+        "minimum_profit_factor": 1.1,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    },
+    {
+      "actual": {
+        "net_profit_usdt": 3.016074912304915,
+        "profit_factor": 1.3497108297349094,
+        "realized_drawdown_pct": 0.37413549672173757
+      },
+      "name": "current_2026_severe",
+      "requirement": {
+        "maximum_realized_drawdown_pct": 20.0,
+        "minimum_profit_factor": 1.0,
+        "net_profit_usdt": "> 0"
+      },
+      "status": "PASS"
+    }
+  ],
+  "generated_at_utc": "2026-08-10T10:42:32.750110Z",
+  "live_trading_authorized": false,
+  "note": "Deterministic adverse-cost diagnostic; it is not a forecast or profit guarantee.",
+  "results": [
+    {
+      "losing_trades": 44,
+      "net_profit_usdt": 24.06184071261613,
+      "profit_factor": 1.7990266883004344,
+      "profitable_trades": 35,
+      "realized_drawdown_pct": 0.7039241164456825,
+      "scenario": "moderate",
+      "split": "validation",
+      "status": "PASS",
+      "trades": 79
+    },
+    {
+      "losing_trades": 46,
+      "net_profit_usdt": 17.091003949464515,
+      "profit_factor": 1.5112601556635772,
+      "profitable_trades": 33,
+      "realized_drawdown_pct": 0.8066397146402551,
+      "scenario": "severe",
+      "split": "validation",
+      "status": "PASS",
+      "trades": 79
+    },
+    {
+      "losing_trades": 23,
+      "net_profit_usdt": 56.35627918786499,
+      "profit_factor": 4.002577024162301,
+      "profitable_trades": 14,
+      "realized_drawdown_pct": 0.6779296351937318,
+      "scenario": "moderate",
+      "split": "2021",
+      "status": "PASS",
+      "trades": 37
+    },
+    {
+      "losing_trades": 25,
+      "net_profit_usdt": 42.84263434805994,
+      "profit_factor": 3.0155091725089687,
+      "profitable_trades": 12,
+      "realized_drawdown_pct": 0.8821355890979703,
+      "scenario": "severe",
+      "split": "2021",
+      "status": "PASS",
+      "trades": 37
+    },
+    {
+      "losing_trades": 29,
+      "net_profit_usdt": 0.19266859458654687,
+      "profit_factor": 1.010945782605804,
+      "profitable_trades": 17,
+      "realized_drawdown_pct": 0.9630903319732623,
+      "scenario": "moderate",
+      "split": "2022",
+      "status": "FAIL",
+      "trades": 46
+    },
+    {
+      "losing_trades": 30,
+      "net_profit_usdt": -3.800576014653814,
+      "profit_factor": 0.8098571720129887,
+      "profitable_trades": 16,
+      "realized_drawdown_pct": 1.155120503793023,
+      "scenario": "severe",
+      "split": "2022",
+      "status": "FAIL",
+      "trades": 46
+    },
+    {
+      "losing_trades": 12,
+      "net_profit_usdt": 9.674339636985907,
+      "profit_factor": 2.3520598732829496,
+      "profitable_trades": 10,
+      "realized_drawdown_pct": 0.45682313955571774,
+      "scenario": "moderate",
+      "split": "2023",
+      "status": "PASS",
+      "trades": 22
+    },
+    {
+      "losing_trades": 12,
+      "net_profit_usdt": 6.98889011694363,
+      "profit_factor": 1.8436440494220665,
+      "profitable_trades": 10,
+      "realized_drawdown_pct": 0.4931966934228626,
+      "scenario": "severe",
+      "split": "2023",
+      "status": "PASS",
+      "trades": 22
+    },
+    {
+      "losing_trades": 22,
+      "net_profit_usdt": 21.10427583239414,
+      "profit_factor": 2.4392070065687985,
+      "profitable_trades": 18,
+      "realized_drawdown_pct": 0.5740935271091189,
+      "scenario": "moderate",
+      "split": "2024",
+      "status": "PASS",
+      "trades": 40
+    },
+    {
+      "losing_trades": 23,
+      "net_profit_usdt": 17.00040709557657,
+      "profit_factor": 2.0280373232271964,
+      "profitable_trades": 17,
+      "realized_drawdown_pct": 0.8066397146402551,
+      "scenario": "severe",
+      "split": "2024",
+      "status": "PASS",
+      "trades": 40
+    },
+    {
+      "losing_trades": 22,
+      "net_profit_usdt": 2.9575648802219887,
+      "profit_factor": 1.1914267056619041,
+      "profitable_trades": 17,
+      "realized_drawdown_pct": 0.7039241164456825,
+      "scenario": "moderate",
+      "split": "2025",
+      "status": "PASS",
+      "trades": 39
+    },
+    {
+      "losing_trades": 23,
+      "net_profit_usdt": 0.09059685388794728,
+      "profit_factor": 1.0053631686374747,
+      "profitable_trades": 16,
+      "realized_drawdown_pct": 0.7603701230827141,
+      "scenario": "severe",
+      "split": "2025",
+      "status": "PASS",
+      "trades": 39
+    },
+    {
+      "losing_trades": 14,
+      "net_profit_usdt": 4.602184458826229,
+      "profit_factor": 1.598843951100146,
+      "profitable_trades": 8,
+      "realized_drawdown_pct": 0.3261189861304274,
+      "scenario": "moderate",
+      "split": "current_2026",
+      "status": "PASS",
+      "trades": 22
+    },
+    {
+      "losing_trades": 14,
+      "net_profit_usdt": 3.016074912304915,
+      "profit_factor": 1.3497108297349094,
+      "profitable_trades": 8,
+      "realized_drawdown_pct": 0.37413549672173757,
+      "scenario": "severe",
+      "split": "current_2026",
+      "status": "PASS",
+      "trades": 22
+    }
+  ],
+  "scenarios": {
+    "moderate": {
+      "additional_fee_bps_per_side": 2.0,
+      "funding_cost_multiplier": 1.5,
+      "latency_penalty_bps": 2.0,
+      "maximum_realized_drawdown_pct": 15.0,
+      "minimum_profit_factor": 1.1,
+      "slippage_bps_per_side": 5.0
+    },
+    "severe": {
+      "additional_fee_bps_per_side": 10.0,
+      "funding_cost_multiplier": 3.0,
+      "latency_penalty_bps": 5.0,
+      "maximum_realized_drawdown_pct": 20.0,
+      "minimum_profit_factor": 1.0,
+      "slippage_bps_per_side": 15.0
+    }
+  },
+  "schema_version": "1.0",
+  "source": {
+    "backtest_directory": "user_data/backtest_results",
+    "splits": [
+      "validation",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "current_2026"
+    ],
+    "starting_wallet_usdt": 1000.0,
+    "summary_csv": "user_data/reports/professional_risk_backtest_summary.csv"
+  },
+  "status": "FAIL",
+  "strategy": "DualTrendFuturesV2R"
+}
