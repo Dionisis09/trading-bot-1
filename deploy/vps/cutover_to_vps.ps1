@@ -187,7 +187,7 @@ try {
     if ($runningServiceCount -ne $expectedServiceCount) {
         throw "Remote service-count check failed: $runningServiceCount/$expectedServiceCount running."
     }
-    $remoteHealth = ssh @sshArguments $target "curl -fsS http://127.0.0.1:8090/health"
+    ssh @sshArguments $target "curl -fsS http://127.0.0.1:8090/health"
     if ($LASTEXITCODE -ne 0) { throw 'Remote dashboard health check failed.' }
 
     $localStopped = $false

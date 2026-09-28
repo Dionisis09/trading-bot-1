@@ -1,0 +1,49 @@
+{
+  "$schema": "https://schema.freqtrade.io/schema.json",
+  "bot_name": "profit-max-cagr15-cycle3-research",
+  "initial_state": "stopped",
+  "strategy": "ProfitMaxCagr15V3",
+  "dry_run": true,
+  "dry_run_wallet": 1000,
+  "trading_mode": "futures",
+  "margin_mode": "isolated",
+  "liquidation_buffer": 0.10,
+  "max_open_trades": 1,
+  "stake_currency": "USDT",
+  "stake_amount": 300,
+  "tradable_balance_ratio": 0.95,
+  "fiat_display_currency": "EUR",
+  "timeframe": "4h",
+  "fee": 0.00075,
+  "dataformat_ohlcv": "feather",
+  "cancel_open_orders_on_exit": true,
+  "force_entry_enable": false,
+  "unfilledtimeout": {"entry": 10, "exit": 10, "exit_timeout_count": 0, "unit": "minutes"},
+  "entry_pricing": {
+    "price_side": "same", "use_order_book": true, "order_book_top": 1,
+    "price_last_balance": 0.0,
+    "check_depth_of_market": {"enabled": false, "bids_to_ask_delta": 1}
+  },
+  "exit_pricing": {"price_side": "same", "use_order_book": true, "order_book_top": 1},
+  "exchange": {
+    "name": "binance", "key": "", "secret": "",
+    "ccxt_config": {"enableRateLimit": true},
+    "ccxt_async_config": {"enableRateLimit": true},
+    "pair_whitelist": [
+      "BTC/USDT:USDT", "ETH/USDT:USDT", "BNB/USDT:USDT",
+      "XRP/USDT:USDT", "ADA/USDT:USDT", "DOGE/USDT:USDT"
+    ],
+    "pair_blacklist": []
+  },
+  "pairlists": [{"method": "StaticPairList"}],
+  "internals": {"process_throttle_secs": 5},
+  "profit_max_research": {
+    "cycle": "profit_max_cagr15_cycle3",
+    "status": "LOCKED_BEFORE_PNL",
+    "timerange": "20210101-20260801",
+    "target_cagr_pct": 15.0,
+    "frequency_gate": false,
+    "leverage": 2.5,
+    "live_trading_authorized": false
+  }
+}

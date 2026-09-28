@@ -1,0 +1,8 @@
+{
+  "bot_name": "profit-max-portfolio-cycle2-cross-research",
+  "strategy": "ProfitMaxCrossSectionalTopTwo8h",
+  "initial_state": "stopped",
+  "max_open_trades": 2,
+  "stake_amount": 12.5,
+  "fee": 0.00075
+}

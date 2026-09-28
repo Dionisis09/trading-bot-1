@@ -1,0 +1,22 @@
+{
+  "bot_name": "profit-max-daily-cross-cycle2-research",
+  "strategy": "ProfitMaxDailyCrossStop16",
+  "initial_state": "stopped",
+  "max_open_trades": 2,
+  "stake_amount": 50,
+  "profit_max_research": {
+    "cycle": "profit_max_daily_cross_cycle2",
+    "status": "LOCKED_BEFORE_PNL",
+    "train_timerange": "20210101-20240101",
+    "validation_timerange": "20240101-20260101",
+    "current_partial_timerange": "20260101-20260801",
+    "candidates": ["ProfitMaxDailyCrossStop12", "ProfitMaxDailyCrossStop16", "ProfitMaxDailyCrossStop20"],
+    "candidate_stops": [-0.12, -0.16, -0.20],
+    "protection": {"method": "CooldownPeriod", "stop_duration_candles": 1},
+    "target_trades_per_day_min": 1.0,
+    "target_trades_per_day_max": 2.0,
+    "leverage": 1,
+    "live_trading_authorized": false
+  }
+}
+

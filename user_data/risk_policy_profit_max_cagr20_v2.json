@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "policy_id": "profit-max-cagr20-v2-research-only",
+  "status": "LOCKED_RESEARCH_DRY_RUN",
+  "limits": {
+    "maximum_daily_realized_loss_pct": 2.0,
+    "maximum_weekly_realized_loss_pct": 5.0,
+    "maximum_wallet_drawdown_pct": 20.0,
+    "maximum_total_open_stake_pct": 20.0,
+    "maximum_open_trades": 1
+  },
+  "execution": {
+    "require_emergency_exit_market": true,
+    "require_stoploss": true,
+    "stoploss_on_exchange_requires_live_review": true
+  },
+  "live_launch": {
+    "authorized": false,
+    "requires_human_authorization": true,
+    "maximum_leverage": 3.76,
+    "margin_mode": "isolated"
+  }
+}

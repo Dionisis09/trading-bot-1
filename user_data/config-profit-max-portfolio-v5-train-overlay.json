@@ -1,0 +1,8 @@
+{
+  "bot_name": "profit-max-portfolio-v5-train-research",
+  "strategy": "ProfitMaxV5Asymmetric50",
+  "initial_state": "stopped",
+  "max_open_trades": 2,
+  "stake_amount": 50,
+  "fee": 0.00075
+}

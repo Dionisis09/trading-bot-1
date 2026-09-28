@@ -1,0 +1,16 @@
+{
+  "bot_name": "profit-max-v2r-fee075-research",
+  "strategy": "DualTrendFuturesV2R",
+  "initial_state": "stopped",
+  "max_open_trades": 2,
+  "stake_amount": 25,
+  "fee": 0.00075,
+  "profit_max_research": {
+    "cycle": "profit_max_daily_v5_v2r_ensemble_cycle1",
+    "status": "LOCKED_BEFORE_V2R_REPLAY",
+    "continuous_timerange": "20210101-20260801",
+    "proposed_stake": 25,
+    "leverage": 1,
+    "live_trading_authorized": false
+  }
+}

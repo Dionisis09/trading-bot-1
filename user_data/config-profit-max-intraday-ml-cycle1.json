@@ -1,0 +1,69 @@
+{
+  "$schema": "https://schema.freqtrade.io/schema.json",
+  "bot_name": "profit-max-intraday-ml-cycle1-research",
+  "strategy": "ProfitMaxIntradayMLV1",
+  "freqaimodel": "LightGBMRegressor",
+  "freqai": {
+    "enabled": true,
+    "identifier": "profit-max-intraday-ml-cycle1-20260816",
+    "train_period_days": 365,
+    "backtest_period_days": 30,
+    "expiration_hours": 24,
+    "purge_old_models": 0,
+    "save_backtest_models": true,
+    "feature_parameters": {
+      "include_timeframes": ["15m"],
+      "include_corr_pairlist": [],
+      "label_period_candles": 16,
+      "include_shifted_candles": 0,
+      "indicator_periods_candles": [14],
+      "buffer_train_data_candles": 17,
+      "principal_component_analysis": false,
+      "DI_threshold": 0.0,
+      "use_SVM_to_remove_outliers": false,
+      "use_DBSCAN_to_remove_outliers": false,
+      "noise_standard_deviation": 0.0,
+      "shuffle_after_split": false,
+      "reverse_train_test_order": false
+    },
+    "data_split_parameters": {
+      "test_size": 0,
+      "shuffle": false,
+      "random_state": 20260816
+    },
+    "model_training_parameters": {
+      "n_estimators": 200,
+      "learning_rate": 0.03,
+      "num_leaves": 15,
+      "max_depth": 4,
+      "min_child_samples": 100,
+      "subsample": 1.0,
+      "colsample_bytree": 1.0,
+      "reg_alpha": 0.0,
+      "reg_lambda": 1.0,
+      "n_jobs": 2,
+      "deterministic": true,
+      "force_col_wise": true,
+      "random_state": 20260816,
+      "random_seed": 20260816,
+      "data_random_seed": 20260816,
+      "feature_fraction_seed": 20260816,
+      "bagging_seed": 20260816
+    }
+  },
+  "profit_max_intraday_research": {
+    "cycle": "profit_max_intraday_ml_cycle1",
+    "status": "LOCKED_BEFORE_ML_PNL",
+    "initial_model_history": "20210101-20220101",
+    "train_oos": "20220101-20240101",
+    "validation_oos": "20240101-20260101",
+    "current_partial_oos": "20260101-20260801",
+    "target_trades_per_day_min": 1.0,
+    "target_trades_per_day_max": 2.0,
+    "target_horizon_candles": 16,
+    "target_roundtrip_fee": 0.0015,
+    "prediction_threshold": 0.0,
+    "model_can_only_veto": true,
+    "live_trading_authorized": false
+  }
+}

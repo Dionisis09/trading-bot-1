@@ -1,0 +1,8 @@
+{
+  "bot_name": "profit-max-portfolio-v1-train-research",
+  "strategy": "DualTrendFuturesV1",
+  "initial_state": "stopped",
+  "max_open_trades": 1,
+  "stake_amount": 50,
+  "fee": 0.00075
+}

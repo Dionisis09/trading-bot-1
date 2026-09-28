@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "policy_id": "cross-sectional-three-slot-research-v1",
+  "status": "LOCKED_OFFLINE_RESEARCH",
+  "limits": {
+    "maximum_daily_realized_loss_pct": 2.0,
+    "maximum_weekly_realized_loss_pct": 5.0,
+    "maximum_wallet_drawdown_pct": 10.0,
+    "maximum_total_open_stake_pct": 20.0,
+    "maximum_open_trades": 3
+  },
+  "live_launch": {
+    "authorized": false,
+    "requires_human_authorization": true,
+    "maximum_leverage": 1.0,
+    "margin_mode": "isolated"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "bot_name": "profit-max-cross-reversal-cycle1-research",
+  "initial_state": "stopped",
+  "max_open_trades": 2,
+  "stake_amount": 50,
+  "fee": 0.00075
+}

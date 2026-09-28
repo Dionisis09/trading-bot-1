@@ -1,0 +1,150 @@
+services:
+  profit-max-v5-dry-run:
+    image: freqtradeorg/freqtrade:2026.7@sha256:da3428fde0f7f9f976eaafba8abc7eba42bf978f23e4808347e15d476ad9a643
+    container_name: binance-profit-max-v5-dry-run
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 30s
+    environment:
+      PRO_RISK_POLICY_PATH: /freqtrade/user_data/risk_policy-profit-max-v5.json
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - /freqtrade/tools/check_freqtrade_process.py
+        - --strategy
+        - ProfitMaxV5Asymmetric50
+      interval: 10s
+      timeout: 4s
+      retries: 12
+      start_period: 30s
+    volumes:
+      - ./tools_profit_max_v5:/freqtrade/tools:ro
+      - ./user_data:/freqtrade/user_data
+    command: >
+      trade
+      --logfile /freqtrade/user_data/logs/profit-max-v5-dry-run.log
+      --db-url sqlite:////freqtrade/user_data/forward/profit-max-v5/trades.sqlite
+      --config /freqtrade/user_data/config-profit-max-v5-dry-run.json
+      --strategy-path /freqtrade/user_data/strategies_profit_max_v5
+      --strategy ProfitMaxV5Asymmetric50
+      --dry-run
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  profit-max-v5-monitor:
+    image: freqtradeorg/freqtrade:2026.7@sha256:da3428fde0f7f9f976eaafba8abc7eba42bf978f23e4808347e15d476ad9a643
+    container_name: profit-max-v5-forward-monitor
+    restart: unless-stopped
+    init: true
+    read_only: true
+    mem_limit: 128m
+    cpus: 0.25
+    pids_limit: 64
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    network_mode: none
+    depends_on:
+      profit-max-v5-dry-run:
+        condition: service_healthy
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    volumes:
+      - ./tools_profit_max_v5:/freqtrade/tools:ro
+      - ./user_data/forward/profit-max-v5:/freqtrade/input
+      - ./user_data/reports/profit_max_swing_cycle5/forward:/freqtrade/output
+    entrypoint:
+      - python
+      - /freqtrade/tools/monitor_profit_max_v5.py
+    command:
+      - --database
+      - /freqtrade/input/trades.sqlite
+      - --output
+      - /freqtrade/output/forward_latest.json
+      - --strategy
+      - ProfitMaxV5Asymmetric50
+      - --started-at-utc
+      - ${PROFIT_MAX_V5_FORWARD_STARTED_AT_UTC:?set in the dedicated env file}
+      - --starting-wallet
+      - "1000"
+      - --loop-seconds
+      - "3600"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - /freqtrade/tools/monitor_profit_max_v5.py
+        - --healthcheck
+        - --output
+        - /freqtrade/output/forward_latest.json
+        - --health-max-age-seconds
+        - "7200"
+      interval: 5m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "3"
+
+  profit-max-v5-backup:
+    image: freqtradeorg/freqtrade:2026.7@sha256:da3428fde0f7f9f976eaafba8abc7eba42bf978f23e4808347e15d476ad9a643
+    container_name: profit-max-v5-backup
+    restart: unless-stopped
+    init: true
+    read_only: true
+    mem_limit: 128m
+    cpus: 0.25
+    pids_limit: 64
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    network_mode: none
+    depends_on:
+      profit-max-v5-dry-run:
+        condition: service_healthy
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    volumes:
+      - ./tools_profit_max_v5:/freqtrade/tools:ro
+      - ./user_data/forward/profit-max-v5:/freqtrade/input
+      - ./user_data/backups/profit-max-v5:/freqtrade/output
+    entrypoint:
+      - python
+      - /freqtrade/tools/backup_profit_max_v5.py
+    command:
+      - --database
+      - /freqtrade/input/trades.sqlite
+      - --output-dir
+      - /freqtrade/output
+      - --retention-days
+      - "35"
+      - --loop-seconds
+      - "86400"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - /freqtrade/tools/backup_profit_max_v5.py
+        - --healthcheck
+        - --output-dir
+        - /freqtrade/output
+        - --health-max-age-seconds
+        - "90000"
+      interval: 30m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "3"

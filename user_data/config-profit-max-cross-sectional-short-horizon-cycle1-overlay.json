@@ -1,0 +1,21 @@
+{
+  "bot_name": "profit-max-cross-sectional-short-horizon-cycle1-research",
+  "strategy": "ProfitMaxCrossSectionalTopOne8h",
+  "initial_state": "stopped",
+  "max_open_trades": 2,
+  "stake_amount": 50,
+  "profit_max_research": {
+    "cycle": "profit_max_cross_sectional_short_horizon_cycle1",
+    "status": "LOCKED_BEFORE_PNL",
+    "train_timerange": "20210101-20240101",
+    "validation_timerange": "20240101-20260101",
+    "current_partial_timerange": "20260101-20260801",
+    "continuous_timerange": "20210101-20260801",
+    "target_trades_per_day_min": 1.0,
+    "target_trades_per_day_max": 2.0,
+    "universe_size": 50,
+    "leverage": 1,
+    "protections_enabled_in_backtest": true,
+    "live_trading_authorized": false
+  }
+}

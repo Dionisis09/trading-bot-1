@@ -1,0 +1,16 @@
+{
+  "bot_name": "profit-max-daily-cross-stake20-research",
+  "strategy": "ProfitMaxDailyCrossStop20AuditV2",
+  "initial_state": "stopped",
+  "max_open_trades": 2,
+  "stake_amount": 20,
+  "profit_max_research": {
+    "cycle": "profit_max_daily_v5_weighted_cycle1",
+    "status": "LOCKED_BEFORE_CONTINUOUS_REPLAY",
+    "continuous_timerange": "20210101-20260801",
+    "proposed_stake": 20,
+    "leverage": 1,
+    "live_trading_authorized": false
+  }
+}
+
